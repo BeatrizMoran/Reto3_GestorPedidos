@@ -1,16 +1,14 @@
 <template>
-    <aside class="d-flex flex-column justify-content-center align-items-center p-4">
-      <h2 class="mb-4">Categorías</h2>
-      <div class="d-flex flex-wrap">
-        <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4">
+    <aside class="bg-light d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
+      <h3 class="mb-4 category-title" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Categorías</h3>
+      <div class="d-flex flex-wrap" style="max-width: 100%;">
+        <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4" style="width: 100%;">
           <input class="form-check-input" type="checkbox" v-model="selectedCategories" :value="category.id" @change="handleCategoryChange">
-          <label class="form-check-label">{{ category.name }}</label>
+          <label class="form-check-label" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ category.name }}</label>
         </div>
       </div>
     </aside>
   </template>
-    
-  
   
   <script setup>
   import { ref } from 'vue';

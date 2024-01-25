@@ -7,10 +7,10 @@
 
           <!-- Card Top -->
             <div class="card-top bg-gray row justify-content-between align-items-center ">
-                <div class="col-3 imagen">
-                <img src="../assets/duff.png" alt="Imagen de la tarjeta" class="img-fluid" width="70px" height="70px">
+                <div class="col-2 imagen">
+                <img src="../assets/duff.png" alt="Imagen de la tarjeta" class="img-fluid" width="100px" height="100px">
                 </div>
-                <div class="col-9 options d-flex justify-content-between align-items-center">
+                <div class="col-10 options d-flex justify-content-between align-items-center">
                     <div class="product-info">
                         <div class="product-name text-truncate custom-truncate">{{ productosCache.nombre }}</div>
                     </div>
@@ -55,20 +55,10 @@
 
 onBeforeMount(async () => {
   try {
-    // Intentar cargar los datos desde localStorage
-    const cachedData = localStorage.getItem('productosCache')
 
-    // Si hay datos en localStorage, usarlos
-    if (cachedData) {
-      productosCache.value = JSON.parse(cachedData)
-    } else {
-      // Si no hay datos en localStorage, hacer la llamada a la API y almacenar los resultados
       await productosStore.cargarProductosDesdeAPI()
       productosCache.value = productosStore.obtenerProductos()
-
-      // Guardar los datos en localStorage para futuras visitas
-      localStorage.setItem('productosCache', JSON.stringify(productosCache.value))
-    }
+    
   } catch (error) {
     console.error('Error al cargar los productos:', error.message)
   }
@@ -76,185 +66,6 @@ onBeforeMount(async () => {
 
 
 
-  const cards = ref([
-    {
-      id: 1,
-      image: 'ruta/de/imagen1.jpg',
-      format: 'Formato 1',
-      nombre: "duffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduffduff",
-      category: 'Categoría 1',
-      price: 5.99
-    },
-    {
-      id: 2,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 3,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 4,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 5,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 6,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 7,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 8,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-    {
-      id: 9,
-      image: 'ruta/de/imagen2.jpg',
-      format: 'Formato 2',
-      nombre: "duff",
-      category: 'Categoría 2',
-      price: 7.99
-    },
-
-  ]);
 
   const currentPage = ref(1);
 
@@ -285,8 +96,10 @@ const hasMorePages = computed(() => {
 }
 
 .card-hover:hover {
-  transition: transform 0.2s;
+  transition: transform 0.2s ,box-shadow 0.2s;
   transform: scale(1.1);
+ 
+
 }
 
 </style>

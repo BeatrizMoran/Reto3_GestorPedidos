@@ -10,47 +10,19 @@ import BodyA from './components/body.vue'
 
 <template>
   <div class="container-fluid">
-    <NavBar class="custom-navbar"></NavBar>
-    <AsideA class="custom-aside"></AsideA>
-    <BodyA class="custom-body"></BodyA>
+    <div class="row">
+      <NavBar class="col-12 col-lg-12"></NavBar>
+    </div>
+    <br>
+    <div class="row">
+      <AsideA class="col-5 col-md-4 col-lg-3"></AsideA>
+      <BodyA class="col-7 col-md-8 col-lg-9"></BodyA>
+    </div>
   </div>
-
- 
 </template>
 
 
+
 <style scoped>
-
-*
-{
-  margin: 0;
-  padding: 0;
-  box-sizing: 0;
-}
-.container-fluid {
-  height: 100vh; 
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-rows: 1fr 3fr;
-  grid-template-areas: 
-  "nav nav"
-  "asi bod";
-}
-
-.custom-navbar {
-  grid-area: nav;
-  background-color: green; 
-}
-
-.custom-aside {
-  grid-area: asi;
-  background-color: red;
-}
-
-.custom-body {
-  grid-area: bod;
-
-}
-
 
 </style>
