@@ -8,7 +8,7 @@
                             <h5 class="modal-title">Detalles del Pedido</h5>
                         </div>
                         <div class="modal-body">
-                            <!-- Contenido de los detalles del pedido -->
+                            <!--detalles del pedido -->
                             <div v-if="pedido">
                                 <p><strong>Fecha de Creación:</strong> {{ pedido.fechaCreacion }}</p>
                                 <p><strong>Estado:</strong> {{ pedido.estado }}</p>

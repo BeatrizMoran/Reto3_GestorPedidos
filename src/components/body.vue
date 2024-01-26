@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-2 px-4">
+  <div class="container-fluid py-2 px-4">
     <div class="row">
       <div v-for="(productosCache, index) in visibleproductosCache" :key="productosCache.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6  card-hover">

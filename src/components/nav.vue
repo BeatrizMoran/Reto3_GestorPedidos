@@ -6,16 +6,21 @@
   <div class="container-fluid">
     <div class="row">
       <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between">
+
         <!-- Botón desplegable -->
         <div class="col-2 col-lg-1 px-4">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
+
+
         <!-- Logo -->
         <div class="col-2 col-lg-1 px-1 text-center">
           <img src="../assets/logo.png" alt="Logo" class="img-fluid">
         </div>
+
+
         <!-- Contenido del navbar -->
         <div class="collapse navbar-collapse col-md-5 col-lg-6 px-4" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -44,6 +49,8 @@
             </li>
           </ul>
         </div>
+
+
         <!-- Buscador -->
         <div class="col-7 col-md-7 col-lg-4 px-4">
           <form class="d-flex">
@@ -51,6 +58,8 @@
             <button class="btn btn-outline-success" type="submit">Buscar</button>
           </form>
         </div>
+
+        
       </nav>
     </div>
   </div>
