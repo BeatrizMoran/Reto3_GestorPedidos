@@ -81,7 +81,7 @@ const showText = ref(0);
 
 const toggleText = (section) => {
     if (showText.value === section) {
-        showText.value = 0; // Oculta el texto si ya está visible
+        showText.value = 0; 
     } else {
         showText.value = section; 
     }
@@ -132,10 +132,10 @@ const unhoverImage = (section) => {
 }
 
 .text-gray {
-    color: whitesmoke; /* Gris claro */
-    font-size: 1.5em; /* Tamaño de fuente más grande */
+    color: whitesmoke;
+    font-size: 1.5em;
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px; /* Espaciado interno */
+    padding: 10px; 
     border-radius: 10px;
 }
 

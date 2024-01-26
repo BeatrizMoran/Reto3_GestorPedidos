@@ -4,6 +4,7 @@ import NavBar from './components/nav.vue'
 import AsideA from './components/aside.vue'
 import BodyA from './components/body.vue'
 import Index from './components/index.vue'
+import Pedidos from './components/pedidos.vue'
 
 
 
@@ -15,7 +16,8 @@ import Index from './components/index.vue'
       <NavBar class="col-12 col-lg-12"></NavBar>
     </div>
     <br>
-    <Index class="col-12 col-lg-12"></Index>
+    <Pedidos class="col-12 col-lg-12"></Pedidos>
+    <!--<Index class="col-12 col-lg-12"></Index> -->
     <!--
           <div class="row">
       <AsideA class="col-5 col-md-4 col-lg-3"></AsideA>
