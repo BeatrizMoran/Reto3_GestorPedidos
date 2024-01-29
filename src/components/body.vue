@@ -89,18 +89,11 @@ const hasMorePages = computed(() => {
 });
 </script>
   
-<style scoped>
+<style lang="scss" scoped>
 
-.custom-truncate {
-  max-width: 125px;
-}
+@import '../assets/style.scss';
 
-.card-hover:hover {
-  transition: transform 0.2s ,box-shadow 0.2s;
-  transform: scale(1.1);
- 
 
-}
 
 </style>
   

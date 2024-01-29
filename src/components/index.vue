@@ -104,39 +104,8 @@ const unhoverImage = (section) => {
 
 
   
-<style scoped>
-.container {
-  padding: 20px;
-}
+<style lang="scss" scoped>
 
-.image-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.clickable-image {
-  cursor: pointer;
-  transition: transform 0.3s ease-out;
-}
-
-/* Ocultar el texto inicialmente */
-.fade-out {
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-/* Mostrar el texto con transición */
-.fade-in {
-    opacity: 1;
-    transition: opacity 1s ease;
-}
-
-.text-gray {
-    color: whitesmoke;
-    font-size: 1.5em;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px; 
-    border-radius: 10px;
-}
+@import '../assets/style.scss';
 
 </style>

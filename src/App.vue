@@ -17,13 +17,21 @@ import Perfil from './components/perfil.vue'
       <NavBar class="col-12 col-lg-12"></NavBar>
     </div>
     <br>
-    <!--<Pedidos class="col-12 col-lg-12"></Pedidos> -->
-    <!--<Index class="col-12 col-lg-12"></Index> -->
-    <Perfil></Perfil>
-    <!--          <div class="row">
+ 
+
+    <Index class="col-12 col-lg-12"></Index>
+   
+    <!--<Perfil></Perfil> -->
+    <!--
+
+         <div class="row">
       <AsideA class="col-5 col-md-4 col-lg-3"></AsideA>
       <BodyA class="col-7 col-md-8 col-lg-9"></BodyA>
     </div>
+
+     -->
+    
+    <!--   <Pedidos class="col-12 col-lg-12"></Pedidos>
        -->
 
 
@@ -33,6 +41,8 @@ import Perfil from './components/perfil.vue'
 
 
 
-<style scoped>
+<style lang="scss" scoped>
+
+@import './assets/style.scss';
 
 </style>

@@ -59,13 +59,16 @@
           </form>
         </div>
 
-        
+
       </nav>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+
+@import '../assets/style.scss';
+
 img {
   max-width: 100%; 
   height: auto; 

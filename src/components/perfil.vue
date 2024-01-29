@@ -5,7 +5,7 @@
         <div class="perfil-container p-4 rounded">
           <h1 class="text-white">Perfil de Usuario</h1>
 
-          
+
           <!-- Formulario para mostrar y modificar los datos del usuario -->
           <form>
             <div class="mb-3">
@@ -158,12 +158,8 @@ const pedidos = ref([
   
   
 
-  <style scoped>
+<style lang="scss" scoped>
 
-  .perfil-container 
-  {
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo transparente */
-  }
-
+@import '../assets/style.scss';
 
   </style>

@@ -34,10 +34,18 @@
     </div>
   </template>
   
+  
+  <style lang="scss" scoped>
+
+        @import '../assets/style.scss';
+</style>
+
   <script setup>
   import { ref } from 'vue';
   import detallesPedido from './detallesPedido.vue';
-  
+
+
+
   // Datos de ejemplo para los pedidos
   const pedidos = ref([
     {
@@ -77,21 +85,21 @@
   // Estado del pedido seleccionado para mostrar detalles en la ventana emergente
   const pedidoSeleccionado = ref(null);
   
-  // Método para obtener el color del estado del pedido
-  const getColor = (estado) => {
-    switch (estado) {
-      case 'Solicitado':
-        return 'pink';
-      case 'En preparación':
-        return 'yellow';
-      case 'En entrega':
-        return 'orange';
-      case 'Entregado':
-        return 'green';
-      default:
-        return 'white';
-    }
-  };
+ // Método para obtener el color del estado del pedido
+const getColor = (estado) => {
+  switch (estado) {
+    case 'Solicitado':
+      return 'var(--solicitado-color)';
+    case 'En preparación':
+      return 'var(--preparacion-color)';
+    case 'En entrega':
+      return 'var(--entrega-color)';
+    case 'Entregado':
+      return 'var(--entregado-color)';
+    default:
+      return 'var(--default-color)';
+  }
+};
   
   const mostrarDetallesPedido = (pedido) => {
     pedidoSeleccionado.value = pedido;

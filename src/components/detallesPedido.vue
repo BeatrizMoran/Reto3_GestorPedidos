@@ -44,6 +44,8 @@ const cerrarDetallesPedido = () => {
 };
 </script>
 
-<style scoped>
-/* Estilos del modal */
+<style lang="scss" scoped>
+
+@import '../assets/style.scss';
+
 </style>

@@ -1,0 +1,118 @@
+// Variables
+$color-primary: #007bff;
+$color-secondary: #6c757d;
+$color-success: #28a745;
+$color-info: #17a2b8;
+$color-warning: #ffc107;
+$color-danger: #dc3545;
+$color-light: #f8f9fa;
+$color-dark: #343a40;
+$background-image-url: './src/assets/prueba.jpg';
+$background-size: cover;
+$background-position: center;
+$height: 100vh;
+
+$oscuroTransparente: rgba(0, 0, 0, 0.8);
+
+$solicitadoColor: pink;
+$preparacionColor: yellow;
+$entregaColor: orange;
+$entregadoColor: green;
+$defaultColor: white;
+
+
+$container-padding: 20px;
+$transition-duration: 0.3s;
+$fade-out-transition-duration: 2s;
+$fade-in-transition-duration: 1s;
+$color-light: #f8f9fa;
+$oscuroTransparente: rgba(0, 0, 0, 0.8);
+$spacing-md: 10px;
+$border-radius-lg: 10px;
+$font-size-lg: 1.5em;
+
+// Exportar como custom properties
+:root {
+    --solicitado-color: #{$solicitadoColor};
+    --preparacion-color: #{$preparacionColor};
+    --entrega-color: #{$entregaColor};
+    --entregado-color: #{$entregadoColor};
+    --default-color: #{$defaultColor};
+  }
+
+
+// Estilos globales
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url($background-image-url);
+    background-size: $background-size;
+    background-position: $background-position;
+    height: $height;
+  }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-primary {
+  color: $color-primary;
+}
+
+.text-secondary {
+  color: $color-secondary;
+}
+
+.perfil-container {
+    background-color: $oscuroTransparente; 
+  }
+
+  // Estilos para el contenedor
+.container {
+    padding: $container-padding;
+  }
+  
+  // Estilos para el contenedor de imágenes
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  // Estilos para las imágenes clicables
+  .clickable-image {
+    cursor: pointer;
+    transition: transform $transition-duration ease-out;
+  }
+  
+  // Estilos para el texto que se desvanece
+  .fade-out {
+      opacity: 0;
+      transition: opacity $fade-out-transition-duration ease;
+  }
+  
+  // Estilos para el texto que aparece con transición
+  .fade-in {
+      opacity: 1;
+      transition: opacity $fade-in-transition-duration ease;
+  }
+  
+  // Estilos para el texto gris
+  .text-gray {
+      color: $color-light;
+      font-size: $font-size-lg;
+      background-color: $oscuroTransparente;
+      padding: $spacing-md; 
+      border-radius: $border-radius-lg;
+  }
+
+  .custom-truncate {
+    max-width: 125px;
+  }
+  
+  .card-hover:hover {
+    transition: transform 0.2s ,box-shadow 0.2s;
+    transform: scale(1.1);
+   
+  
+  }
