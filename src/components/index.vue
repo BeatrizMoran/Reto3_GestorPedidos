@@ -80,24 +80,44 @@ import { ref } from 'vue';
 const showText = ref(0);
 
 const toggleText = (section) => {
-    if (showText.value === section) {
-        showText.value = 0; 
-    } else {
-        showText.value = section; 
+    try {
+        if (showText.value === section) {
+            showText.value = 0; 
+         } 
+            else {
+                showText.value = section; 
+            }
+        
+    } 
+    catch (error) {
+            alert(error);
     }
+
 };
 
 const hoverImage = (section) => {
-    const image = document.querySelector(`.clickable-image[data-section="${section}"]`);
-    if (image) {
-        image.style.transform = 'scale(1.1)';
+    try {
+
+        const image = document.querySelector(`.clickable-image[data-section="${section}"]`);
+            if (image) {
+                image.style.transform = 'scale(1.1)';
+            }
+         } 
+         catch (error) {
+        alert(error);
     }
+
 };
 
 const unhoverImage = (section) => {
-    const image = document.querySelector(`.clickable-image[data-section="${section}"]`);
-    if (image) {
-        image.style.transform = 'scale(1)';
+    try {
+        const image = document.querySelector(`.clickable-image[data-section="${section}"]`);
+        if (image) {
+            image.style.transform = 'scale(1)';
+        }
+    }
+    catch (error) {
+        alert(error);
     }
 };
 </script>
@@ -105,7 +125,5 @@ const unhoverImage = (section) => {
 
   
 <style lang="scss" scoped>
-
 @import '../assets/style.scss';
-
 </style>

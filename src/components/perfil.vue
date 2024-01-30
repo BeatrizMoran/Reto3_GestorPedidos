@@ -80,23 +80,33 @@
   
   // cambiar entre el modo de edición y no edición 
   const toggleEditMode = () => {
-    editMode.value = !editMode.value;
+    try {
+      editMode.value = !editMode.value;
+    } catch (error) {
+      alert(error);
+    }
+   
   };
   
   // Funcion para guardar los cambios en el formulario
   const guardarCambios = () => {
 
-  nombre.value = document.getElementById('nombre').value;
-  direccion.value = document.getElementById('direccion').value;
-  telefono.value = document.getElementById('telefono').value;
-  console.log(nombre,direccion,telefono);
+    try {
+      nombre.value = document.getElementById('nombre').value;
+      direccion.value = document.getElementById('direccion').value;
+      telefono.value = document.getElementById('telefono').value;
+      console.log(nombre,direccion,telefono);
+      editMode.value = false;
+      
+    } catch (error) {
+      alert(error);
+    }
 
-  // Cambiar editMode a falso para volver al modo de no edición
-  editMode.value = false;
 };
 
 // Funcion para calcular la diferencia de tiempo entre la fecha del pedido y la fecha actual
 const calcularFecha = (fechaPedido) => {
+  try {
     const fechaPedidoDate = new Date(fechaPedido);
     const fechaActualDate = new Date();
     const diff = fechaActualDate - fechaPedidoDate;
@@ -116,6 +126,10 @@ const calcularFecha = (fechaPedido) => {
     } else {
         return 'Hoy';
     }
+  } catch (error) {
+    alert(error);
+  }
+    
 };
 
 

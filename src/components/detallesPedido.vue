@@ -40,12 +40,17 @@ const emits = defineEmits(['cerrar'])
 
 // Función para cerrar los detalles del pedido y emitir el evento 'cerrar'
 const cerrarDetallesPedido = () => {
-  emits('cerrar');
+    try {
+        emits('cerrar');
+    } 
+    catch (error) {
+            alert(error);
+    }
+
 };
 </script>
 
 <style lang="scss" scoped>
-
 @import '../assets/style.scss';
 
 </style>

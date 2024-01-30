@@ -30,7 +30,14 @@
   
 
   const handleCategoryChange = () => {
-    context.emit('category-change', selectedCategories);
+    try {
+      context.emit('category-change', selectedCategories);
+    } 
+    catch (error) {
+        alert(error);
+      
+    }
+
   };
   </script>
   

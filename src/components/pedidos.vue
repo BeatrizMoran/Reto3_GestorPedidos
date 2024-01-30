@@ -35,9 +35,8 @@
   </template>
   
   
-  <style lang="scss" scoped>
-
-        @import '../assets/style.scss';
+<style lang="scss" scoped>
+    @import '../assets/style.scss';
 </style>
 
   <script setup>
@@ -87,27 +86,45 @@
   
  // Método para obtener el color del estado del pedido
 const getColor = (estado) => {
-  switch (estado) {
-    case 'Solicitado':
-      return 'var(--solicitado-color)';
-    case 'En preparación':
-      return 'var(--preparacion-color)';
-    case 'En entrega':
-      return 'var(--entrega-color)';
-    case 'Entregado':
-      return 'var(--entregado-color)';
-    default:
-      return 'var(--default-color)';
+  try {
+    switch (estado) {
+      case 'Solicitado':
+        return 'var(--solicitado-color)';
+      case 'En preparación':
+        return 'var(--preparacion-color)';
+      case 'En entrega':
+        return 'var(--entrega-color)';
+      case 'Entregado':
+        return 'var(--entregado-color)';
+      default:
+        return 'var(--default-color)';
   }
+  } 
+  catch (error) {
+    alert(error);
+  }
+
 };
   
   const mostrarDetallesPedido = (pedido) => {
-    pedidoSeleccionado.value = pedido;
+    try {
+      pedidoSeleccionado.value = pedido;
+    } 
+    catch (error) {
+      alert(error);
+    }
+
   };
   
 // Función para cerrar los detalles del pedido y ocultar el componente detallesPedido
 const cerrarDetallesPedido = () => {
-  pedidoSeleccionado.value = null;
+  try {
+    pedidoSeleccionado.value = null;
+  } 
+  catch (error) {
+    alert(error);
+  }
+
 };
   </script>
   
