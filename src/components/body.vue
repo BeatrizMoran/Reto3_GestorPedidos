@@ -42,109 +42,57 @@
 </template>
 
 <script setup>
-import { useProductosStore } from '../stores/productos';
-import { ref, computed, onBeforeMount, watch, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+  import { ref, onMounted } from 'vue';
+  import { useProductosStore } from '../stores/productos';
 
-const PAGE_SIZE = 6;
-const productosStore = useProductosStore();
-const productosCache = ref([]);
-const currentPage = ref(1);
-const productosEncontrados = ref([]);
-const busqueda = ref('');
-const route = useRoute();
-const router = useRouter();
+  // Variables
+  const productosStore = useProductosStore();
+  const productosDisponibles = ref([]);
+  const productosToDisplay = ref([]);
+  const terminoBusqueda = ref('');
 
-
-
-const cargarProductos = async () => {
-  try {
-    await productosStore.cargarProductosDesdeAPI();
-    productosCache.value = productosStore.obtenerProductos();
-    actualizarProductosToDisplay();
-   
-  } catch (error) {
-    console.error('Error al cargar los productos:', error.message);
-  }
-};
-
-const buscarProductos = async () => {
-  try {
-    productosEncontrados.value = await productosStore.buscarProductos(busqueda.value);
-    currentPage.value = 1;
-    actualizarProductosToDisplay();
-   
-  } catch (error) {
-    console.error('Error al buscar productos:', error.message);
-  }
-};
-
-const actualizarProductosToDisplay = () => {
-  if (busqueda.value) {
-    productosToDisplay.value = productosEncontrados.value.filter(producto =>
-      producto.nombre.toLowerCase().includes(busqueda.value.toLowerCase())
-    );
-  } else {
-    productosToDisplay.value = productosCache.value;
-  }
-};
-
-const actualizarProductos = async () => {
-  if (busqueda.value) {
-    await buscarProductos();
-    console.log("buscando productos...");
-  } else {
-    await cargarProductos();
-    console.log("cargando productos..."); 
-  }
-};
-
-watch(busqueda, async (newValue) => {
-  await actualizarProductos();
-  
-});
-
-onBeforeMount(async () => {
-  try {
-    if (route.query.nombre) {
-      busqueda.value = route.query.nombre;
-    } else {
-      busqueda.value = '';
-    }
-    await actualizarProductos();
-  } catch (error) {
-    console.error('Error al cargar los productos:', error.message);
-  }
-});
-
-onMounted(async () => {
-  try {
-    if (route.query.nombre) {
-      busqueda.value = route.query.nombre;
+  // Función para cargar productos desde la API
+  const cargarProductos = async () => {
+    try {
       
-    } else {
-      busqueda.value = '';
+      const productos = await productosStore.cargarProductosDesdeAPI();
+      console.log("productos encontrados", productos);  
+      productosDisponibles.value = productos;
+      filtrarProductos();
+    } catch (error) {
+      console.error('Error al cargar productos:', error.message);
     }
-   
-  } catch (error) {
-    console.error('Error al cargar los productos:', error.message);
-  }
-});
+  };
 
-const productosToDisplay = ref([]);
-const hasMorePages = computed(() => {
-  return (currentPage.value * PAGE_SIZE) < productosToDisplay.value.length;
-});
+  // Función para filtrar productos según el término de búsqueda
+  const filtrarProductos = () => {
+    if (terminoBusqueda.value === '') {
+      console.log("terminoBusqueda",terminoBusqueda.value);
+      productosToDisplay.value = productosDisponibles.value;
+      console.log("productos filtrados",productosToDisplay.value );
+    } else {
+      console.log("terminoBusqueda",terminoBusqueda.value);
+      productosToDisplay.value = productosDisponibles.value.filter(producto =>
+        producto.nombre.toLowerCase().includes(terminoBusqueda.value.toLowerCase())
+      );
+        console.log("productos filtrados",productosToDisplay.value );
+    }
+  };
 
-const loadNextPage = () => {
-  currentPage.value++;
-};
+  // Cargar productos al montar el componente
+  onMounted(cargarProductos);
 
-const addToCart = (producto) => {
-  console.log(`Añadido al carrito: ${producto.nombre}`);
-};
+  // Función para agregar al carrito
+  const addToCart = (producto) => {
+    //lógica para agregar al carrito 
+  };
 
+  // Función para cargar más páginas de productos
+  const loadNextPage = () => {
+    //  lógica para cargar más páginas
+  };
 </script>
+
 
 
 <style lang="scss" scoped>

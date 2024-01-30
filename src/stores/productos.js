@@ -17,12 +17,14 @@ export const useProductosStore = defineStore('productos', () => {
       console.log('Datos recibidos desde la API:', data);
 
       // Actualizar la lista de productos en el almacén
-      listaProductos.value = data
+      return listaProductos.value = data;
     } catch (error) {
       console.error('Error:', error.message)
     }
   }
-  async function buscarProductos(nombre) {
+
+  /*
+   async function buscarProductos(nombre) {
     console.log('Entrando en la función buscarProductos'); 
     try {
       console.log('Término de búsqueda:', nombre);
@@ -39,11 +41,12 @@ export const useProductosStore = defineStore('productos', () => {
     }
   }
   
+  */ 
 
 
   function obtenerProductos() {
     return listaProductos.value
   }
 
-  return { cargarProductosDesdeAPI, buscarProductos, obtenerProductos/* Resto de las funciones y datos del almacén... */ }
+  return { cargarProductosDesdeAPI, obtenerProductos/* Resto de las funciones y datos del almacén... */ }
 })
