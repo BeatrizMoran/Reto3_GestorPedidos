@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid py-2 px-4">
     <div class="row">
-      <div v-for="producto in list" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+      <div v-if="list.length > 0" v-for="producto in list" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6 card-hover">
           <!-- Contenido de la tarjeta -->
           <!-- Card Top -->
@@ -42,8 +42,10 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps,onMounted } from 'vue';
+import { ref, watch, defineProps,onMounted, onBeforeMount } from 'vue';
+import { useProductosStore } from '../stores/productos';
 
+const productosStore = useProductosStore();
 const props = defineProps({
   listaProductos: {
     type: Array,
@@ -52,6 +54,14 @@ const props = defineProps({
 });
 
 const list = ref([]);
+
+
+onBeforeMount( async () => {
+  list.value = await productosStore.cargarProductosDesdeAPI();
+
+})
+
+
 
 watch(() => props.listaProductos, (nuevoValor) => {
   console.log("hola");

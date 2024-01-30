@@ -18,7 +18,7 @@ export const useProductosStore = defineStore('productos', () => {
 
       // Actualizar la lista de productos en el almacén
        listaProductos.value = data;
-       return listaProductos;
+       return listaProductos.value;
     } catch (error) {
       console.error('Error:', error.message)
     }
