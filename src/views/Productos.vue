@@ -4,7 +4,7 @@
     <br>
     <div class="row">
       <AsideA class="col-5 col-md-4 col-lg-3"></AsideA>
-      <BodyA class="col-7 col-md-8 col-lg-9" :listaProductos="listaProductos.value"></BodyA>
+      <BodyA class="col-6 col-md-7 col-lg-8" :listaProductos="listaProductos.value"></BodyA>
     </div>
   </div>
 </template>

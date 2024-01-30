@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid bg-light">
+    <div class="container-fluid detalles-pedido-container">
         <div class="row">
             <div class="detalles-pedido-modal" v-if="pedido">
                 <div class="modal-dialog modal-dialog-centered modal-lg">

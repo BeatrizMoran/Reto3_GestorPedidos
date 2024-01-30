@@ -1,9 +1,9 @@
 <template>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col">
+    <div class="container-fluid ">
+      <div class="row ">
+        <div class="col ">
           <h1>Listado de Pedidos</h1>
-          <table class="table">
+          <table class="table ">
             <thead>
               <tr>
                 <th>Número de Pedido</th>
@@ -12,7 +12,7 @@
                 <th>Ver Detalles</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
               <tr v-for="(pedido, index) in pedidos" :key="index" :style="{ backgroundColor: getColor(pedido.estado) }">
                 <td>{{ 'Pedido ' + (index + 1) }}</td>
                 <td>{{ pedido.fechaCreacion }}</td>
@@ -128,3 +128,8 @@ const cerrarDetallesPedido = () => {
 };
   </script>
   
+  <style lang="scss" scoped>
+
+@import '../assets/style.scss';
+
+  </style>

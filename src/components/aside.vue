@@ -1,5 +1,5 @@
 <template>
-    <aside class="bg-light d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
+    <aside class="aside-container d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
       <h3 class="mb-4 category-title" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Categorías</h3>
       <div class="d-flex flex-wrap" style="max-width: 100%;">
         <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4" style="width: 100%;">
