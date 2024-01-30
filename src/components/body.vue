@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid py-2 px-4">
     <div class="row">
-      <div v-for="(producto) in productosToDisplay" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
-        <div class="card shadow lg-6  card-hover">
+      <div v-for="producto in listaFiltrada" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card shadow lg-6 card-hover">
           <!-- Contenido de la tarjeta -->
           <!-- Card Top -->
-          <div class="card-top bg-gray row justify-content-between align-items-center ">
+          <div class="card-top bg-gray row justify-content-between align-items-center">
             <div class="col-2 imagen">
               <img src="../assets/duff.png" alt="Imagen de la tarjeta" class="img-fluid" width="100px" height="100px">
             </div>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <!-- Card Footer -->
-          <div class="card-footer bg-info  p-2">
+          <div class="card-footer bg-info p-2">
             <div class="details row">
               <div class="price col-6">Precio: {{ producto.precio }} €</div>
             </div>
@@ -42,58 +42,43 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import { useProductosStore } from '../stores/productos';
+import { ref, onMounted, inject, watch, defineProps } from 'vue';
+import { useProductosStore } from '../stores/productos';
 
-  // Variables
-  const productosStore = useProductosStore();
-  const productosDisponibles = ref([]);
-  const productosToDisplay = ref([]);
-  const terminoBusqueda = ref('');
+const props = defineProps({
+  listaFiltrada: Array,
+});
 
-  // Función para cargar productos desde la API
-  const cargarProductos = async () => {
-    try {
-      
-      const productos = await productosStore.cargarProductosDesdeAPI();
-      console.log("productos encontrados", productos);  
-      productosDisponibles.value = productos;
-      filtrarProductos();
-    } catch (error) {
-      console.error('Error al cargar productos:', error.message);
-    }
-  };
+// Variables
+const productosStore = useProductosStore();
+const productosDisponibles = ref([]);
+const terminoBusqueda = ref('');
+const listaFiltrada = ref([]);
+listaFiltrada.value = inject("listaFiltrada");
 
-  // Función para filtrar productos según el término de búsqueda
-  const filtrarProductos = () => {
-    if (terminoBusqueda.value === '') {
-      console.log("terminoBusqueda",terminoBusqueda.value);
-      productosToDisplay.value = productosDisponibles.value;
-      console.log("productos filtrados",productosToDisplay.value );
-    } else {
-      console.log("terminoBusqueda",terminoBusqueda.value);
-      productosToDisplay.value = productosDisponibles.value.filter(producto =>
-        producto.nombre.toLowerCase().includes(terminoBusqueda.value.toLowerCase())
-      );
-        console.log("productos filtrados",productosToDisplay.value );
-    }
-  };
+// Cargar productos al montar el componente
+onMounted(() => {
+  console.log("lista filtrada componente", listaFiltrada.value);
+});
 
-  // Cargar productos al montar el componente
-  onMounted(cargarProductos);
+watch(props.listaFiltrada, async(newValue) => {
+  if(newValue){
+    console.log(newValue);
+  }else{
+    console.log("no")
+  }
+}) ;
 
-  // Función para agregar al carrito
-  const addToCart = (producto) => {
-    //lógica para agregar al carrito 
-  };
+// Función para agregar al carrito
+const addToCart = (producto) => {
+  // lógica para agregar al carrito
+};
 
-  // Función para cargar más páginas de productos
-  const loadNextPage = () => {
-    //  lógica para cargar más páginas
-  };
+// Función para cargar más páginas de productos
+const loadNextPage = () => {
+  // lógica para cargar más páginas
+};
 </script>
-
-
 
 <style lang="scss" scoped>
 @import '../assets/style.scss';

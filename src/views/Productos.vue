@@ -1,10 +1,10 @@
 <template>
     <div>
-      <Nav></Nav>
+      <Nav @listaFiltrada="fcambiarLista"></Nav>
       <br>
       <div class="row">
       <AsideA class="col-5 col-md-4 col-lg-3"></AsideA>
-      <BodyA class="col-7 col-md-8 col-lg-9"></BodyA>
+      <BodyA class="col-7 col-md-8 col-lg-9" :listaFiltrada="listaFiltrada.value"></BodyA>
     </div>
   
     </div>
@@ -15,6 +15,14 @@
   import AsideA from '../components/aside.vue';
   import BodyA from '../components/body.vue';
 
+  import { ref } from 'vue';
+
+
+  const listaFiltrada = ref([]);
+
+  function fcambiarLista(lista){
+    listaFiltrada.value = lista;
+  }
   
 
   </script>

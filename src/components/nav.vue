@@ -42,7 +42,7 @@
         <!-- Buscador -->
         <div class="col-7 col-md-7 col-lg-4 px-4">
           <form class="d-flex" @submit.prevent="buscar">
-            <input class="form-control me-2" type="search" v-model="terminoBusqueda" placeholder="Buscar productos..." aria-label="Buscar">
+            <input class="form-control me-2"  type="search" v-model="terminoBusqueda" placeholder="Buscar productos..." aria-label="Buscar">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
           </form>
         </div>
@@ -56,7 +56,7 @@
 <script setup>
   import { useRouter } from 'vue-router';
   import { useProductosStore } from '../stores/productos';
-  import { ref  } from 'vue';
+  import { ref, provide, defineEmits  } from 'vue';
 
   const isPerfilVisible = ref(false);
     //post de codigo. comprobamos si esta el input vacio y si existe en la api
@@ -102,10 +102,18 @@
    //post de buscar. comprobamos si  existe en la api
     const router = useRouter();
     const terminoBusqueda = ref('');
+    const productosStore = useProductosStore();
+
+    const emit = defineEmits (["listaFiltrada"]);
 
     const buscar = async () => {
   try {
+    const productos = await productosStore.buscarProductos(terminoBusqueda.value);
+    console.log("prueba", productos)
     console.log('Término de búsqueda:', terminoBusqueda.value); 
+    emit("listaFiltrada", productos);
+
+
     router.push({ query: { nombre: terminoBusqueda.value } }); 
   } catch (error) {
     console.error('Error al buscar productos:', error.message);

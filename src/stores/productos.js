@@ -23,7 +23,7 @@ export const useProductosStore = defineStore('productos', () => {
     }
   }
 
-  /*
+  
    async function buscarProductos(nombre) {
     console.log('Entrando en la función buscarProductos'); 
     try {
@@ -41,12 +41,12 @@ export const useProductosStore = defineStore('productos', () => {
     }
   }
   
-  */ 
+  
 
 
   function obtenerProductos() {
     return listaProductos.value
   }
 
-  return { cargarProductosDesdeAPI, obtenerProductos/* Resto de las funciones y datos del almacén... */ }
+  return { cargarProductosDesdeAPI, obtenerProductos, buscarProductos/* Resto de las funciones y datos del almacén... */ }
 })
