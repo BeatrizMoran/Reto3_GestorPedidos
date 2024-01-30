@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid py-2 px-4">
+  <div :key="productosKey" class="container-fluid py-2 px-4">
     <div class="row">
       <div v-for="(producto, index) in productosToDisplay" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6  card-hover">
@@ -42,9 +42,8 @@
   </div>
 </template>
 
-
 <script setup>
-import { useProductosStore } from '../stores/productos'
+import { useProductosStore } from '../stores/productos';
 import { ref, computed, onBeforeMount, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -60,7 +59,6 @@ onBeforeMount(async () => {
   try {
     if (route.query.nombre) {
       busqueda.value = route.query.nombre;
-      
     } else {
       busqueda.value = '';
     }
@@ -74,6 +72,7 @@ const cargarProductos = async () => {
   try {
     await productosStore.cargarProductosDesdeAPI();
     productosCache.value = productosStore.obtenerProductos();
+    actualizarProductosToDisplay();
   } catch (error) {
     console.error('Error al cargar los productos:', error.message);
   }
@@ -82,7 +81,8 @@ const cargarProductos = async () => {
 const buscarProductos = async () => {
   try {
     productosEncontrados.value = await productosStore.buscarProductos(busqueda.value);
-    currentPage.value = 1; // Restablecer la página actual a 1 después de realizar la búsqueda
+    currentPage.value = 1;
+    actualizarProductosToDisplay();
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
   }
@@ -91,22 +91,24 @@ const buscarProductos = async () => {
 const actualizarProductos = async () => {
   if (busqueda.value) {
     await buscarProductos();
+    console.log("buscando productos...");
   } else {
     await cargarProductos();
+    console.log("cargando productos...");
   }
+};
+
+const actualizarProductosToDisplay = () => {
+  productosToDisplay.value = busqueda.value ? productosEncontrados.value : productosCache.value;
 };
 
 watch(busqueda, async (newValue) => {
   await actualizarProductos();
 });
 
-const productosToDisplay = computed(() => {
-  return busqueda.value ? productosEncontrados.value : productosCache.value;
-});
-
+const productosToDisplay = ref([]);
 const hasMorePages = computed(() => {
-  const productos = busqueda.value ? productosEncontrados.value : productosCache.value;
-  return (currentPage.value * PAGE_SIZE) < productos.length;
+  return (currentPage.value * PAGE_SIZE) < productosToDisplay.value.length;
 });
 
 const loadNextPage = () => {
@@ -114,12 +116,11 @@ const loadNextPage = () => {
 };
 
 const addToCart = (producto) => {
-  // Lógica para agregar el producto al carrito
   console.log(`Añadido al carrito: ${producto.nombre}`);
 };
 
 </script>
 
 <style lang="scss" scoped>
-/* Estilos aquí si es necesario */
+@import '../assets/style.scss';
 </style>

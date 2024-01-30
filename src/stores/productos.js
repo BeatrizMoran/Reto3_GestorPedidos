@@ -23,14 +23,14 @@ export const useProductosStore = defineStore('productos', () => {
     }
   }
   async function buscarProductos(nombre) {
-    console.log('Entrando en la función buscarProductos'); // Verificar si la función se está ejecutando
+    console.log('Entrando en la función buscarProductos'); 
     try {
       console.log('Término de búsqueda:', nombre);
-  
-      const response = await fetch(`http://localhost/api/productos?nombre=${nombre}`)
+      const response = await fetch(`http://localhost/api/productos?nombre=${nombre}`);
+      
       console.log('URL de solicitud:', response.url);
       
-      console.log("pene", response);
+      console.log("Response", response);
 
       const data = await response.json();
       return data;
