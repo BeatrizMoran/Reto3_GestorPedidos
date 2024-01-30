@@ -68,7 +68,7 @@ const buscar = async () => {
     if (terminoBusqueda.value === "") {
       listaProductos.value = await productosStore.cargarProductosDesdeAPI();
       console.log("Estoy en el nav, todos los productos", listaProductos.value);
-      emit('listaProductos', listaProductos.value);
+      emit('listaProductos', listaProductos);
     } else {
       listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value);
       console.log("Estoy en el nav, búsqueda filtrada: ", listaProductos.value);

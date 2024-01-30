@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid py-2 px-4">
     <div class="row">
-      <div v-if="list.length > 0" v-for="producto in list" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+      <div  v-for="producto in list" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6 card-hover">
           <!-- Contenido de la tarjeta -->
           <!-- Card Top -->
