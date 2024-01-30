@@ -8,17 +8,9 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
   import Nav from '../components/nav.vue';
   import Pedidos from '../components/pedidos.vue';
 
-
-  
-  export default {
-    components: {
-        Nav,
-        Pedidos
-    }
-  };
   </script>
   

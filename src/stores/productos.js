@@ -29,10 +29,10 @@ export const useProductosStore = defineStore('productos', () => {
       const response = await fetch(`http://localhost/api/productos?nombre=${nombre}`);
       
       console.log('URL de solicitud:', response.url);
-      
       console.log("Response", response);
 
       const data = await response.json();
+      console.log("data", data);
       return data;
     } catch (error) {
       console.error('Error:', error.message)

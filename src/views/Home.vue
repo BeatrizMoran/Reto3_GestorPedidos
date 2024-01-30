@@ -5,16 +5,11 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
   import Nav from '../components/nav.vue';
   import Index from '../components/index.vue';
 
   
-  export default {
-    components: {
-      Nav,
-      Index
-    }
-  };
+
   </script>
   

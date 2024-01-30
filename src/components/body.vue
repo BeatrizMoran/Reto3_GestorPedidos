@@ -1,7 +1,7 @@
 <template>
-  <div :key="productosKey" class="container-fluid py-2 px-4">
+  <div class="container-fluid py-2 px-4">
     <div class="row">
-      <div v-for="(producto, index) in productosToDisplay" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+      <div v-for="(producto) in productosToDisplay" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6  card-hover">
           <!-- Contenido de la tarjeta -->
           <!-- Card Top -->
@@ -23,13 +23,12 @@
             <div class="format">{{ producto.formato }}</div>
             <div class="quantity-section">
               <label for="quantity">Cantidad:</label>
-              <input type="number" id="quantity" v-model="selectedQuantity" :disabled="producto.disabled" :min="0" style="width: 50px;">
+              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="0" style="width: 50px;">
             </div>
           </div>
           <!-- Card Footer -->
           <div class="card-footer bg-info  p-2">
             <div class="details row">
-              <!-- <div class="category col-6">{{ producto.category }}</div> -->
               <div class="price col-6">Precio: {{ producto.precio }} €</div>
             </div>
           </div>
@@ -44,8 +43,8 @@
 
 <script setup>
 import { useProductosStore } from '../stores/productos';
-import { ref, computed, onBeforeMount, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, computed, onBeforeMount, watch, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const PAGE_SIZE = 6;
 const productosStore = useProductosStore();
@@ -54,6 +53,56 @@ const currentPage = ref(1);
 const productosEncontrados = ref([]);
 const busqueda = ref('');
 const route = useRoute();
+const router = useRouter();
+
+
+
+const cargarProductos = async () => {
+  try {
+    await productosStore.cargarProductosDesdeAPI();
+    productosCache.value = productosStore.obtenerProductos();
+    actualizarProductosToDisplay();
+   
+  } catch (error) {
+    console.error('Error al cargar los productos:', error.message);
+  }
+};
+
+const buscarProductos = async () => {
+  try {
+    productosEncontrados.value = await productosStore.buscarProductos(busqueda.value);
+    currentPage.value = 1;
+    actualizarProductosToDisplay();
+   
+  } catch (error) {
+    console.error('Error al buscar productos:', error.message);
+  }
+};
+
+const actualizarProductosToDisplay = () => {
+  if (busqueda.value) {
+    productosToDisplay.value = productosEncontrados.value.filter(producto =>
+      producto.nombre.toLowerCase().includes(busqueda.value.toLowerCase())
+    );
+  } else {
+    productosToDisplay.value = productosCache.value;
+  }
+};
+
+const actualizarProductos = async () => {
+  if (busqueda.value) {
+    await buscarProductos();
+    console.log("buscando productos...");
+  } else {
+    await cargarProductos();
+    console.log("cargando productos..."); 
+  }
+};
+
+watch(busqueda, async (newValue) => {
+  await actualizarProductos();
+  
+});
 
 onBeforeMount(async () => {
   try {
@@ -68,42 +117,18 @@ onBeforeMount(async () => {
   }
 });
 
-const cargarProductos = async () => {
+onMounted(async () => {
   try {
-    await productosStore.cargarProductosDesdeAPI();
-    productosCache.value = productosStore.obtenerProductos();
-    actualizarProductosToDisplay();
+    if (route.query.nombre) {
+      busqueda.value = route.query.nombre;
+      
+    } else {
+      busqueda.value = '';
+    }
+   
   } catch (error) {
     console.error('Error al cargar los productos:', error.message);
   }
-};
-
-const buscarProductos = async () => {
-  try {
-    productosEncontrados.value = await productosStore.buscarProductos(busqueda.value);
-    currentPage.value = 1;
-    actualizarProductosToDisplay();
-  } catch (error) {
-    console.error('Error al buscar productos:', error.message);
-  }
-};
-
-const actualizarProductos = async () => {
-  if (busqueda.value) {
-    await buscarProductos();
-    console.log("buscando productos...");
-  } else {
-    await cargarProductos();
-    console.log("cargando productos...");
-  }
-};
-
-const actualizarProductosToDisplay = () => {
-  productosToDisplay.value = busqueda.value ? productosEncontrados.value : productosCache.value;
-};
-
-watch(busqueda, async (newValue) => {
-  await actualizarProductos();
 });
 
 const productosToDisplay = ref([]);
@@ -120,6 +145,7 @@ const addToCart = (producto) => {
 };
 
 </script>
+
 
 <style lang="scss" scoped>
 @import '../assets/style.scss';

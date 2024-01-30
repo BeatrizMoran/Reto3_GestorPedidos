@@ -6,17 +6,10 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
   import Nav from '../components/nav.vue';
   import Perfil from '../components/perfil.vue';
 
 
-  
-  export default {
-    components: {
-        Nav,
-        Perfil
-    }
-  };
   </script>
   

@@ -57,6 +57,7 @@
   import { useRouter } from 'vue-router';
   import { useProductosStore } from '../stores/productos';
   import { ref,onMounted  } from 'vue';
+  //import { defineEmits } from 'vue';
 
   const isPerfilVisible = ref(false);
     //post de codigo. comprobamos si esta el input vacio y si existe en la api
@@ -104,6 +105,7 @@
     const productosStore = useProductosStore();
     const terminoBusqueda = ref('');
     const busqueda = ref('');
+    //const emits = defineEmits(['nuevo-termino-busqueda']);
 
     const buscar = async () => {
   try {
@@ -111,11 +113,8 @@
     console.log('Término de búsqueda:', terminoBusqueda.value); // Verificar el valor de terminoBusqueda
     console.log('Productos encontrados:', productosEncontrados); // Depuración para verificar los productos encontrados
     router.push({ name: 'productos', query: { nombre: terminoBusqueda.value } });
-   /*
-       if (router.currentRoute.value.name === 'productos') {
-      router.currentRoute.value.name === "";
-      window.location.reload();}
-   */
+    //emit('nuevo-termino-busqueda', terminoBusqueda.value);
+
 
   } catch (error) {
     console.error('Error al buscar productos:', error.message);

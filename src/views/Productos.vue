@@ -10,18 +10,12 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
   import Nav from '../components/nav.vue';
   import AsideA from '../components/aside.vue';
   import BodyA from '../components/body.vue';
 
   
-  export default {
-    components: {
-        Nav,
-      BodyA,
-      AsideA
-    }
-  };
+
   </script>
   
