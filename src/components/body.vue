@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid py-2 px-4">
     <div class="row">
-      <div v-for="producto in listaFiltrada" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
+      <div v-for="producto in list" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6 card-hover">
           <!-- Contenido de la tarjeta -->
           <!-- Card Top -->
@@ -42,44 +42,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, inject, watch, defineProps } from 'vue';
-import { useProductosStore } from '../stores/productos';
+import { ref, watch, defineProps,onMounted } from 'vue';
 
 const props = defineProps({
-  listaFiltrada: Array,
-});
-
-// Variables
-const productosStore = useProductosStore();
-const productosDisponibles = ref([]);
-const terminoBusqueda = ref('');
-const listaFiltrada = ref([]);
-listaFiltrada.value = inject("listaFiltrada");
-
-// Cargar productos al montar el componente
-onMounted(() => {
-  console.log("lista filtrada componente", listaFiltrada.value);
-});
-
-watch(props.listaFiltrada, async(newValue) => {
-  if(newValue){
-    console.log(newValue);
-  }else{
-    console.log("no")
+  listaProductos: {
+    type: Array,
+    required: true
   }
-}) ;
+});
 
-// Función para agregar al carrito
-const addToCart = (producto) => {
-  // lógica para agregar al carrito
-};
+const list = ref([]);
 
-// Función para cargar más páginas de productos
-const loadNextPage = () => {
-  // lógica para cargar más páginas
-};
+watch(() => props.listaProductos, (nuevoValor) => {
+  console.log("hola");
+  list.value = nuevoValor;
+});
+
+onMounted(() => {
+  console.log("montado")
+  console.log(list.value)
+})
+
 </script>
-
-<style lang="scss" scoped>
-@import '../assets/style.scss';
-</style>

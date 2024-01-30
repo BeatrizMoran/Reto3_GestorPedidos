@@ -1,29 +1,34 @@
 <template>
-    <div>
-      <Nav @listaFiltrada="fcambiarLista"></Nav>
-      <br>
-      <div class="row">
+  <div>
+    <Nav @listaProductos="fcambiarLista" ></Nav>
+    <br>
+    <div class="row">
       <AsideA class="col-5 col-md-4 col-lg-3"></AsideA>
-      <BodyA class="col-7 col-md-8 col-lg-9" :listaFiltrada="listaFiltrada.value"></BodyA>
+      <BodyA v-if="activo" class="col-7 col-md-8 col-lg-9" :listaProductos="listaProductos.value"></BodyA>
     </div>
-  
-    </div>
-  </template>
-  
-  <script setup>
-  import Nav from '../components/nav.vue';
-  import AsideA from '../components/aside.vue';
-  import BodyA from '../components/body.vue';
+  </div>
+</template>
 
-  import { ref } from 'vue';
+<script setup>
+import Nav from '../components/nav.vue';
+import AsideA from '../components/aside.vue';
+import BodyA from '../components/body.vue';
+
+import {  ref } from 'vue';
+
+const listaProductos = ref([]);
+const activo = ref(false);
 
 
-  const listaFiltrada = ref([]);
+function fcambiarLista(lista) {
 
-  function fcambiarLista(lista){
-    listaFiltrada.value = lista;
-  }
-  
 
-  </script>
-  
+  listaProductos.value = lista;
+
+  console.log("cambiando lista...")
+  console.log(listaProductos.value)
+
+  activo.value = true;
+}
+
+</script>

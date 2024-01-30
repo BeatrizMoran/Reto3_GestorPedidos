@@ -17,7 +17,8 @@ export const useProductosStore = defineStore('productos', () => {
       console.log('Datos recibidos desde la API:', data);
 
       // Actualizar la lista de productos en el almacén
-      return listaProductos.value = data;
+       listaProductos.value = data;
+       return listaProductos;
     } catch (error) {
       console.error('Error:', error.message)
     }
@@ -35,7 +36,8 @@ export const useProductosStore = defineStore('productos', () => {
 
       const data = await response.json();
       console.log("data", data);
-      return data;
+      listaProductos.value = data;
+       return listaProductos;
     } catch (error) {
       console.error('Error:', error.message)
     }

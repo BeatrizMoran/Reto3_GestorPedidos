@@ -43,7 +43,7 @@
         <div class="col-7 col-md-7 col-lg-4 px-4">
           <form class="d-flex" @submit.prevent="buscar">
             <input class="form-control me-2"  type="search" v-model="terminoBusqueda" placeholder="Buscar productos..." aria-label="Buscar">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <button class="btn btn-outline-success" type="submit" @click="buscar">Buscar</button>
           </form>
         </div>
 
@@ -54,75 +54,30 @@
 </template>
 
 <script setup>
-  import { useRouter } from 'vue-router';
-  import { useProductosStore } from '../stores/productos';
-  import { ref, provide, defineEmits  } from 'vue';
+import { useProductosStore } from '../stores/productos';
+import { ref, defineEmits } from 'vue';
 
-  const isPerfilVisible = ref(false);
-    //post de codigo. comprobamos si esta el input vacio y si existe en la api
-  const codigo = ref('');
-  const checkCodigo = async () => {
-    if(codigo.value.trim() === ''){
-      alert("No puedes insertar un codigo vacío");
-      return;
-    }
+const emit = defineEmits(['listaProductos']);  // Usar 'listaFiltrada'
 
-    try {
+const terminoBusqueda = ref('');
+const productosStore = useProductosStore();
+const listaProductos = ref([]);
 
-      const response = await fetch('api/bea/pasaElLinkMachoTrabaja',
-      {
-        method : 'POST',
-        headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({codigo : codigo.value})
-      });
-
-      if(!response.ok)
-      {
-        throw new Error('Error al verificar el código');
-      }
-      const data = await response.json();
-      if(data)
-      {
-        // Ocultar el input
-        $refs.inputCodigo.style.display = 'none';
-        // Habilitar el botón de Perfil
-        perfilLink.value.classList.remove('disabled');
-      }
-        else {
-          alert('El código no existe.');
-      }
-        
-    } 
-    catch (error) {
-      alert(error);  
-    }
-  };
-
-
-   //post de buscar. comprobamos si  existe en la api
-    const router = useRouter();
-    const terminoBusqueda = ref('');
-    const productosStore = useProductosStore();
-
-    const emit = defineEmits (["listaFiltrada"]);
-
-    const buscar = async () => {
+const buscar = async () => {
   try {
-    const productos = await productosStore.buscarProductos(terminoBusqueda.value);
-    console.log("prueba", productos)
-    console.log('Término de búsqueda:', terminoBusqueda.value); 
-    emit("listaFiltrada", productos);
-
-
-    router.push({ query: { nombre: terminoBusqueda.value } }); 
+    if (terminoBusqueda.value === "") {
+      listaProductos.value = await productosStore.cargarProductosDesdeAPI();
+      console.log("Estoy en el nav, todos los productos", listaProductos.value);
+      emit('listaProductos', listaProductos.value);
+    } else {
+      listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value);
+      console.log("Estoy en el nav, búsqueda filtrada: ", listaProductos.value);
+      emit('listaProductos', listaProductos.value);
+    }
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
   }
 };
-
-
-
-
 </script>
 
 
