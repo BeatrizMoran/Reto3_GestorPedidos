@@ -6,20 +6,24 @@
           <!-- Contenido de la tarjeta -->
           <!-- Card Top -->
           <div class="card-top bg-gray row justify-content-start align-items-center">
-            <div class="col-2 imagen">
+            <div class="col-6 imagen">
               <img :src="producto.imagen" alt="Imagen de la tarjeta" class="img-fluid" >
             </div>
-            <div class="col-10 options d-flex justify-content-between align-items-center">
+            <div class="col-6 options d-flex justify-content-between align-items-center">
               <div class="product-info">
-                <div class="product-name text-truncate custom-truncate">{{ producto.nombre }}</div>
+                
               </div>
               <button @click="addToCart(producto)" class="btn btn-warning" :disabled="producto.disabled">
                 <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
               </button>
             </div>
           </div>
+          <div class="nombre col 12">
+            <div class="product-name text-truncate custom-truncate">{{ producto.nombre }}</div>
+          </div>
           <!-- Card Body -->
           <div class="card-body bg-light d-flex justify-content-between align-items-center p-2">
+            
             <div class="format">{{ producto.formato }}</div>
             <div class="quantity-section">
               <label for="quantity">Cantidad:</label>
