@@ -7,7 +7,7 @@
           <!-- Card Top -->
           <div class="card-top bg-gray row justify-content-start align-items-center">
             <div class="col-6 imagen">
-              <img :src="producto.imagen" alt="Imagen de la tarjeta" class="img-fluid" >
+              <img :src="producto.imagen" alt="I" class="img-fluid" >
             </div>
             <div class="col-6 options d-flex justify-content-between align-items-center">
               <div class="product-info">
