@@ -30,6 +30,11 @@
           <div class="card-footer bg-info p-2">
             <div class="details row">
               <div class="price col-12">Precio:{{ producto.precio }}€</div>
+              <div v-for="(cat, index) in producto.categorias" >
+
+                <div class="col-12">Categoria:{{ cat["0"] }}</div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -52,16 +57,25 @@ const props = defineProps({
   listaProductos: {
     type: Array,
     required: true
+  },
+  buscador:{
+    type: String
+
   }
 });
 
+
+
 const list = ref([]);
+
+
 const pageSize = 6;
 let currentPage = ref(1);
 const searchTerm = ref('');
 
 onBeforeMount(async () => {
   list.value = await productosStore.cargarProductosDesdeAPI();
+  console.log("prueba", list.value);
 });
 
 watch(() => props.listaProductos, (nuevoValor) => {
@@ -69,10 +83,17 @@ watch(() => props.listaProductos, (nuevoValor) => {
   currentPage.value = 1;
 });
 
+watch(() => props.buscador, (nuevoValor) => {
+  searchTerm.value = nuevoValor;
+  console.log("mierda", searchTerm.value)
+});
+
+
 
 const paginatedList = computed(() => {
   // Filtra la lista de productos 
-  const filteredList = list.value.filter(producto =>
+  if (list.value.data !== undefined) {
+  const filteredList = list.value.data.filter(producto =>
     producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
 
@@ -88,11 +109,16 @@ const paginatedList = computed(() => {
 
 
   return filteredList.slice(startIndex, endIndex);
+}
 });
 
 // Calcula el total de páginas basándose en la lista filtrada
 const totalPages = computed(() => {
-  const filteredList = list.value.filter(producto =>
+  
+  if (list.value.data !== undefined) {
+    console.log("puto", searchTerm.value)
+    
+  const filteredList = list.value.data.filter(producto =>
     producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
 
@@ -103,6 +129,7 @@ const totalPages = computed(() => {
 
   // return el número total de páginas
   return Math.ceil(filteredList.length / pageSize);
+}
 });
 
 
