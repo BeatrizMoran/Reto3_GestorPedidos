@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <h1 class="mt-4 mb-4">Listado de Pedidos</h1>
+      <h1 class="mt-4 mb-4 text-secundary">Listado de Pedidos</h1>
       <table class="table table-responsive">
         <thead class="bg-dark">
           <tr>
@@ -40,10 +40,10 @@
                     <td>
                       <div class="row">
                         <div v-for="(producto, prodIndex) in pedidoSeleccionado.productos" :key="prodIndex" class="col-md-4 mb-3">
-                          <div class="d-flex flex-column align-items-center p-3 border rounded shadow-sm shadow-md-lg">
+                          <div class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg">
                             <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3">
                             <div class="text-center">
-                              <p class="mb-1  "><span class="fw-bold fs-5 text-secondary">Nombre:</span> {{ producto.precio }} €</p>
+                              <p class="mb-1  "><span class="fw-bold fs-5 text-secondary">Nombre:</span> {{ producto.nombre }} </p>
                               <p class="mb-1  "><span class="fw-bold">Precio:</span> {{ producto.precio }} €</p>
                               <p class="mb-1  "><span class="fw-bold ">Cantidad:</span> {{ producto.cantidad }} </p>
                             </div>
@@ -75,7 +75,7 @@
 
 <script setup>
 import { onBeforeMount, ref } from 'vue';
-import detallesPedido from './detallesPedido.vue';
+//import detallesPedido from './detallesPedido.vue';
 import { usePedidosStore } from "../stores/pedidos";
 
 const pedidosStore = usePedidosStore();
