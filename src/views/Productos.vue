@@ -27,7 +27,7 @@ function fcambiarLista(lista) {
   listaProductos.value = lista;
 
   console.log("cambiando lista...")
-  console.log(listaProductos.value)
+  console.log(listaProductos)
 
 }
 

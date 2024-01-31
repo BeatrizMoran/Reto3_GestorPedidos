@@ -37,6 +37,7 @@
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3" v-if="showNavigation">
       <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-primary py-2 px-4">Página Anterior</button>
+      <div class="mx-3 paginacion ">Página {{ currentPage }} de {{ totalPages }}</div>
       <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-primary py-2 px-4">Página Siguiente</button>
     </div>
   </div>
@@ -67,40 +68,58 @@ watch(() => props.listaProductos, (nuevoValor) => {
   list.value = nuevoValor;
 });
 
+
 const paginatedList = computed(() => {
+  // Filtra la lista de productos 
   const filteredList = list.value.filter(producto =>
     producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
+
+  //menos de 6 productos, mostrarlos todos en una página
+  if (filteredList.length <= pageSize) {
+    return filteredList;
+  }
+
+  // Calcula el índice de inicio y fin para la paginación
   const startIndex = (currentPage.value - 1) * pageSize;
-  return filteredList.slice(startIndex, startIndex + pageSize);
+  const endIndex = startIndex + pageSize;
+
+
+  return filteredList.slice(startIndex, endIndex);
 });
 
+// Calcula el total de páginas basándose en la lista filtrada
 const totalPages = computed(() => {
   const filteredList = list.value.filter(producto =>
     producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
   );
+
+  // menos de 6 productos, return 1 página
+  if (filteredList.length <= pageSize) {
+    return 1;
+  }
+
+  // return el número total de páginas
   return Math.ceil(filteredList.length / pageSize);
 });
 
+
+// Muestra la navegación entre páginas solo si hay más de una página
+const showNavigation = computed(() => totalPages.value > 1);
+
+// Función para ir a la página siguiente
 function nextPage() {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
   }
 }
 
+// Función para ir a la página anterior
 function previousPage() {
   if (currentPage.value > 1) {
     currentPage.value--;
   }
 }
-
-const showNavigation = computed(() => {
-  const filteredList = list.value.filter(producto =>
-    producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
-  );
-  return filteredList.length > pageSize;
-});
-
 onMounted(() => {
   console.log("montado");
   console.log(list.value);
