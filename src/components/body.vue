@@ -66,6 +66,7 @@ onBeforeMount(async () => {
 
 watch(() => props.listaProductos, (nuevoValor) => {
   list.value = nuevoValor;
+  currentPage.value = 1;
 });
 
 
@@ -83,6 +84,7 @@ const paginatedList = computed(() => {
   // Calcula el índice de inicio y fin para la paginación
   const startIndex = (currentPage.value - 1) * pageSize;
   const endIndex = startIndex + pageSize;
+
 
 
   return filteredList.slice(startIndex, endIndex);
@@ -124,6 +126,8 @@ onMounted(() => {
   console.log("montado");
   console.log(list.value);
 });
+
+
 </script>
 
 
