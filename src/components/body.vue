@@ -2,18 +2,16 @@
 
   <div class="container-fluid body-container py-4 px-4">
     <div class=" row">
-      <div v-for="(producto, index) in paginatedList" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
-        <div class="card shadow lg-6 card-hover">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3" v-for="(producto, index) in paginatedList" :key="producto.id" >
+        <div class="card lg-6 card-hover">
           <!-- Contenido de la tarjeta -->
+          
           <!-- Card Top -->
-          <div class="card-top bg-gray row justify-content-start align-items-center">
+          <div class="card-top bg-gray justify-content-start align-items-center">
             <div class="col-2 imagen">
               <img :src="producto.imagen" alt="I" class="img-fluid" >
             </div>
             <div class="col-10 options d-flex justify-content-between align-items-center">
-              <div class="product-info">
-              
-              </div>
               <button @click="addToCart(producto)" class="btn btn-warning" :disabled="producto.disabled" v-if="clienteEnLocalStorage">
                 <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
               </button>
@@ -30,44 +28,43 @@
           </div>
           <!-- Card Footer -->
           <div class="card-footer bg-info p-2">
-            <div class="details row">
+            <div class="details ">
               <div class="price col-12">Precio:{{ producto.precio }}€</div>
               <div v-for="(cat, index) in producto.categorias" >
-
                 <div class="col-12">Categoria:{{ cat["0"] }}</div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-    <div class="d-flex justify-content-center align-items-center mt-3" v-if="showNavigation">
-      <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-primary py-2 px-4">Página Anterior</button>
-      <div class="mx-3 paginacion ">Página {{ currentPage }} de {{ totalPages }}</div>
-      <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-primary py-2 px-4">Página Siguiente</button>
-    </div>
+      <div class="d-flex justify-content-center align-items-center mt-3" v-if="showNavigation">
+          <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-primary py-2 px-4">Página Anterior</button>
+            <div class="mx-3 paginacion ">Página {{ currentPage }} de {{ totalPages }}</div>
+          <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-primary py-2 px-4">Página Siguiente</button>
+      </div>
   </div>
 
        <div class="row">
-  
         <!-- Espacio en blanco entre las secciones -->
-        <div class="col-md-12 mb-3"><br> </div>
-        <div class="col-md-12 mb-3"><br> </div>
-        <div class="col-md-12 mb-3"><br> </div>
-
+          <div class="col-md-12 mb-3"><br> </div>
+          <div class="col-md-12 mb-3"><br> </div>
+          <div class="col-md-12 mb-3"><br> </div>
       </div>
 
       <div class="row">
-     <div class="col-md-12">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="text-center">
-            <button class="btn btn-primary" :disabled="isButtonDisabled" @click="redirectToComprarPedido">Comprar</button>
-          </div>
+        <div class="col-md-12">
+              <div class="d-flex justify-content-center align-items-center">
+                <div class="text-center">
+                  <button class="btn btn-primary" :disabled="isButtonDisabled" @click="redirectToComprarPedido">Comprar</button>
+                </div>
+              </div>
+              <div v-if="showAlert" class="alert alert-success" role="alert">
+                  {{ alertMessage }}
+              </div>
         </div>
-    </div>
-  </div>
+      </div>
   </div>
 </template>
 
@@ -210,8 +207,14 @@ onMounted(() => {
   
 });
 
+
 function addToCart(producto) {
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+
+   if (!producto.selectedQuantity || producto.selectedQuantity < 1) {
+    producto.selectedQuantity = 1;
+  }
 
   if (!cart[producto.id]) {
     cart[producto.id] = {
@@ -224,6 +227,18 @@ function addToCart(producto) {
   }
 
   localStorage.setItem('cart', JSON.stringify(cart));
+
+
+   // Mostrar mensaje de alerta
+   showAlert.value = true;
+  alertMessage.value = `${producto.nombre} se ha añadido a la cesta correctamente.`;
+
+  // Ocultar el mensaje después de unos segundos
+  setTimeout(() => {
+    showAlert.value = false;
+    alertMessage.value = '';
+  }, 3000); // 3000 milisegundos = 3 segundos
+
 
   // Actualizar el estado del botón después de agregar un producto al carrito
   updateButtonState();

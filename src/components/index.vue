@@ -2,9 +2,8 @@
 
     <div class="container">
         <!-- Primer sección -->
+        <!-- Imagen a la izquierda, texto a la derecha -->
         <div class="row">
-            <!-- Imagen a la izquierda, texto a la derecha -->
-            
             <div class="col-md-6 mb-3">
                 <div class="image-container">
                     <img src="../assets/cerveza1.jpg" alt="Cerveza 1" @click="toggleText(1)" class="img-fluid clickable-image" :class="{ clicked: showText === 1 }" @mouseover="hoverImage(1)" @mouseleave="unhoverImage(1)" data-section="1">
