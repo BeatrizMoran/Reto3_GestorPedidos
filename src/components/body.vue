@@ -27,7 +27,7 @@
             <div class="format">{{ producto.formato }}</div>
             <div class="quantity-section">
               <label for="quantity">Cantidad:</label>
-              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="0" style="width: 50px;">
+              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="1" style="width: 50px;">
             </div>
           </div>
           <!-- Card Footer -->
@@ -169,6 +169,31 @@ onMounted(() => {
   console.log("montado");
   console.log(list.value);
 });
+
+
+function addToCart(producto) {
+  // Obtener el carrito del localStorage o crear uno nuevo si no existe
+  const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+  // Verificar si el producto ya está en el carrito
+  if (cart[producto.id]) {
+    // Si el producto ya está en el carrito, aumentar la cantidad
+    cart[producto.id].cantidad += producto.selectedQuantity;
+  } else {
+    // Si el producto no está en el carrito, agregarlo con su cantidad
+    cart[producto.id] = {
+      nombre: producto.nombre,
+      cantidad: producto.selectedQuantity,
+      precio: producto.precio
+    };
+  }
+
+  // Guardar el carrito actualizado en el localStorage
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Reiniciar la cantidad seleccionada del producto a 1
+  producto.selectedQuantity = 1;
+}
 
 
 </script>
