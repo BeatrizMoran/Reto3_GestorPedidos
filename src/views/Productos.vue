@@ -32,16 +32,11 @@ function fcambiarLista(lista) {
   console.log(listaProductos)
 
 }
+
 function fbuscador(buscador) {
 
   buscador.value = buscador;
-  console.log("kk", buscador.value)
-
-}
-function fbuscador(buscador) {
-
-  buscador.value = buscador;
-  console.log("kk", buscador);
+  console.log("ickkck", buscador);
 
 }
 const categories = ref([]);
