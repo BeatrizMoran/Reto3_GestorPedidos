@@ -49,7 +49,7 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
-            Launch demo modal
+            Editar
           </button>
         </div>
 
@@ -82,9 +82,9 @@
                     <input type="number" id="cantidadInput" v-model="producto.cantidad">
                 </div>              <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Close
+                  Cerrar
                 </button>
-                <button type="button" class="btn btn-primary" @click="guardarCantidad(producto)" data-bs-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-primary" @click="guardarCantidad(producto)" data-bs-dismiss="modal">Guardar</button>
               </div>
             </div>
           </div>

@@ -67,6 +67,10 @@ import { useClientesStore } from "../stores/clientes";
 
 import { ref, defineEmits, watchEffect } from 'vue';
 
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+
 const emit = defineEmits(['listaProductos', "buscador"]);  // Usar 'listaFiltrada'
 
 const terminoBusqueda = ref('');
@@ -137,7 +141,8 @@ function cerrarSesion() {
   localStorage.removeItem("cliente");
 
   clienteEnLocalStorage.value = null;
-  location.reload();
+  router.push('/');
+
 }
 </script>
 
