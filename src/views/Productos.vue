@@ -1,12 +1,12 @@
 <template>
-  <div class="container-fluid">
+  
     <Nav class="row" @listaProductos="fcambiarLista" @buscador="fbuscador"></Nav>
     <br>
     <div class="row">
-      <AsideA :categories="categories" @cambiarCategorias="handleCategoryChange" class="col-5 col-md-4 col-lg-3"></AsideA>
-      <BodyA class="col-6 col-md-7 col-lg-8" :listaProductos="listaProductos.value" :buscador="buscador.value" :selectedCategories="selectedCategories"></BodyA>
+      <AsideA :categories="categories" @cambiarCategorias="handleCategoryChange" class="col-12 col-md-4 col-lg-3 my-4 mx-2"></AsideA>
+      <BodyA class="col-12 col-md-7 col-lg-8 my-4 mx-2" :listaProductos="listaProductos.value" :buscador="buscador.value" :selectedCategories="selectedCategories"></BodyA>
     </div>
-  </div>
+
 </template>
 
 <script setup>

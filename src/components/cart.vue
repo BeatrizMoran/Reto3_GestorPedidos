@@ -30,9 +30,7 @@
   
   
   
-<style lang="scss" scoped>
-@import '../assets/style.scss';
-</style>
+
   
 <script setup>
 import { ref, onBeforeMount } from 'vue';
@@ -47,7 +45,7 @@ onBeforeMount(async () => {
         lista.value = localStorage.getItem("cart");
         // Parsear y obtener los valores del objeto
         listaCompra.value = Object.values(JSON.parse(lista.value) || {});
-        console.log("Lista de la compra:", listaCompra.value);
+        //console.log("Lista de la compra:", listaCompra.value);
     } catch (error) {
         console.error("Error al cargar la lista de la compra:", error);
     }
@@ -88,4 +86,3 @@ img{
   }
 @import '../assets/style.scss';
 </style>
-  

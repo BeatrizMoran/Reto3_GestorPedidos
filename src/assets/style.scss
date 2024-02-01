@@ -84,6 +84,7 @@ body {
   background-color: $oscuroTransparente; 
   padding: $container-padding;
   color: $color-light;
+  font-size: $font-size-lg;
   
 }
 .perfil-container {
@@ -144,4 +145,32 @@ body {
     background-color: $color-primary;
     padding: 10px;
     border-radius: $border-radius-lg;
+    cursor:default;
+  
+  }
+  .paginacion:hover
+  {
+    color: $color-light;
+    background-color: $color-primary;
+    padding: 10px;
+    border-radius: $border-radius-lg;
+    cursor:default;
+  }
+  .imagen
+  {
+    height: 150px;
+    width: 300px;
+  }
+  .options
+  {
+    background-color:$color-warning;
+  }
+  .options:hover
+  {
+    background-color:$color-success ;
+  }
+  .form-check:hover
+  {
+    background-color: $color-secondary;
+    transition: background-color 0.5s;
   }

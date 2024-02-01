@@ -6,19 +6,19 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
   // Método para cargar productos desde la API
   async function buscarPedidosCliente(cliente_id) {
-    console.log('Entrando en la función buscar pedidos');
+    //console.log('Entrando en la función buscar pedidos');
   
     try {
       const response = await fetch(`http://localhost/api/pedidos?cliente_id=${cliente_id}`);
   
-      console.log('URL de solicitud:', response.url);
+      //console.log('URL de solicitud:', response.url);
   
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
       }
   
       const data = await response.json();
-      console.log('Data pedidos:', data);
+      //console.log('Data pedidos:', data);
   
       return data;
     } catch (error) {
@@ -32,5 +32,5 @@ export const usePedidosStore = defineStore('pedidos', () => {
   
   
 
-  return { buscarPedidosCliente/* Resto de las funciones y datos del almacén... */ }
+  return { buscarPedidosCliente }
 })

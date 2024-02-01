@@ -67,17 +67,15 @@
 
 
 
-<style lang="scss" scoped>
-
-@import '../assets/style.scss';
-
-  </style>
 
 <script setup>
+//imports
 import { onBeforeMount, ref } from 'vue';
 //import detallesPedido from './detallesPedido.vue';
 import { usePedidosStore } from "../stores/pedidos";
 
+
+//variables
 const pedidosStore = usePedidosStore();
 const pedidos = ref([]);
 const clienteAlmacenado = localStorage.getItem("cliente");
@@ -88,7 +86,7 @@ onBeforeMount(async () => {
   try {
     const response = await pedidosStore.buscarPedidosCliente(objCliente.id);
     pedidos.value = response.data;
-    console.log("lista pedidos:", pedidos.value);
+    //console.log("lista pedidos:", pedidos.value);
   } catch (error) {
     console.error("Error al cargar los pedidos:", error);
   }
@@ -142,6 +140,14 @@ export default {
     height: 50px;
   }
 </style>
+
+<style lang="scss" scoped>
+
+@import '../assets/style.scss';
+
+  </style>
+
+
 
 <style lang="scss" scoped>
 

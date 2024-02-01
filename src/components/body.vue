@@ -1,28 +1,43 @@
 <template>
 
-  <div class="container-fluid body-container py-4 px-4">
+  <div class="body-container py-4 px-4">
+
+    <!-- Alerta Guardado Correctamente -->
     <div class="row d-flex justify-content-center" >
       <div v-if="showAlert" class="alert alert-success col-6 " role="alert">
-      {{ alertMessage }}
+        {{ alertMessage }}
+       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12 my-5">
+          <div class="d-flex justify-content-end align-items-center">
+            <div class="text-center">
+              <button class="btn btn-primary" :disabled="isButtonDisabled" @click="redirectToComprarPedido">Comprar</button>
+            </div>
+          </div>  
+      </div>
     </div>
+
+     <!-- Contenido de la tarjeta -->
     <div class=" row">
       <div class="col-lg-4 col-md-6 col-sm-12 mb-3" v-for="(producto, index) in paginatedList" :key="producto.id" >
         <div class="card lg-6 card-hover">
-          <!-- Contenido de la tarjeta -->
+         
           
           <!-- Card Top -->
-          <div class="card-top bg-gray justify-content-start align-items-center">
-            <div class="col-2 imagen">
-              <img :src="producto.imagen" alt="I" class="img-fluid" >
+          <div class=" card-top bg-gray  justify-content-start align-items-center">
+            <div class="col-12 px-2 shadow">
+              <img :src="producto.imagen" alt="I" class="img-fluid imagen" >
             </div>
-            <div class="col-10 options d-flex justify-content-between align-items-center">
-              <button @click="addToCart(producto)" class="btn btn-warning" :disabled="producto.disabled" v-if="clienteEnLocalStorage">
+            <div class="col-12 px-2">
+              <button @click="addToCart(producto)" class="btn options " :disabled="producto.disabled" v-if="clienteEnLocalStorage">
                 <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
               </button>
             </div>
             <div class="info-name text-truncate custom-truncate">  {{ producto.nombre }}</div>
           </div>
+
           <!-- Card Body -->
           <div class="card-body bg-light d-flex justify-content-between align-items-center p-2">
             <div class="format">{{ producto.formato }}</div>
@@ -31,6 +46,7 @@
               <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="1" style="width: 50px;">
             </div>
           </div>
+
           <!-- Card Footer -->
           <div class="card-footer bg-info p-2">
             <div class="details ">
@@ -40,43 +56,51 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="d-flex justify-content-center align-items-center mt-3" v-if="showNavigation">
-          <button @click="previousPage" :disabled="currentPage === 1" class="btn btn-primary py-2 px-4">Página Anterior</button>
-            <div class="mx-3 paginacion ">Página {{ currentPage }} de {{ totalPages }}</div>
-          <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-primary py-2 px-4">Página Siguiente</button>
-      </div>
-  </div>
 
-       <div class="row">
-        <!-- Espacio en blanco entre las secciones -->
-          <div class="col-md-12 mb-3"><br> </div>
-          <div class="col-md-12 mb-3"><br> </div>
-          <div class="col-md-12 mb-3"><br> </div>
+     <!-- Botones Paginacion -->
+    
+      <div class=" row d-flex justify-content-center align-items-center mt-3" v-if="showNavigation">
+          <button @click="previousPage" :disabled="currentPage === 1" class="col-lg-3 col-md-5 col-sm-12 btn btn-primary py-2 px-4  mx-2 my-4">Página Anterior</button>
+          <div class="col-lg-3 col-md-5 col-sm-12 btn mx-2 my-4 paginacion  ">Página {{ currentPage }} de {{ totalPages }}</div>
+          <button @click="nextPage" :disabled="currentPage === totalPages" class=" col-lg-3 col-md-5 col-sm-12 btn btn btn-primary py-2 px-4 mx-2 my-4">Página Siguiente</button>
       </div>
+   
 
-      <div class="row">
-     <div class="col-md-12">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="text-center">
-            <button class="btn btn-primary" :disabled="isButtonDisabled" @click="redirectToComprarPedido">Comprar</button>
-          </div>
-        </div>
-        
-    </div>
-  </div>
+
+
+
   </div>
 </template>
 
 
 <script setup>
+//imports
 import { ref, watch, defineProps, onMounted, onBeforeMount, computed } from 'vue';
 import { useProductosStore } from '../stores/productos';
+import { useRouter } from 'vue-router';
 
+//variables
 const productosStore = useProductosStore();
+const alertMessage = ref();
+const showAlert = ref();
+const list = ref([]);
+const showButton = ref(false);
+const isButtonDisabled = ref(true);
+const pageSize = 6;
+let currentPage = ref(1);
+const searchTerm = ref('');
+const router = useRouter();
+
+
+//cliente logueado
+const clienteAlmacenado = localStorage.getItem("cliente");
+const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado));
+
+//datos recibidos del padre
 const props = defineProps({
   listaProductos: {
     type: Array,
@@ -92,33 +116,18 @@ const props = defineProps({
   }
 });
 
-const alertMessage = ref();
-const showAlert = ref();
+//antesdemontar
+onBeforeMount(async () => {
+    list.value = await productosStore.cargarProductosDesdeAPI();
+    //console.log("onbeforemount", list.value);
+  
+});
 
-
-
-
-
-//cliente logueado
-const clienteAlmacenado = localStorage.getItem("cliente");
-const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado));
+//watchs
 
 // Watch para actualizar clienteEnLocalStorage instantáneamente
 watch(clienteEnLocalStorage, (nuevoCliente) => {
   clienteEnLocalStorage.value = nuevoCliente;
-});
-
-const list = ref([]);
-
-const showButton = ref(false);
-const isButtonDisabled = ref(true);
-const pageSize = 6;
-let currentPage = ref(1);
-const searchTerm = ref('');
-
-onBeforeMount(async () => {
-  list.value = await productosStore.cargarProductosDesdeAPI();
-  console.log("onbeforemount", list.value);
 });
 
 watch(() => props.listaProductos, (nuevoValor) => {
@@ -130,8 +139,8 @@ watch(() => props.listaProductos, (nuevoValor) => {
 watch(() => props.buscador, (nuevoValor) => {
   searchTerm.value = nuevoValor;
 
-  console.log("nuevoValor",nuevoValor);
-  console.log("watchbuscador", searchTerm.value);
+  //console.log("nuevoValor",nuevoValor);
+  //console.log("watchbuscador", searchTerm.value);
 });
 
 
@@ -142,13 +151,13 @@ const paginatedList = computed(() => {
     const filteredList = list.value.data.filter(producto => {
       const nombreIncluido = producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase());
 
-      // Verifica si el producto tiene categorías (como un array en la propiedad 'nombre') y si tiene alguna de las categorías seleccionadas
+      // Verifica si el producto tiene categorias (como un array en la propiedad 'nombre') y si tiene alguna de las categorias seleccionadas
       const tieneCategoriaSeleccionada = Array.isArray(producto.categorias?.nombre) && (props.selectedCategories.length === 0 || props.selectedCategories.some(cat => producto.categorias.nombre.includes(cat)));
 
       return nombreIncluido && tieneCategoriaSeleccionada;
     });
 
-    // Calcula el número total de páginas basándose en la lista filtrada
+    // Calcula el numero total de páginas basándose en la lista filtrada
     const totalFilteredPages = Math.ceil(filteredList.length / pageSize);
 
     // Asigna el valor correcto de totalPages
@@ -195,6 +204,7 @@ const showNavigation = computed(() => totalPages.value > 1);
 function nextPage() {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
+    window.scrollTo({ top: 300, behavior: 'smooth' });
   }
 }
 
@@ -202,18 +212,21 @@ function nextPage() {
 function previousPage() {
   if (currentPage.value > 1) {
     currentPage.value--;
+    window.scrollTo({ top: 300, behavior: 'smooth' });
   }
 }
+
+//almontar
 onMounted(() => {
-  console.log("Categorías recibidas en Body.vue:", props.selectedCategories);
-  console.log("Productos recibidos en Body.vue:", list.value);
-  console.log("montado");
-  console.log(list.value);
+  //console.log("Categorías recibidas en Body.vue:", props.selectedCategories);
+  //console.log("Productos recibidos en Body.vue:", list.value);
+  //console.log("montado");
+  //console.log(list.value);
   updateButtonState();
   
 });
 
-
+//añadimos la carta seleccionada al localstorage
 function addToCart(producto) {
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
 
@@ -246,6 +259,7 @@ function addToCart(producto) {
     showAlert.value = false;
     alertMessage.value = '';
   }, 3000); // 3000 milisegundos = 3 segundos
+  window.scrollTo({ top: 100, behavior: 'smooth' });
 
 
   // Actualizar el estado del botón después de agregar un producto al carrito
@@ -260,6 +274,11 @@ function updateButtonState() {
   isButtonDisabled.value = Object.keys(cart).length === 0;
 }
 
+
+function redirectToComprarPedido()
+{
+  router.push({ name: 'cart' });
+}
 
 </script>
 

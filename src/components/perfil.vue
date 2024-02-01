@@ -34,6 +34,8 @@
       <!--huequecito-->
       <div class="col-1"><br></div>
 
+
+                  <!--Pedidos en chiquito-->
       <div class="col-5 d-flex align-self-center">
         <div class="perfil-container p-4 rounded">
           <h2 class="text-white">Pedidos Realizados</h2>
@@ -63,44 +65,40 @@
   </div>
 </template>
   
-  <script setup>
-  import { ref, onBeforeMount } from 'vue';
+<script setup>
+//imports
+import { ref, onBeforeMount } from 'vue';
+import { usePedidosStore } from "../stores/pedidos";
+import { useClientesStore } from "../stores/clientes";
 
-  import { usePedidosStore } from "../stores/pedidos";
 
-  import { useClientesStore } from "../stores/clientes";
-
+//variables
 const pedidosStore = usePedidosStore();
-
 const clientesStore = useClientesStore();
-
 const pedidos = ref([]);
+const objCliente = JSON.parse(clienteAlmacenado);
+const pruebaCLiente = ref();
+const editMode = ref(false);
+//cliente localstorage
+const clienteAlmacenado = localStorage.getItem("cliente");
 
 
- //cliente localstorage
- const clienteAlmacenado = localStorage.getItem("cliente");
-  const objCliente = JSON.parse(clienteAlmacenado);
+//console.log("objCliente:" , objCliente)
 
-  const pruebaCLiente = ref();
-
-  console.log("c:" , objCliente)
-  onBeforeMount(async () => {
-  try {
-    if (objCliente) {
-      const response = await pedidosStore.buscarPedidosCliente(objCliente.id);
-      pedidos.value = response.data;
-      console.log("lista pedidos:", pedidos.value);
-    }
-  } catch (error) {
-    console.error("Error al cargar los pedidos:", error);
+//antes de montar
+onBeforeMount(async () => {
+try {
+  if (objCliente) {
+    const response = await pedidosStore.buscarPedidosCliente(objCliente.id);
+    pedidos.value = response.data;
+    console.log("lista pedidos:", pedidos.value);
   }
+} catch (error) {
+  console.error("Error al cargar los pedidos:", error);
+}
 });
 
- 
-  
 
-  const editMode = ref(false);
-  
   // cambiar entre el modo de edición y no edición 
   const toggleEditMode = () => {
     try {
@@ -108,11 +106,9 @@ const pedidos = ref([]);
     } catch (error) {
       alert(error);
     }
-   
   };
 
  
-  
   // Funcion para guardar los cambios en el formulario
   const guardarCambios = async() => {
   try {
@@ -182,15 +178,8 @@ const calcularFecha = (fechaPedido) => {
     alert(error);
   }
 };
-
-
-
-
-
   </script>
   
-  
-
 <style lang="scss" scoped>
 
 @import '../assets/style.scss';

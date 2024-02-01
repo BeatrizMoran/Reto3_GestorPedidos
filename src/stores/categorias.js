@@ -8,13 +8,13 @@ export const useCategoriasStore = defineStore('categorias', () => {
     async function cargarCategoriasDesdeAPI() {
       try {
         const response = await fetch('http://localhost/api/categorias');
-        console.log(response);
+       // console.log(response);
         if (!response.ok) {
           throw new Error('Error al obtener las categorias desde la API')
         }
   
         const data = await response.json()
-        console.log('Datos recibidos desde la API:', data);
+        //console.log('Datos recibidos desde la API:', data);
   
         // Actualizar la lista de categorias en el almacén
          listaCategorias.value = data;

@@ -6,19 +6,19 @@ export const useClientesStore = defineStore('clientes', () => {
 
   // Método para cargar productos desde la API
   async function comprobarCodigoCliente(codigo_cliente) {
-    console.log('Entrando en la función buscarProductos');
+    //console.log('Entrando en la función buscarProductos');
   
     try {
       const response = await fetch(`http://localhost/api/cliente?codigo_cliente=${codigo_cliente}`);
   
-      console.log('URL de solicitud:', response.url);
+     // console.log('URL de solicitud:', response.url);
   
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
       }
   
       const data = await response.json();
-      console.log('Data cliente:', data);
+     // console.log('Data cliente:', data);
   
       return data;
     } catch (error) {
@@ -50,8 +50,8 @@ export const useClientesStore = defineStore('clientes', () => {
       }
   
       const data = await response.json();
-      console.log('Data cliente actualizado:', data);
-      // Puedes realizar acciones adicionales después de la actualización
+      //console.log('Data cliente actualizado:', data);
+      
   
       return data;
     } catch (error) {
@@ -63,7 +63,7 @@ export const useClientesStore = defineStore('clientes', () => {
   
   
 
-  return { comprobarCodigoCliente, actualizarCliente/* Resto de las funciones y datos del almacén... */ }
+  return { comprobarCodigoCliente, actualizarCliente}
 
 
 
