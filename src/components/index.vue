@@ -10,8 +10,8 @@
                     <img src="../assets/cerveza1.jpg" alt="Cerveza 1" @click="toggleText(1)" class="img-fluid clickable-image" :class="{ clicked: showText === 1 }" @mouseover="hoverImage(1)" @mouseleave="unhoverImage(1)" data-section="1">
                 </div>
             </div>
-            <div class="col-md-6 mb-3 d-flex align-items-center justify-content-center"> <!-- Aquí se agregan las clases de Bootstrap para centrar y alinear -->
-                <p :class="{ 'fade-in': showText === 1, 'fade-out': showText !== 1 }" class="text-center text-gray">Texto a la izquierda de la primera imagen...Texto a la izquierda de la primera imagen...Texto a la izquierda de la primera imagen...Texto a la izquierda de la primera imagen...Texto a la izquierda de la primera imagen...Texto a la izquierda de la primera imagen...Texto a la izquierda de la primera imagen...</p> <!-- Se agrega la clase 'text-gray' para el color gris claro -->
+            <div class="col-md-6 mb-3 d-flex align-items-center justify-content-center"> 
+                <p :class="{ 'fade-in': showText === 1, 'fade-out': showText !== 1 }" class="text-center text-gray">Sumérgete en el mundo de la cerveza artesanal con Cervezas Killer, donde la pasión por la calidad y la innovación se fusionan para ofrecerte una experiencia cervecera única. Desde nuestros inicios, nos hemos comprometido a desafiar los límites de la tradición cervecera, creando cervezas que deleitan los paladares más exigentes y cautivan a los amantes de la buena cerveza.</p> 
             </div>
         </div>
 
@@ -30,8 +30,8 @@
                     <img src="../assets/cerveza2.jpg" alt="Cerveza 2" @click="toggleText(2)" class=" img-fluid clickable-image" :class="{ clicked: showText === 2 }" @mouseover="hoverImage(2)" @mouseleave="unhoverImage(2)" data-section="2">
                 </div>
             </div>
-            <div class="col-md-6 mb-3 order-md-first d-flex align-items-center justify-content-center"> <!-- Aquí se agregan las clases de Bootstrap para centrar y alinear -->
-                <p :class="{ 'fade-in': showText === 2, 'fade-out': showText !== 2 }" class="text-center text-gray">Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...Texto a la derecha de la primera imagen...</p> <!-- Se agrega la clase 'text-gray' para el color gris claro -->
+            <div class="col-md-6 mb-3 order-md-first d-flex align-items-center justify-content-center">
+                <p :class="{ 'fade-in': showText === 2, 'fade-out': showText !== 2 }" class="text-center text-gray">En Cervezas Killer, no solo fabricamos cerveza; creamos obras maestras líquidas, cada una con su propio carácter distintivo y su historia única. Desde las cervezas de estilo clásico hasta las audaces y creativas innovaciones, cada sorbo es una invitación a explorar nuevos horizontes sensoriales.</p> 
             </div>
         </div>
 
@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="col-md-6 mb-3 d-flex align-items-center justify-content-center">
-        <p :class="{ 'fade-in': showText === 3, 'fade-out': showText !== 3 }" class="text-center text-gray">Texto a la izquierda de la tercera imagen...</p>
+        <p :class="{ 'fade-in': showText === 3, 'fade-out': showText !== 3 }" class="text-center text-gray">Explora nuestro catálogo, descubre nuestras últimas creaciones, sumérgete en la cultura cervecera y únete a la comunidad de Cervezas Killer, donde la pasión por la cerveza une a personas de todo el mundo.</p>
     </div>
 </div>
 
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="col-md-6 mb-3 order-md-first d-flex align-items-center justify-content-center">
-        <p :class="{ 'fade-in': showText === 4, 'fade-out': showText !== 4 }" class="text-center text-gray">Texto a la derecha de la cuarta imagen...</p>
+        <p :class="{ 'fade-in': showText === 4, 'fade-out': showText !== 4 }" class="text-center text-gray">¡Prepárate para una experiencia cervecera que despierte tus sentidos y eleve tu gusto por la cerveza a nuevas alturas! ¡Bienvenido a Cervezas Killer, donde cada cerveza es una obra maestra en sí misma!</p>
     </div>
 </div>
 </div>

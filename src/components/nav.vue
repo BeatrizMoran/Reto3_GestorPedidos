@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between">
+      <nav class="ROW navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between">
 
         <!-- Botón desplegable -->
         <div class="col-2 col-lg-1 px-4">
@@ -68,12 +68,15 @@ const buscar = async () => {
     if (terminoBusqueda.value === "") {
       listaProductos.value = await productosStore.cargarProductosDesdeAPI();
       console.log("Estoy en el nav, todos los productos", listaProductos.value);
-      emit('listaProductos', listaProductos);
+      emit('listaProductos', listaProductos)
+      
     } else {
       listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value);
       console.log("Estoy en el nav, búsqueda filtrada: ", listaProductos.value);
       emit('listaProductos', listaProductos.value);
+      emit('buscador', terminoBusqueda);
     }
+   
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
   }
