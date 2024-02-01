@@ -5,11 +5,11 @@ export const usePedidosStore = defineStore('pedidos', () => {
   const pedidos = ref([])
 
   // Método para cargar productos desde la API
-  async function buscarPedidosCliente(codigo_cliente) {
+  async function buscarPedidosCliente(cliente_id) {
     console.log('Entrando en la función buscar pedidos');
   
     try {
-      const response = await fetch(`http://localhost/api/pedidos?codigo_cliente=${codigo_cliente}`);
+      const response = await fetch(`http://localhost/api/pedidos?cliente_id=${cliente_id}`);
   
       console.log('URL de solicitud:', response.url);
   
