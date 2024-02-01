@@ -1,6 +1,11 @@
 <template>
 
   <div class="container-fluid body-container py-4 px-4">
+    <div class="row d-flex justify-content-center" >
+      <div v-if="showAlert" class="alert alert-success col-6 " role="alert">
+      {{ alertMessage }}
+    </div>
+    </div>
     <div class=" row">
       <div v-for="(producto, index) in paginatedList" :key="producto.id" class="col-lg-4 col-md-6 col-sm-12 mb-3">
         <div class="card shadow lg-6 card-hover">
@@ -66,10 +71,12 @@
             <button class="btn btn-primary" :disabled="isButtonDisabled" @click="redirectToComprarPedido">Comprar</button>
           </div>
         </div>
+        
     </div>
   </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, watch, defineProps, onMounted, onBeforeMount, computed } from 'vue';
@@ -91,6 +98,8 @@ const props = defineProps({
   }
 });
 
+const alertMessage = ref();
+const showAlert = ref();
 
 
 
@@ -213,17 +222,36 @@ onMounted(() => {
 function addToCart(producto) {
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
 
+
+   if (!producto.selectedQuantity || producto.selectedQuantity < 1) {
+    producto.selectedQuantity = 1;
+  }
+
   if (!cart[producto.id]) {
     cart[producto.id] = {
       nombre: producto.nombre,
       cantidad: producto.selectedQuantity,
-      precio: producto.precio
+      precio: producto.precio,
+      imagen: producto.imagen,
+      id: producto.id
     };
   } else {
     cart[producto.id].cantidad += producto.selectedQuantity;
   }
 
   localStorage.setItem('cart', JSON.stringify(cart));
+
+
+   // Mostrar mensaje de alerta
+   showAlert.value = true;
+  alertMessage.value = `${producto.nombre} se ha añadido a la cesta correctamente.`;
+
+  // Ocultar el mensaje después de unos segundos
+  setTimeout(() => {
+    showAlert.value = false;
+    alertMessage.value = '';
+  }, 3000); // 3000 milisegundos = 3 segundos
+
 
   // Actualizar el estado del botón después de agregar un producto al carrito
   updateButtonState();

@@ -33,6 +33,9 @@
             <li class="nav-item" v-if="clienteEnLocalStorage">
               <router-link to="/perfil" class="nav-link" active-class="active">Perfil</router-link>
             </li>
+            <li class="nav-item" v-if="clienteEnLocalStorage">
+              <router-link to="/cart" class="nav-link" active-class="active">Cesta compra</router-link>
+            </li>
             <li class="nav-item col-5" v-if="!clienteEnLocalStorage">
               <input class="form-control form-control-sm" type="search" placeholder="Insertar Código..."
                 aria-label="Codificacion" @keypress.enter="checkCodigo" v-model="codigoCLiente" enabled />
