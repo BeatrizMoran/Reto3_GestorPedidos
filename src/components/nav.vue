@@ -5,7 +5,8 @@
 
         <!-- Botón desplegable -->
         <div class="col-2 col-lg-1 px-4">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
@@ -29,20 +30,21 @@
             <li class="nav-item">
               <router-link to="/pedidos" class="nav-link" active-class="active">Pedidos</router-link>
             </li>
-            <li class="nav-item"  v-show="isPerfilVisible" >
-              <router-link to="/perfil" class="nav-link" active-class="active"  >Perfil</router-link>
+            <li class="nav-item" v-if="clienteEnLocalStorage">
+              <router-link to="/perfil" class="nav-link" active-class="active">Perfil</router-link>
             </li>
-            <li class="nav-item col-5">
-              <input class="form-control form-control-sm" type="search" placeholder="Insertar Código..." aria-label="Codificacion" @keypress.enter="checkCodigo" v-model="codigo" enabled>
+            <li class="nav-item col-5" v-if="!clienteEnLocalStorage">
+              <input class="form-control form-control-sm" type="search" placeholder="Insertar Código..."
+                aria-label="Codificacion" @keypress.enter="checkCodigo" v-model="codigoCLiente" enabled />
             </li>
           </ul>
         </div>
 
-
         <!-- Buscador -->
         <div class="col-7 col-md-7 col-lg-4 px-4">
           <form class="d-flex" @submit.prevent="buscar">
-            <input class="form-control me-2"  type="search" v-model="terminoBusqueda" placeholder="Buscar productos..." aria-label="Buscar">
+            <input class="form-control me-2" type="search" v-model="terminoBusqueda" placeholder="Buscar productos..."
+              aria-label="Buscar">
             <button class="btn btn-outline-success" type="submit" @click="buscar">Buscar</button>
           </form>
         </div>
@@ -55,13 +57,29 @@
 
 <script setup>
 import { useProductosStore } from '../stores/productos';
-import { ref, defineEmits } from 'vue';
+import { useClientesStore } from "../stores/clientes";
 
-const emit = defineEmits(['listaProductos']);  // Usar 'listaFiltrada'
+import { ref, defineEmits, watchEffect } from 'vue';
+
+const emit = defineEmits(['listaProductos', "buscador"]);  // Usar 'listaFiltrada'
 
 const terminoBusqueda = ref('');
 const productosStore = useProductosStore();
+const clientesStore = useClientesStore();
+
 const listaProductos = ref([]);
+
+const codigoCLiente = ref();
+
+const cliente = ref();
+
+const clienteEnLocalStorage = ref(false);
+
+watchEffect(() => {
+  const cliente = localStorage.getItem('cliente');
+  clienteEnLocalStorage.value = cliente !== null;
+});
+
 
 const buscar = async () => {
   try {
@@ -73,23 +91,52 @@ const buscar = async () => {
     } else {
       listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value);
       console.log("Estoy en el nav, búsqueda filtrada: ", listaProductos.value);
-      emit('listaProductos', listaProductos.value);
-      emit('buscador', terminoBusqueda);
+      emit('listaProductos', listaProductos);
+      emit('buscador', terminoBusqueda.value);
+
     }
    
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
   }
 };
+
+const checkCodigo = async () => {
+  try {
+    cliente.value = await clientesStore.comprobarCodigoCliente(codigoCLiente.value);
+
+    if (cliente.value === false) {
+      console.log('Cliente no encontrado');
+    } else {
+      console.log('Cliente encontrado:', cliente);
+      const objCliente = {
+        codigo_cliente: codigoCLiente.value,
+        nombre: cliente.value.nombre,
+        id: cliente.value.id,
+        direccion: cliente.value.direccion,
+        telefono: cliente.value.telefono
+      };
+      localStorage.setItem("cliente", JSON.stringify(objCliente));
+
+      clienteEnLocalStorage.value = true;
+    }
+
+  } catch (error) {
+    console.error('Error al buscar productos:', error.message);
+  }
+};
+
+
 </script>
 
 
 
 <style lang="scss" scoped>
 @import '../assets/style.scss';
+
 img {
-  max-width: 100%; 
-  height: auto; 
-  max-height: 50px; 
+  max-width: 100%;
+  height: auto;
+  max-height: 50px;
 }
 </style>

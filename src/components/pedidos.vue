@@ -40,47 +40,27 @@
 </style>
 
   <script setup>
-  import { ref } from 'vue';
+  import { onBeforeMount, ref } from 'vue';
   import detallesPedido from './detallesPedido.vue';
+  import { usePedidosStore } from "../stores/pedidos";
+
+  const pedidosStore = usePedidosStore();
 
 
+  const pedidos = ref([]);
 
   // Datos de ejemplo para los pedidos
-  const pedidos = ref([
-    {
-      fechaCreacion: '2023-01-01',
-      estado: 'Solicitado',
-      productos: [
-        { nombre: 'Camiseta', formato: 'Talla M', cantidad: 2, precio: 12.99 },
-        { nombre: 'Pantalones', formato: 'Talla L', cantidad: 1, precio: 24.99 },
-        { nombre: 'Zapatos', formato: 'Talla 42', cantidad: 1, precio: 39.99 }
-      ]
-    },
-    {
-      fechaCreacion: '2023-01-02',
-      estado: 'En preparación',
-      productos: [
-        { nombre: 'Libro', formato: 'Tapa blanda', cantidad: 3, precio: 8.99 },
-        { nombre: 'Lápices', formato: 'Paquete de 12', cantidad: 2, precio: 3.49 }
-      ]
-    },
-    {
-      fechaCreacion: '2023-01-03',
-      estado: 'En entrega',
-      productos: [
-        { nombre: 'Cámara', formato: 'Modelo 2023', cantidad: 1, precio: 299.99 }
-      ]
-    },
-    {
-      fechaCreacion: '2023-01-04',
-      estado: 'Entregado',
-      productos: [
-        { nombre: 'Smartphone', formato: '64GB', cantidad: 1, precio: 499.99 },
-        { nombre: 'Auriculares', formato: 'Bluetooth', cantidad: 1, precio: 29.99 }
-      ]
-    }
-  ]);
-  
+
+  const clienteAlmacenado = localStorage.getItem("cliente");
+
+// Convertir la cadena JSON a un objeto JavaScript
+const objCliente = JSON.parse(clienteAlmacenado);
+
+
+
+  onBeforeMount(async () => {
+    pedidos.value = await pedidosStore.buscarPedidosCliente(objCliente.id);
+});
   // Estado del pedido seleccionado para mostrar detalles en la ventana emergente
   const pedidoSeleccionado = ref(null);
   

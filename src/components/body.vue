@@ -93,6 +93,8 @@ const props = defineProps({
 
 
 
+
+
 const list = ref([]);
 
 const showButton = ref(false);
@@ -123,10 +125,6 @@ watch(() => props.buscador, (nuevoValor) => {
 
 const paginatedList = computed(() => {
   // Filtra la lista de productos 
-  
-
-  
-  
   if (list.value.data !== undefined) {
   const filteredList = list.value.data.filter(producto =>
     producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())

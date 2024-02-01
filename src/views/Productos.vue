@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav @listaProductos="fcambiarLista" @buscador="fbuscador"></Nav>
+    <Nav @listaProductos="fcambiarLista"  @buscador="fbuscador"></Nav>
     <br>
     <div class="row">
       <AsideA :categories="categories" @cambiarCategorias="handleCategoryChange" class="col-5 col-md-4 col-lg-3"></AsideA>
@@ -30,6 +30,12 @@ function fcambiarLista(lista) {
 
   console.log("cambiando lista...")
   console.log(listaProductos)
+
+}
+function fbuscador(buscador) {
+
+  buscador.value = buscador;
+  console.log("kk", buscador.value)
 
 }
 function fbuscador(buscador) {
