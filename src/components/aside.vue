@@ -1,49 +1,40 @@
 <template>
-    <aside class="aside-container d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
-      <h3 class="mb-4 category-title" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Categorías</h3>
-      <div class="d-flex flex-wrap" style="max-width: 100%;">
-        <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4" style="width: 100%;">
-          <input class="form-check-input" type="checkbox" v-model="selectedCategories" :value="category.id" @change="handleCategoryChange">
-          <label class="form-check-label" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ category.name }}</label>
-        </div>
-      </div>
-    </aside>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue';
+  <aside class="aside-container d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
+    <h3 class="mb-4 category-title">Categorías</h3>
+    <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4" style="width: 100%;">
+      <input class="form-check-input" type="checkbox" :checked="isSelected(category.nombre)" @change="toggleCategory(category.nombre)">
+      <label class="form-check-label">{{ category.nombre }}</label>
+    </div>
+  </aside>
+</template>
 
-  const categories = [
-    { id: 1, name: 'Radler' },
-    { id: 2, name: 'Don Simon buenos dias' },
-    { id: 3, name: 'Careverga  Careverga CarevergaCareverga Careverga Careverga Careverga Careverga ' },
-    { id: 4, name: 'Don Simon buenos dias' },
-    { id: 5, name: 'Don Simon buenos dias' },
-    { id: 6, name: 'Don Simon buenos dias' },
-    { id: 7, name: 'Don Simon buenos dias' },
+<script setup>
+import { ref, onBeforeMount, defineEmits } from 'vue';
+import { useCategoriasStore } from '../stores/categorias';
 
+const CategoriasStore = useCategoriasStore();
+const categories = ref([]);
+const selectedCategories = ref([]); 
+const emit = defineEmits(['cambiarCategorias']);
 
-  ];
-  
+onBeforeMount(async () => {
+  categories.value = await CategoriasStore.cargarCategoriasDesdeAPI();
+});
 
-  const selectedCategories = ref([]);
-  
+const isSelected = (category) => selectedCategories.value.includes(category);
 
-  const handleCategoryChange = () => {
-    try {
-      context.emit('category-change', selectedCategories);
-    } 
-    catch (error) {
-        alert(error);
-      
-    }
+const toggleCategory = (category) => {
+  if (isSelected(category)) {
+    selectedCategories.value = selectedCategories.value.filter(c => c !== category);
+  } else {
+    selectedCategories.value.push(category);
+  }
 
-  };
-  </script>
-  
-  <style lang="scss" scoped>
+  console.log("Mandando al padre las categorías...");
+  emit('cambiarCategorias', selectedCategories.value);
+};
+</script>
 
-  @import '../assets/style.scss';
-  
-  </style>
-  
+<style lang="scss" scoped>
+@import '../assets/style.scss';
+</style>

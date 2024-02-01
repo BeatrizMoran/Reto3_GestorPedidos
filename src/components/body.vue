@@ -65,9 +65,12 @@ const props = defineProps({
   buscador:{
     type: String
 
+  },
+  selectedCategories: {
+    type: Array,
+    default: () => [] 
   }
 });
-
 
 
 const list = ref([]);
@@ -95,25 +98,28 @@ watch(() => props.buscador, (nuevoValor) => {
 
 
 const paginatedList = computed(() => {
-  // Filtra la lista de productos 
   if (list.value.data !== undefined) {
-  const filteredList = list.value.data.filter(producto =>
-    producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
-  );
+    // Filtra la lista de productos
+    const filteredList = list.value.data.filter(producto => {
+      const nombreIncluido = producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase());
+      
+      // Verifica si el producto tiene categorías (como un array en la propiedad 'nombre') y si tiene alguna de las categorías seleccionadas
+      const tieneCategoriaSeleccionada = Array.isArray(producto.categorias?.nombre) && (props.selectedCategories.length === 0 || props.selectedCategories.some(cat => producto.categorias.nombre.includes(cat)));
+      
+      return nombreIncluido && tieneCategoriaSeleccionada;
+    });
 
-  //menos de 6 productos, mostrarlos todos en una página
-  if (filteredList.length <= pageSize) {
-    return filteredList;
+    // Menos de 6 productos, mostrarlos todos en una página
+    if (filteredList.length <= pageSize) {
+      return filteredList;
+    }
+
+    // Calcula el índice de inicio y fin para la paginación
+    const startIndex = (currentPage.value - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    return filteredList.slice(startIndex, endIndex);
   }
-
-  // Calcula el índice de inicio y fin para la paginación
-  const startIndex = (currentPage.value - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-
-
-
-  return filteredList.slice(startIndex, endIndex);
-}
 });
 
 // Calcula el total de páginas basándose en la lista filtrada
