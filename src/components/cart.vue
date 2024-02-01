@@ -1,125 +1,75 @@
 <template>
-  <div class="row">
-    <div class="col-8">
-      <p style="background-color: rgba(176, 203, 226, 0.884)" class="p-3 rounded-3">
-        <img
-          src="../assets/carrito.png"
-          alt="Añadir al carrito"
-          class="img-fluid"
-          width="30px"
-          height="30px"
-        />
-        Carrito ({{ listaCompra.length }} artículos)
-      </p>
+    <div class="row">
+        <div class="col-8">
+            <p style="background-color: rgba(176, 203, 226, 0.884)" class="p-3 rounded-3">
+                <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px" />
+                Carrito ({{ listaCompra.length }} artículos)
+            </p>
 
-      <div    
-
-        class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3"
-        v-for="(producto, key) in listaCompra"
-        :key="key"
-        style="background-color: rgba(73, 72, 72, 0.637)"
-      >
-        <div class="imagen col-3 px-2 py-2">
-          <img
-            :src="getImageUrl(producto.imagen)"
-            alt="Imagen del producto"
-            class="img-fluid me-md-3 mb-3"
-          />
-        </div>
-        <div class="col-5 mx-3 d-flex justify-content-center align-items-start flex-column">
-          <p>{{ producto.nombre }}</p>
-          <p><b>Cantidad:</b> {{ producto.cantidad }}</p>
-          <p>
-            <span class="d-inline-block bg-success text-white rounded-circle p-2 me-2"></span
-            >Disponible para envío inmediato
-          </p>
-          <p><b>Precio por unidad:</b> {{ producto.precio }}€</p>
-
-          <!-- Nuevo párrafo para mostrar el precio total -->
-          <p><b>Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
-        </div>
-
-        <div class="col-3 d-flex justify-content-center align-items-center">
-          <button @click="feliminarProducto(producto.id)" class="my-2 btn btn-danger">
-            Eliminar
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            Editar
-          </button>
-        </div>
-
-        <!-- Ventana modal para editar la cantidad -->
-        <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        ref="modalRef"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  aria-hidden="true"
-
-                ></button>
-              </div>
-              <div class="modal-body">
-                    <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid">
+            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3"
+                v-for="(producto, key) in listaCompra" :key="key" style="background-color: rgba(73, 72, 72, 0.637)">
+                <div class="imagen col-3 px-2 py-2">
+                    <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
+                </div>
+                <div class="col-5 mx-3 d-flex justify-content-center align-items-start flex-column">
                     <p>{{ producto.nombre }}</p>
-                    <label for="cantidadInput">Cantidad:</label>
-                    <input type="number" id="cantidadInput" v-model="producto.cantidad">
-                </div>              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Cerrar
-                </button>
-                <button type="button" class="btn btn-primary" @click="guardarCantidad(producto)" data-bs-dismiss="modal">Guardar</button>
-              </div>
+                    <p><b>Cantidad:</b> {{ producto.cantidad }}</p>
+                    <p>
+                        <span class="d-inline-block bg-success text-white rounded-circle p-2 me-2"></span>Disponible para
+                        envío inmediato
+                    </p>
+                    <p><b>Precio por unidad:</b> {{ producto.precio }}€</p>
+
+                    <!-- Nuevo párrafo para mostrar el precio total -->
+                    <p><b>Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
+                </div>
+
+                <div class="col-3 d-flex flex-column justify-content-center align-items-center">
+                    <button @click="feliminarProducto(producto.id)" class="my-2 btn btn-danger d-inline">
+                        Eliminar
+                    </button>
+                    <button type="button" class="btn btn-primary" @click="editarProducto(producto.id)">
+                        Editar
+                    </button>
+                    <div v-if="idProductoSeleccionado !== null && idProductoSeleccionado === producto.id">
+        <AsyncPage @indicarUnidades="guardarCantidad" />
+    </div>
+
+
+                </div>
+
+                
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Resumen del Pedido</h5>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen del Pedido</h5>
 
-          <!-- Subtotal del pedido -->
-          <div class="d-flex justify-content-between">
-            <span>Subtotal:</span>
-            <span>{{ calcularSubtotal() }}€</span>
-          </div>
+                    <!-- Subtotal del pedido -->
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal:</span>
+                        <span>{{ calcularSubtotal() }}€</span>
+                    </div>
 
-          <!-- Importe del envío -->
-          <div class="d-flex justify-content-between">
-            <span>Importe del Envío:</span>
-            <span>4,50€</span>
-          </div>
+                    <!-- Importe del envío -->
+                    <div class="d-flex justify-content-between">
+                        <span>Importe del Envío:</span>
+                        <span>4,50€</span>
+                    </div>
 
-          <!-- Total del importe -->
-          <div class="d-flex justify-content-between">
-            <span>Total Importe:</span>
-            <span>{{ calcularTotal() }}€</span>
-          </div>
+                    <!-- Total del importe -->
+                    <div class="d-flex justify-content-between">
+                        <span>Total Importe:</span>
+                        <span>{{ calcularTotal() }}€</span>
+                    </div>
 
-          <!-- Botón de realizar compra -->
-          <button class="btn btn-primary mt-3" @click="frealizarCompra">Realizar Compra</button>
+                    <!-- Botón de realizar compra -->
+                    <button class="btn btn-primary mt-3" @click="frealizarCompra">Realizar Compra</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -127,136 +77,137 @@
 </style>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount,defineAsyncComponent } from 'vue'
 import { usePedidosStore } from '../stores/pedidos'
 
+const AsyncPage = defineAsyncComponent(()=>import('./indicarCantidad.vue'));
+const idProductoSeleccionado = ref(null); // Variable reactiva para almacenar el ID del producto seleccionado
+
+function editarProducto(idProducto) {
+  // Establece el ID del producto seleccionado en la variable reactiva
+  idProductoSeleccionado.value = idProducto;
+  console.log(idProductoSeleccionado.value)
+
+  // También puedes realizar otras acciones relacionadas con la edición aquí
+}
 const pedidosStore = usePedidosStore()
 
 //variable para cerrar ventana modal
-const modalRef = ref(null);
+const modalRef = ref(null)
 
-const mostrarListaCompra = ref(false);
-
+const mostrarListaCompra = ref(false)
 
 // Lista de compra
 const lista = ref()
 const listaCompra = ref([])
 
 async function frealizarCompra() {
-  try {
-    const clienteAlmacenado = localStorage.getItem('cliente')
-    const cliente = JSON.parse(clienteAlmacenado)
+    try {
+        const clienteAlmacenado = localStorage.getItem('cliente')
+        const cliente = JSON.parse(clienteAlmacenado)
 
-    const productos = listaCompra.value.map((producto) => {
-      return {
-        id: producto.id,
-        cantidad: producto.cantidad
-      }
-    })
+        const productos = listaCompra.value.map((producto) => {
+            return {
+                id: producto.id,
+                cantidad: producto.cantidad
+            }
+        })
 
-    const pedido = {
-      estado: 'solicitado',
-      total: calcularTotal(),
-      cliente_id: cliente.id,
-      productos: productos
+        const pedido = {
+            estado: 'solicitado',
+            total: calcularTotal(),
+            cliente_id: cliente.id,
+            productos: productos
+        }
+
+        const response = await pedidosStore.crearPedido(pedido)
+        console.log('Respuesta del servidor al realizar la compra:', response)
+
+        // Limpiar el carrito después de realizar la compra
+        localStorage.removeItem('cart')
+        listaCompra.value = []
+    } catch (error) {
+        console.error('Error al realizar la compra:', error.message)
     }
-
-    const response = await pedidosStore.crearPedido(pedido)
-    console.log('Respuesta del servidor al realizar la compra:', response)
-
-    // Limpiar el carrito después de realizar la compra
-    localStorage.removeItem('cart')
-    listaCompra.value = []
-  } catch (error) {
-    console.error('Error al realizar la compra:', error.message)
-  }
 }
 
 onBeforeMount(async () => {
-  try {
-    // Lista de compra
-    lista.value = localStorage.getItem('cart');
-    // Parsear y obtener los valores del objeto
-    listaCompra.value = Object.values(JSON.parse(lista.value) || {});
+    try {
+        // Lista de compra
+        lista.value = localStorage.getItem('cart')
+        // Parsear y obtener los valores del objeto
+        listaCompra.value = Object.values(JSON.parse(lista.value) || {})
 
-    // Verifica si el cliente_id coincide con el cliente logueado
-    const clienteAlmacenado = localStorage.getItem('cliente');
-    const cliente = JSON.parse(clienteAlmacenado);
+        // Verifica si el cliente_id coincide con el cliente logueado
+        const clienteAlmacenado = localStorage.getItem('cliente')
+        const cliente = JSON.parse(clienteAlmacenado)
 
-    //comprueba si el cliente logueado tiene cesta de la compra
-    mostrarListaCompra.value = cliente && listaCompra.value.some(producto => producto.cliente_id === cliente.id);
-    if(!mostrarListaCompra.value){
-        listaCompra.value = []
+        //comprueba si el cliente logueado tiene cesta de la compra
+        mostrarListaCompra.value =
+            cliente && listaCompra.value.some((producto) => producto.cliente_id === cliente.id)
+        if (!mostrarListaCompra.value) {
+            listaCompra.value = []
+        }
+    } catch (error) {
+        console.error('Error al cargar la lista de la compra:', error)
     }
-  } catch (error) {
-    console.error('Error al cargar la lista de la compra:', error);
-  }
-});
+})
 
 function feliminarProducto(idProducto) {
-  const cart = JSON.parse(localStorage.getItem('cart')) || {}
+    const cart = JSON.parse(localStorage.getItem('cart')) || {}
 
-  delete cart[idProducto]
+    delete cart[idProducto]
 
-  localStorage.setItem('cart', JSON.stringify(cart))
+    localStorage.setItem('cart', JSON.stringify(cart))
 
-  listaCompra.value = Object.values(cart)
+    listaCompra.value = Object.values(cart)
 }
 
 function calcularSubtotal() {
-  return listaCompra.value.reduce((subtotal, producto) => {
-    return subtotal + producto.precio * producto.cantidad
-  }, 0)
+    return listaCompra.value.reduce((subtotal, producto) => {
+        return subtotal + producto.precio * producto.cantidad
+    }, 0)
 }
 
 function calcularTotal() {
-  return calcularSubtotal() + 4.5 // Importe del envío fijo de 4,50€
+    return calcularSubtotal() + 4.5 // Importe del envío fijo de 4,50€
 }
 
 //editar cantidad
 
 
-function cerrarModal() {
-  // Cierra la ventana modal usando la referencia modalRef
-  modalRef.value = "hidden"
-}
+function guardarCantidad(cant) {
+    // Encuentra el índice del producto seleccionado en la listaCompra
+    const index = listaCompra.value.findIndex((producto) => producto.id === idProductoSeleccionado.value);
+    console.log(listaCompra.value)
 
-function guardarCantidad(productoSeleccionado) {
-  // Encuentra el índice del producto seleccionado en la listaCompra
-  const index = listaCompra.value.findIndex(
-    (producto) => producto.id === productoSeleccionado.id
-  );
+    if (index !== -1) {
+        // Actualiza la cantidad en la listaCompra
+        listaCompra.value[index].cantidad = cant;
 
-  if (index !== -1) {
-    // Actualiza la cantidad en la listaCompra
-    listaCompra.value[index].cantidad = productoSeleccionado.cantidad;
-
-    // Actualiza el localStorage
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    cart[productoSeleccionado.id] = { ...productoSeleccionado };
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    cerrarModal();
-  }
-
-
+        // Actualiza el localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+        cart[idProductoSeleccionado.value] = { ...listaCompra.value[index] };
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 }
 </script>
 
 <script>
 export default {
-  methods: {
-    getImageUrl(imagen) {
-      return 'http://localhost/api/images/' + imagen
+    methods: {
+        getImageUrl(imagen) {
+            return 'http://localhost/api/images/' + imagen
+        }
     }
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .imagen img {
-  height: 160px;
-  width: 150px;
+    height: 160px;
+    width: 150px;
 }
+
 @import '../assets/style.scss';
 </style>
