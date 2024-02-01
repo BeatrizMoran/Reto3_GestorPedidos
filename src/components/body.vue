@@ -228,7 +228,8 @@ function addToCart(producto) {
       cantidad: producto.selectedQuantity,
       precio: producto.precio,
       imagen: producto.imagen,
-      id: producto.id
+      id: producto.id,
+      cliente_id : clienteEnLocalStorage.value.id
     };
   } else {
     cart[producto.id].cantidad += producto.selectedQuantity;
