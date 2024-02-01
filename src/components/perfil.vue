@@ -9,24 +9,24 @@
           <form>
             <div class="mb-3">
               <label for="codigoCliente" class="form-label text-white">Código del Cliente</label>
-              <input type="text" class="form-control" id="codigoCliente" :value="objCliente ? objCliente.codigo_cliente : ''" disabled>
+              <input type="text" class="form-control" id="codigoCliente" v-model="objCliente.codigo_cliente" disabled>
             </div>
             <div class="mb-3">
               <label for="nombre" class="form-label text-white">Nombre</label>
-              <input type="text" class="form-control" id="nombre" :value="objCliente ? objCliente.nombre : ''" :readonly="!editMode">
+              <input type="text" class="form-control" id="nombre" v-model="objCliente.nombre" :readonly="!editMode">
             </div>
             <div class="mb-3">
               <label for="direccion" class="form-label text-white">Dirección</label>
-              <input type="text" class="form-control" id="direccion" :value="objCliente ? objCliente.direccion : ''" :readonly="!editMode">
+              <input type="text" class="form-control" id="direccion" v-model="objCliente.direccion" :readonly="!editMode">
             </div>
             <div class="mb-3">
               <label for="telefono" class="form-label text-white">Teléfono</label>
-              <input type="text" class="form-control" id="telefono" :value="objCliente ? objCliente.telefono : ''" :readonly="!editMode">
+              <input type="text" class="form-control" id="telefono" v-model="objCliente.telefono" :readonly="!editMode">
             </div>
-            <button type="button" class="btn btn-primary text-white" @click="toggleEditMode">
-              {{ editMode ? 'Guardar cambios' : 'Modificar Perfil' }}
+            <button type="button" class="btn btn-primary text-white"  @click="toggleEditMode">
+              {{ editMode ? 'Cancelar' : 'Modificar Perfil' }}
             </button>
-            <button v-if="editMode" type="button" class="btn btn-secondary" @click="guardarCambios">Cancelar</button>
+            <button v-if="editMode" type="button" class="btn btn-secondary"  @click="guardarCambios" >Guardar cambios</button>
           </form>
         </div>
       </div>
@@ -68,11 +68,22 @@
 
   import { usePedidosStore } from "../stores/pedidos";
 
+  import { useClientesStore } from "../stores/clientes";
+
 const pedidosStore = usePedidosStore();
+
+const clientesStore = useClientesStore();
+
 const pedidos = ref([]);
 
-  // Datos simulados del usuario
 
+ //cliente localstorage
+ const clienteAlmacenado = localStorage.getItem("cliente");
+  const objCliente = JSON.parse(clienteAlmacenado);
+
+  const pruebaCLiente = ref();
+
+  console.log("c:" , objCliente)
   onBeforeMount(async () => {
   try {
     if (objCliente) {
@@ -100,25 +111,40 @@ const pedidos = ref([]);
    
   };
 
-  //cliente localstorage
-  const clienteAlmacenado = localStorage.getItem("cliente");
-  const objCliente = JSON.parse(clienteAlmacenado);
+ 
   
   // Funcion para guardar los cambios en el formulario
-  const guardarCambios = () => {
+  const guardarCambios = async() => {
+  try {
+    const codigo_cliente = document.getElementById('codigoCliente').value;
+    const nombre = document.getElementById('nombre').value;
+    const direccion = document.getElementById('direccion').value;
+    const telefono = document.getElementById('telefono').value;
 
-    try {
-      nombre.value = document.getElementById('nombre').value;
-      direccion.value = document.getElementById('direccion').value;
-      telefono.value = document.getElementById('telefono').value;
-      console.log(nombre,direccion,telefono);
-      editMode.value = false;
-      
-    } catch (error) {
-      alert(error);
-    }
+    const cliente = {
+      codigo_cliente: codigo_cliente,
+      nombre: nombre,
+      id: objCliente.id,
+      direccion: direccion,
+      telefono: telefono
+    };
 
+    const response = await clientesStore.actualizarCliente(cliente);
+    console.log("respuesta servidor cliente: ", response);
+
+    // Actualizar el valor de objCliente después de la actualización exitosa
+    objCliente.value = cliente;
+
+    // Actualizar localStorage
+    localStorage.setItem("cliente", JSON.stringify(cliente));
+    
+    editMode.value = false;
+    
+  } catch (error) {
+    alert(error);
+  }
 };
+
 
 // Funcion para calcular la diferencia de tiempo entre la fecha del pedido y la fecha actual
 const calcularFecha = (fechaPedido) => {

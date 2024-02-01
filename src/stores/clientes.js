@@ -29,8 +29,42 @@ export const useClientesStore = defineStore('clientes', () => {
     }
   }
 
+  async function actualizarCliente(objCliente) {
+    try {
+      const response = await fetch(`http://localhost/api/cliente/actualizar/${objCliente.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          // Puedes agregar otros encabezados si es necesario, como tokens de autenticación
+        },
+        body: JSON.stringify({
+          codigo_cliente: objCliente.codigo_cliente,
+          nombre: objCliente.nombre,
+          direccion: objCliente.direccion,
+          telefono: objCliente.telefono,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      console.log('Data cliente actualizado:', data);
+      // Puedes realizar acciones adicionales después de la actualización
+  
+      return data;
+    } catch (error) {
+      // Manejar errores
+      console.error('Error al actualizar cliente:', error.message);
+    }
+  }
+  
   
   
 
-  return { comprobarCodigoCliente/* Resto de las funciones y datos del almacén... */ }
-})
+  return { comprobarCodigoCliente, actualizarCliente/* Resto de las funciones y datos del almacén... */ }
+
+
+
+});
