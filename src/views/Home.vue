@@ -1,7 +1,7 @@
 <template>
-    <div>
-      <Nav></Nav>
-      <Index></Index>
+    <div class="container-fluid">
+      <Nav class="row"></Nav>
+      <Index class="row"></Index>
     </div>
   </template>
   

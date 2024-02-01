@@ -1,11 +1,16 @@
 <template>
-  <aside class="aside-container d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
-    <h3 class="mb-4 category-title">Categorías</h3>
-    <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4" style="width: 100%;">
-      <input class="form-check-input" type="checkbox" :checked="isSelected(category.nombre)" @change="toggleCategory(category.nombre)">
-      <label class="form-check-label">{{ category.nombre }}</label>
-    </div>
-  </aside>
+  <div class="row">
+
+    <aside class="aside-container d-flex flex-column justify-content-center align-items-center py-2 px-4 rounded">
+      <h3 class="mb-4 category-title">Categorías</h3>
+        <div v-for="category in categories" :key="category.id" class="form-check mb-2 me-4" style="width: 100%;">
+          <input class="form-check-input" type="checkbox" :checked="isSelected(category.nombre)" @change="toggleCategory(category.nombre)">
+          <label class="form-check-label">{{ category.nombre }}</label>
+        </div>
+    </aside>
+  
+  </div>
+
 </template>
 
 <script setup>
