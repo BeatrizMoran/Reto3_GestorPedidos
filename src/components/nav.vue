@@ -27,7 +27,7 @@
             <li class="nav-item">
               <router-link to="/productos" class="nav-link" active-class="active">Productos</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="clienteEnLocalStorage">
               <router-link to="/pedidos" class="nav-link" active-class="active">Pedidos</router-link>
             </li>
             <li class="nav-item" v-if="clienteEnLocalStorage">
@@ -36,6 +36,9 @@
             <li class="nav-item col-5" v-if="!clienteEnLocalStorage">
               <input class="form-control form-control-sm" type="search" placeholder="Insertar Código..."
                 aria-label="Codificacion" @keypress.enter="checkCodigo" v-model="codigoCLiente" enabled />
+            </li>
+            <li class="nav-item" v-if="clienteEnLocalStorage">
+              <a class="nav-link" active-class="active" @click="cerrarSesion">Cerrar ssesion</a>
             </li>
           </ul>
         </div>
@@ -117,12 +120,20 @@ const checkCodigo = async () => {
       localStorage.setItem("cliente", JSON.stringify(objCliente));
 
       clienteEnLocalStorage.value = true;
+      location.reload();
     }
 
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
   }
 };
+
+function cerrarSesion() {
+  localStorage.removeItem("cliente");
+
+  clienteEnLocalStorage.value = null;
+  location.reload();
+}
 </script>
 
 

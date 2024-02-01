@@ -13,7 +13,7 @@
               <div class="product-info">
                 
               </div>
-              <button @click="addToCart(producto)" class="btn btn-warning" :disabled="producto.disabled">
+              <button @click="addToCart(producto)" class="btn btn-warning" :disabled="producto.disabled" v-if="clienteEnLocalStorage">
                 <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
               </button>
             </div>
@@ -25,7 +25,7 @@
           <div class="card-body bg-light d-flex justify-content-between align-items-center p-2">
             
             <div class="format">{{ producto.formato }}</div>
-            <div class="quantity-section">
+            <div class="quantity-section" v-if="clienteEnLocalStorage">
               <label for="quantity">Cantidad:</label>
               <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="1" style="width: 50px;">
             </div>
@@ -72,6 +72,14 @@ const props = defineProps({
   }
 });
 
+//cliente logueado
+const clienteAlmacenado = localStorage.getItem("cliente");
+const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado));
+
+// Watch para actualizar clienteEnLocalStorage instantáneamente
+watch(clienteEnLocalStorage, (nuevoCliente) => {
+  clienteEnLocalStorage.value = nuevoCliente;
+});
 
 const list = ref([]);
 
