@@ -50,7 +50,7 @@
                 <td>{{ pedido.numero_pedido }}</td>
                 <td>{{ pedido.fecha_pedido }} - {{ calcularFecha(pedido.fecha_pedido) }}</td>
                 <td>
-                  <button class="btn btn-link p-0">
+                  <button class="btn btn-link p-0"  @click="redireccionar">
                     <img src="../assets/ver.png" alt="Ver detalles" class="img-fluid" style="max-width: 20px;">
                   </button>
                 </td>
@@ -69,6 +69,10 @@
   import { usePedidosStore } from "../stores/pedidos";
 
   import { useClientesStore } from "../stores/clientes";
+
+  
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const pedidosStore = usePedidosStore();
 
@@ -184,7 +188,10 @@ const calcularFecha = (fechaPedido) => {
 };
 
 
+function redireccionar(){
+  router.push('/pedidos');
 
+ }
 
 
   </script>

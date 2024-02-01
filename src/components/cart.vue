@@ -32,13 +32,13 @@
                         Editar
                     </button>
                     <div v-if="idProductoSeleccionado !== null && idProductoSeleccionado === producto.id">
-        <AsyncPage @indicarUnidades="guardarCantidad" />
-    </div>
+                        <AsyncPage @indicarUnidades="guardarCantidad" />
+                    </div>
 
 
                 </div>
 
-                
+
             </div>
         </div>
         <div class="col-4">
@@ -77,18 +77,18 @@
 </style>
 
 <script setup>
-import { ref, onBeforeMount,defineAsyncComponent } from 'vue'
+import { ref, onBeforeMount, defineAsyncComponent } from 'vue'
 import { usePedidosStore } from '../stores/pedidos'
 
-const AsyncPage = defineAsyncComponent(()=>import('./indicarCantidad.vue'));
+const AsyncPage = defineAsyncComponent(() => import('./indicarCantidad.vue'));
 const idProductoSeleccionado = ref(null); // Variable reactiva para almacenar el ID del producto seleccionado
 
 function editarProducto(idProducto) {
-  // Establece el ID del producto seleccionado en la variable reactiva
-  idProductoSeleccionado.value = idProducto;
-  console.log(idProductoSeleccionado.value)
+    // Establece el ID del producto seleccionado en la variable reactiva
+    idProductoSeleccionado.value = idProducto;
+    console.log(idProductoSeleccionado.value)
 
-  // También puedes realizar otras acciones relacionadas con la edición aquí
+    // También puedes realizar otras acciones relacionadas con la edición aquí
 }
 const pedidosStore = usePedidosStore()
 
