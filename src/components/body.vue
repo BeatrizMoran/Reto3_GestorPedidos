@@ -102,14 +102,20 @@ const paginatedList = computed(() => {
     // Filtra la lista de productos
     const filteredList = list.value.data.filter(producto => {
       const nombreIncluido = producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase());
-      
+
       // Verifica si el producto tiene categorías (como un array en la propiedad 'nombre') y si tiene alguna de las categorías seleccionadas
       const tieneCategoriaSeleccionada = Array.isArray(producto.categorias?.nombre) && (props.selectedCategories.length === 0 || props.selectedCategories.some(cat => producto.categorias.nombre.includes(cat)));
-      
+
       return nombreIncluido && tieneCategoriaSeleccionada;
     });
 
-    // Menos de 6 productos, mostrarlos todos en una página
+    // Calcula el número total de páginas basándose en la lista filtrada
+    const totalFilteredPages = Math.ceil(filteredList.length / pageSize);
+
+    // Asigna el valor correcto de totalPages
+    totalPages.value = totalFilteredPages > 0 ? totalFilteredPages : 1;
+
+    // Muestra todos los productos en una página si hay menos de pageSize elementos
     if (filteredList.length <= pageSize) {
       return filteredList;
     }
@@ -124,22 +130,22 @@ const paginatedList = computed(() => {
 
 // Calcula el total de páginas basándose en la lista filtrada
 const totalPages = computed(() => {
-  
   if (list.value.data !== undefined) {
-    console.log("puto", searchTerm.value)
-    
-  const filteredList = list.value.data.filter(producto =>
-    producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
-  );
+    const filteredList = list.value.data.filter(producto => {
+      const nombreIncluido = producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase());
+      const tieneCategoriaSeleccionada = Array.isArray(producto.categorias?.nombre) && (props.selectedCategories.length === 0 || props.selectedCategories.some(cat => producto.categorias.nombre.includes(cat)));
+      
+      return nombreIncluido && tieneCategoriaSeleccionada;
+    });
 
-  // menos de 6 productos, return 1 página
-  if (filteredList.length <= pageSize) {
-    return 1;
+    const totalFilteredPages = Math.ceil(filteredList.length / pageSize);
+
+    // Retorna el número total de páginas basándose en la lista filtrada y en la cantidad de elementos después de aplicar los filtros
+    return totalFilteredPages > 0 ? totalFilteredPages : 1;
   }
 
-  // return el número total de páginas
-  return Math.ceil(filteredList.length / pageSize);
-}
+  // En caso de que la lista no esté definida, retorna 1 página
+  return 1;
 });
 
 
