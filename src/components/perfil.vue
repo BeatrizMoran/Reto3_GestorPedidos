@@ -78,11 +78,12 @@ const router = useRouter();
 const pedidosStore = usePedidosStore();
 const clientesStore = useClientesStore();
 const pedidos = ref([]);
+const clienteAlmacenado = localStorage.getItem("cliente");
+
 const objCliente = JSON.parse(clienteAlmacenado);
 const pruebaCLiente = ref();
 const editMode = ref(false);
 //cliente localstorage
-const clienteAlmacenado = localStorage.getItem("cliente");
 
 
 //console.log("objCliente:" , objCliente)
