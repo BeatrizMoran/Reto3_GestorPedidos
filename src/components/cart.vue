@@ -7,8 +7,10 @@
             </p>
 
             <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3"
-                v-for="(producto, key) in listaCompra" :key="key" style="background-color: rgba(73, 72, 72, 0.637)">
-                <div class="imagen col-3 px-2 py-2">
+                v-for="(producto, key) in listaCompra" :key="key" 
+                style="background-color: rgba(73, 72, 72, 0.699)">
+                <div v-if="producto.cliente_id === cliente.id">
+                    <div class="imagen col-3 px-2 py-2">
                     <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
                 </div>
                 <div class="col-5 mx-3 d-flex justify-content-center align-items-start flex-column">
@@ -37,6 +39,8 @@
 
 
                 </div>
+                </div>
+                
 
 
             </div>
@@ -100,58 +104,68 @@ const mostrarListaCompra = ref(false)
 // Lista de compra
 const lista = ref()
 const listaCompra = ref([])
-
-async function frealizarCompra() {
-    try {
-        const clienteAlmacenado = localStorage.getItem('cliente')
+const clienteAlmacenado = localStorage.getItem('cliente')
         const cliente = JSON.parse(clienteAlmacenado)
+
+        async function frealizarCompra() {
+    try {
+        const clienteAlmacenado = localStorage.getItem('cliente');
+        const cliente = JSON.parse(clienteAlmacenado);
 
         const productos = listaCompra.value.map((producto) => {
             return {
                 id: producto.id,
                 cantidad: producto.cantidad
             }
-        })
+        });
 
         const pedido = {
             estado: 'solicitado',
             total: calcularTotal(),
             cliente_id: cliente.id,
             productos: productos
-        }
+        };
 
-        const response = await pedidosStore.crearPedido(pedido)
-        console.log('Respuesta del servidor al realizar la compra:', response)
+        const response = await pedidosStore.crearPedido(pedido);
+        console.log('Respuesta del servidor al realizar la compra:', response);
 
         // Limpiar el carrito después de realizar la compra
-        localStorage.removeItem('cart')
-        listaCompra.value = []
+        const carritoActual = JSON.parse(localStorage.getItem('cart')) || {};
+        const nuevoCarrito = {};
+
+        // Filtrar los productos que no pertenecen al cliente logueado
+        Object.keys(carritoActual).forEach((key) => {
+            const producto = carritoActual[key];
+            if (producto.cliente_id !== cliente.id) {
+                nuevoCarrito[key] = producto;
+            }
+        });
+
+        localStorage.setItem('cart', JSON.stringify(nuevoCarrito));
+        listaCompra.value = Object.values(nuevoCarrito);
     } catch (error) {
-        console.error('Error al realizar la compra:', error.message)
+        console.error('Error al realizar la compra:', error.message);
     }
 }
 
 onBeforeMount(async () => {
     try {
         // Lista de compra
-        lista.value = localStorage.getItem('cart')
-        // Parsear y obtener los valores del objeto
-        listaCompra.value = Object.values(JSON.parse(lista.value) || {})
+        lista.value = localStorage.getItem('cart');
+        listaCompra.value = Object.values(JSON.parse(lista.value) || {});
 
         // Verifica si el cliente_id coincide con el cliente logueado
-        const clienteAlmacenado = localStorage.getItem('cliente')
-        const cliente = JSON.parse(clienteAlmacenado)
+        const clienteAlmacenado = localStorage.getItem('cliente');
+        const cliente = JSON.parse(clienteAlmacenado);
 
-        //comprueba si el cliente logueado tiene cesta de la compra
-        mostrarListaCompra.value =
-            cliente && listaCompra.value.some((producto) => producto.cliente_id === cliente.id)
-        if (!mostrarListaCompra.value) {
-            listaCompra.value = []
-        }
+        // Filtra los productos que pertenecen al cliente logueado
+        listaCompra.value = listaCompra.value.filter(producto => producto.cliente_id === cliente.id);
+
+        mostrarListaCompra.value = cliente && listaCompra.value.length > 0;
     } catch (error) {
-        console.error('Error al cargar la lista de la compra:', error)
+        console.error('Error al cargar la lista de la compra:', error);
     }
-})
+});
 
 function feliminarProducto(idProducto) {
     const cart = JSON.parse(localStorage.getItem('cart')) || {}
