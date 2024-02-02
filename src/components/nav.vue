@@ -38,7 +38,7 @@
                 aria-label="Codificacion" @keypress.enter="checkCodigo" v-model="codigoCLiente" enabled />
             </li>
             <li class="nav-item" v-if="clienteEnLocalStorage">
-              <a class="nav-link" active-class="active" @click="cerrarSesion">Cerrar ssesion</a>
+              <a class="nav-link" active-class="active" @click="cerrarSesion">Cerrar sesion</a>
             </li>
           </ul>
         </div>

@@ -1,27 +1,27 @@
 <template>
     <div class="row">
         <div class="col-8">
-            <p style="background-color: rgba(176, 203, 226, 0.884)" class="p-3 rounded-3">
+            <p class="p-3 rounded-3 carrito-color">
                 <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px" />
                 Carrito ({{ listaCompra.length }} artículos)
             </p>
 
-            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3"
-                v-for="(producto, key) in listaCompra" :key="key" style="background-color: rgba(73, 72, 72, 0.637)">
+            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3 tarjetitas"
+                v-for="(producto, key) in listaCompra" :key="key">
                 <div class="imagen col-3 px-2 py-2">
                     <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
                 </div>
-                <div class="col-5 mx-3 d-flex justify-content-center align-items-start flex-column">
+                <div class="col-6 mx-3 d-flex justify-content-center align-items-start flex-column">
                     <p>{{ producto.nombre }}</p>
-                    <p><b>Cantidad:</b> {{ producto.cantidad }}</p>
-                    <p>
+                    <p class="border-bottom"><b>Cantidad:</b> {{ producto.cantidad }}</p>
+                    <p class="custom-border-dashed ">
                         <span class="d-inline-block bg-success text-white rounded-circle p-2 me-2"></span>Disponible para
                         envío inmediato
                     </p>
-                    <p><b>Precio por unidad:</b> {{ producto.precio }}€</p>
+                    <p><b class=" border-bottom border-gray">Precio por unidad:</b> {{ producto.precio }}€</p>
 
                     <!-- Nuevo párrafo para mostrar el precio total -->
-                    <p><b>Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
+                    <p><b class=" border-bottom border-gray">Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
                 </div>
 
                 <div class="col-3 d-flex flex-column justify-content-center align-items-center">
