@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid">
     <div class="row">
-      <h1 class="mt-4 mb-4 text-secundary">Listado de Pedidos</h1>
+      <div class="col">
+        <h1 class="mt-4 mb-4 text-secundary">Listado de Pedidos</h1>
       <table class="table table-responsive">
         <thead class="bg-dark">
           <tr>
@@ -61,8 +61,9 @@
          
         </tbody>
       </table>
+      </div>
+      
     </div>
-  </div>
 </template>
 
 
