@@ -71,11 +71,11 @@
         </div>
     </div>
 </template>
+  
+  
+  
 
-<style lang="scss" scoped>
-@import '../assets/style.scss';
-</style>
-
+  
 <script setup>
 import { ref, onBeforeMount, defineAsyncComponent } from 'vue'
 import { usePedidosStore } from '../stores/pedidos'

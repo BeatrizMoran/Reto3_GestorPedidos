@@ -32,6 +32,7 @@
 
 
 <script setup>
+//imports
 import { defineProps, defineEmits  } from 'vue';
 
 // Definir las propiedades y eventos del componente

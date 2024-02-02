@@ -8,13 +8,13 @@ export const useProductosStore = defineStore('productos', () => {
   async function cargarProductosDesdeAPI() {
     try {
       const response = await fetch('http://localhost/api/productos');
-      console.log(response);
+      //console.log(response);
       if (!response.ok) {
         throw new Error('Error al obtener productos desde la API')
       }
 
       const data = await response.json()
-      console.log('Datos recibidos desde la API:', data);
+      //console.log('Datos recibidos desde la API:', data);
 
       // Actualizar la lista de productos en el almacén
        return data;
@@ -23,18 +23,18 @@ export const useProductosStore = defineStore('productos', () => {
     }
   }
 
-  
+  //metodo para buscar productos a traves de un nombre
    async function buscarProductos(nombre) {
-    console.log('Entrando en la función buscarProductos'); 
+    //console.log('Entrando en la función buscarProductos'); 
     try {
-      console.log('Término de búsqueda:', nombre);
+      //console.log('Término de búsqueda:', nombre);
       const response = await fetch(`http://localhost/api/productos?nombre=${nombre}`);
       
-      console.log('URL de solicitud:', response.url);
-      console.log("Response", response);
+      //console.log('URL de solicitud:', response.url);
+      //console.log("Response", response);
 
       const data = await response.json();
-      console.log("data", data);
+      //console.log("data", data);
       listaProductos.value = data;
        return listaProductos;
     } catch (error) {
