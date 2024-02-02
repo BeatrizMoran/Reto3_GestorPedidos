@@ -179,14 +179,15 @@ function feliminarProducto(idProducto) {
 
 function calcularSubtotal() {
     return listaCompra.value.reduce((subtotal, producto) => {
-        return subtotal + producto.precio * producto.cantidad
-    }, 0)
+        return subtotal + (producto.precio * producto.cantidad)
+    }, 0).toFixed(2);
 }
 
 function calcularTotal() {
-    return calcularSubtotal() + 4.5 // Importe del envío fijo de 4,50€
+    const subtotal = calcularSubtotal();
+    const envio = 4.5;
+    return (parseFloat(subtotal) + envio).toFixed(2);
 }
-
 //editar cantidad
 
 
