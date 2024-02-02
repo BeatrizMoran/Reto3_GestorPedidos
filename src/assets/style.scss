@@ -194,3 +194,41 @@ body {
     padding: $container-padding;
     border-style: dashed;
   }
+
+  .hovimg:hover
+  {
+    transition: transform 0.2s ,box-shadow 0.2s;
+    transform: scale(1.1);
+  }
+.index
+{
+  font-size: $font-size-mg;
+  color: $color-light;
+}
+.uno
+{
+background-color: #706d6d;
+color: $color-light;
+}
+.dos
+{
+background-color: #2f2f2f;
+color: $color-light;
+}
+.price
+{
+  font-size: $font-size-mg;
+}
+.grisPedido
+{
+  background-color: #706d6d;
+}
+
+.hoverPedidos:hover
+{
+  background-color:#2f2f2f;
+}
+.cuidado
+{
+  cursor: not-allowed;
+}

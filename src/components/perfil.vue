@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12 col-md-6">
         <div class="perfil-container p-4 rounded">
           <h1 class="text-white">Perfil de Usuario</h1>
 
@@ -36,7 +36,7 @@
 
 
                   <!--Pedidos en chiquito-->
-      <div class="col-5 d-flex align-self-center">
+      <div class="col-12 col-md-5 d-flex align-self-center">
         <div class="perfil-container p-4 rounded">
           <h2 class="text-white">Pedidos Realizados</h2>
           <table class="table table-grey table-striped table-hover">
@@ -145,9 +145,45 @@ try {
 };
 
 
+const calcularFecha = (fechaPedido) => {
+  try {
+    const fechaPedidoDate = new Date(fechaPedido);
+    const fechaActual = new Date();
+    const fechaActualDate = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
+
+    const diffMilliseconds = fechaActualDate - fechaPedidoDate;
+    const diffSeconds = Math.floor(diffMilliseconds / 1000);
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffDays >= 365) {
+      const diffYears = Math.floor(diffDays / 365);
+      return `Hace ${diffYears} año${diffYears > 1 ? 's' : ''}`;
+    } else if (diffDays >= 30) {
+      const diffMonths = Math.floor(diffDays / 30);
+      return `Hace ${diffMonths} mes${diffMonths > 1 ? 'es' : ''}`;
+    } else if (diffDays >= 7) {
+      const diffWeeks = Math.floor(diffDays / 7);
+      return `Hace ${diffWeeks} semana${diffWeeks > 1 ? 's' : ''}`;
+    } else if (diffDays >= 1) {
+      return `Hace ${diffDays} día${diffDays > 1 ? 's' : ''}`;
+    } else if (diffHours >= 1) {
+      return `Hace ${diffHours} hora${diffHours > 1 ? 's' : ''}`;
+    } else if (diffMinutes >= 1) {
+      return `Hace ${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''}`;
+    } else {
+      return 'Hoy';
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
+/*
 // Funcion para calcular la diferencia de tiempo entre la fecha del pedido y la fecha actual
 const calcularFecha = (fechaPedido) => {
   try {
+    console.log("fechapedido",fechaPedido);
     // Parseamos la fecha en formato "día/mes/año"
     const [dia, mes, año] = fechaPedido.split('/');
     const fechaPedidoDate = new Date(`${mes}/${dia}/${año}`);
@@ -181,7 +217,7 @@ const calcularFecha = (fechaPedido) => {
     alert(error);
   }
 };
-
+*/
 
 function redireccionar(){
   router.push('/pedidos');
