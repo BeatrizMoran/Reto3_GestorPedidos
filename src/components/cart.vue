@@ -11,23 +11,24 @@
                 </div>
             </div>
 
-            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3 tarjetitas"
+            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3 tarjetitas" 
                 v-for="(producto, key) in listaCompra" :key="key">
-                <div class="imagen col-3 px-2 py-2">
-                    <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
-                </div>
-                <div class="col-6 mx-3 d-flex justify-content-center align-items-start flex-column">
-                    <p>{{ producto.nombre }}</p>
-                    <p class="border-bottom"><b>Cantidad:</b> {{ producto.cantidad }}</p>
-                    <p class="custom-border-dashed ">
-                        <span class="d-inline-block bg-success text-white rounded-circle p-2 me-2"></span>Disponible para
-                        envío inmediato
-                    </p>
-                    <p><b class=" border-bottom border-gray">Precio por unidad:</b> {{ producto.precio }}€</p>
+                <div v-if="producto.cliente_id === cliente.id">
+                    <div class="imagen col-3 px-2 py-2">
+                        <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
+                    </div>
+                    <div class="col-5 mx-3 d-flex justify-content-center align-items-start flex-column">
+                        <p>{{ producto.nombre }}</p>
+                        <p class="border-bottom"><b>Cantidad:</b> {{ producto.cantidad }}</p>
+                        <p class="custom-border-dashed ">
+                            <span class="d-inline-block bg-success text-white rounded-circle p-2 me-2"></span>Disponible
+                            para envío inmediato
+                        </p>
+                        <p><b class=" border-bottom border-gray">Precio por unidad:</b> {{ producto.precio }}€</p>
 
-                    <!-- Nuevo párrafo para mostrar el precio total -->
-                    <p><b>Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
-                </div>
+                        <!-- Nuevo párrafo para mostrar el precio total -->
+                        <p><b>Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
+                    </div>
 
                     <div class="col-3 d-flex flex-column justify-content-center align-items-center">
                         <button @click="feliminarProducto(producto.id)" class="my-2 btn btn-danger d-inline">
