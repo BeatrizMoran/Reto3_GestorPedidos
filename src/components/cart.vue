@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3" 
+            <div class="row my-3 px-2 border-top border-bottom border-gray shadow p-3 rounded-3"
                 v-for="(producto, key) in listaCompra" :key="key" style="background-color: rgba(73, 72, 72, 0.699)">
                 <div v-if="producto.cliente_id === cliente.id">
                     <div class="imagen col-3 px-2 py-2">
@@ -139,6 +139,8 @@ async function frealizarCompra() {
         localStorage.setItem('cart', JSON.stringify(nuevoCarrito))
         listaCompra.value = Object.values(nuevoCarrito)
 
+
+
         //mensaje 
         showAlert.value = true;
         alertMessage.value = `pedido realizado correctamente`;
@@ -146,8 +148,7 @@ async function frealizarCompra() {
         setTimeout(() => {
             showAlert.value = false;
             alertMessage.value = '';
-        }, 3000); // 3000 milisegundos = 3 segundos
-        location.reload()
+        }, 3000);
 
     } catch (error) {
         console.error('Error al realizar la compra:', error.message)
