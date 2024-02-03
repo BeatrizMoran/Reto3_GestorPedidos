@@ -23,10 +23,10 @@
               <label for="telefono" class="form-label text-white">Teléfono</label>
               <input type="text" class="form-control" id="telefono" v-model="objCliente.telefono" :readonly="!editMode">
             </div>
-            <button type="button" class="btn btn-primary text-white"  @click="toggleEditMode">
+            <button type="button" class="btn btn-warning text-white"  @click="toggleEditMode">
               {{ editMode ? 'Cancelar' : 'Modificar Perfil' }}
             </button>
-            <button v-if="editMode" type="button" class="btn btn-secondary"  @click="guardarCambios" >Guardar cambios</button>
+            <button v-if="editMode" type="button" class="btn btn-success mx-3"  @click="guardarCambios" >Guardar cambios</button>
           </form>
         </div>
       </div>

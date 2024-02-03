@@ -1,8 +1,6 @@
 <template>
-    <div class="container">
         <Nav class="row my-3"></Nav>
         <Cart class="row"></Cart>
-    </div>
   
   </template>
   
