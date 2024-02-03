@@ -1,9 +1,9 @@
 <template>
  
-      <nav class="row navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between my-4">
+      <nav class="row navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between my-4 rounded-3">
 
         <!-- Botón desplegable -->
-        <div class="col-2 col-lg-1 px-4">
+        <div class="col-2 col-lg-1 px-4 ">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,8 +16,8 @@
         </div>
 
         <!-- Contenido del navbar -->
-        <div class="collapse navbar-collapse col-md-5 col-lg-6 px-4" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse col-md-5 col-lg-6 px-4 " id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
             <li class="nav-item">
               <router-link to="/" class="nav-link" active-class="active" exact>Inicio</router-link>
             </li>
@@ -38,7 +38,7 @@
                 aria-label="Codificacion" @keypress.enter="checkCodigo" v-model="codigoCLiente" enabled />
             </li>
             <li class="nav-item" v-if="clienteEnLocalStorage">
-              <a class="nav-link" active-class="active" @click="cerrarSesion">Cerrar ssesion</a>
+              <a class="nav-link" active-class="active" @click="cerrarSesion">Cerrar sesion</a>
             </li>
           </ul>
         </div>

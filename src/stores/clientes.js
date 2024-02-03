@@ -7,9 +7,10 @@ export const useClientesStore = defineStore('clientes', () => {
   // Método para cargar productos desde la API
   async function comprobarCodigoCliente(codigo_cliente) {
     //console.log('Entrando en la función buscarProductos');
+    const link = 'http://localhost/api';
   
     try {
-      const response = await fetch(`http://localhost/api/cliente?codigo_cliente=${codigo_cliente}`);
+      const response = await fetch(`${link}/cliente?codigo_cliente=${codigo_cliente}`);
   
      // console.log('URL de solicitud:', response.url);
   
@@ -31,7 +32,7 @@ export const useClientesStore = defineStore('clientes', () => {
 
   async function actualizarCliente(objCliente) {
     try {
-      const response = await fetch(`http://localhost/api/cliente/actualizar/${objCliente.id}`, {
+      const response = await fetch(`${link}/cliente/actualizar/${objCliente.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

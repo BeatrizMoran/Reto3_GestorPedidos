@@ -12,6 +12,7 @@ $background-size: cover;
 $background-position: center;
 $height: 100vh;
 
+$carritoColor:  rgba(176, 203, 226, 0.884);
 $oscuroTransparente: rgba(0, 0, 0, 0.8);
 
 $solicitadoColor: pink;
@@ -29,6 +30,7 @@ $color-light: #f8f9fa;
 $oscuroTransparente: rgba(22, 22, 22, 0.8);
 $spacing-md: 10px;
 $border-radius-lg: 10px;
+$font-size-mg: 1.25em;
 $font-size-lg: 1.5em;
 
 // Exportar como custom properties
@@ -49,6 +51,8 @@ body {
     background-size: $background-size;
     background-position: $background-position;
     height: $height;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
 .container {
@@ -174,3 +178,57 @@ body {
     background-color: $color-secondary;
     transition: background-color 0.5s;
   }
+  .carrito-color
+  {
+    background-color: $carritoColor;
+  }
+  .tarjetitas
+  {
+    background-color: $oscuroTransparente;
+    font-size: $font-size-mg;
+    color: $color-light;
+  }
+  .custom-border-dashed
+  {
+ 
+    padding: $container-padding;
+    border-style: dashed;
+  }
+
+  .hovimg:hover
+  {
+    transition: transform 0.2s ,box-shadow 0.2s;
+    transform: scale(1.1);
+  }
+.index
+{
+  font-size: $font-size-mg;
+  color: $color-light;
+}
+.uno
+{
+background-color: #706d6d;
+color: $color-light;
+}
+.dos
+{
+background-color: #2f2f2f;
+color: $color-light;
+}
+.price
+{
+  font-size: $font-size-mg;
+}
+.grisPedido
+{
+  background-color: #706d6d;
+}
+
+.hoverPedidos:hover
+{
+  background-color:#2f2f2f;
+}
+.cuidado
+{
+  cursor: not-allowed;
+}

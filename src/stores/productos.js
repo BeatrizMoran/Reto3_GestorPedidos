@@ -30,7 +30,7 @@ export const useProductosStore = defineStore('productos', () => {
     //console.log('Entrando en la función buscarProductos'); 
     try {
       //console.log('Término de búsqueda:', nombre);
-      const response = await fetch(`http://localhost/api/productos?nombre=${nombre}`);
+      const response = await fetch(`${link}/productos?nombre=${nombre}`);
       
       //console.log('URL de solicitud:', response.url);
       //console.log("Response", response);

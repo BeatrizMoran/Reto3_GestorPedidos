@@ -3,11 +3,12 @@ import { defineStore } from 'pinia'
 
 export const useCategoriasStore = defineStore('categorias', () => {
     const listaCategorias = ref([])
+    const link = 'http://localhost/api';
   
     // Método para cargar categorias desde la API
     async function cargarCategoriasDesdeAPI() {
       try {
-        const response = await fetch('http://localhost/api/categorias');
+        const response = await fetch(`${link}/categorias`);
        // console.log(response);
         if (!response.ok) {
           throw new Error('Error al obtener las categorias desde la API')

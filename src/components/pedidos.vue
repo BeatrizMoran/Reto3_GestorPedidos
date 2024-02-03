@@ -1,7 +1,7 @@
 <template>
     <div class="row">
-      <div class="col">
-        <h1 class="mt-4 mb-4 text-secundary">Listado de Pedidos</h1>
+      <div class="col perfil-container p-5">
+        <h1 class="mt-4 mb-4 text-secundary text-light">Listado de Pedidos</h1>
       <table class="table table-responsive">
         <thead class="bg-dark">
           <tr>
@@ -13,34 +13,34 @@
             <th>Ver Detalles</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="(pedido, index) in pedidos" :key="index" :style="{ backgroundColor: getColor(pedido.estado) }">
-            <td>{{ pedido.total }} €</td>
-            <td>{{ pedido.fecha_pedido }}</td>
-            <td>{{ pedido.numero_pedido }}</td>
-            <td  :style="{ backgroundColor: getColor(pedido.estado) }" class="text-white">
+        <tbody >
+          <tr  v-for="(pedido, index) in pedidos" :key="index" :style="{ backgroundColor: getColor(pedido.estado) }">
+            <td class="uno price hoverPedidos">{{ pedido.total }} €</td>
+            <td class="uno price hoverPedidos">{{ pedido.fecha_pedido }}</td>
+            <td class="uno price hoverPedidos">{{ pedido.numero_pedido }}</td>
+            <td  :style="{ backgroundColor: getColor(pedido.estado) }" class="text-white price cuidado">
               {{ pedido.estado }}
             </td>
-            <td>
+            <td class="uno price hoverPedidos">
               <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0">
                 <img src="../assets/ver.png" alt="Ver detalles" class="img-fluid" id="imgDetalles">
               </button>
             </td>
           </tr>
           <tr v-if="pedidoSeleccionado">
-            <td colspan="5">
-              <table class="table table-bordered">
+            <td colspan="5 ">
+              <table class="table table-bordered ">
                 <thead>
                   <tr>
-                    <th class="text-center">Producto</th>
+                    <th class="text-center dos price ">Producto</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      <div class="row">
-                        <div v-for="(producto, prodIndex) in pedidoSeleccionado.productos" :key="prodIndex" class="col-md-4 mb-3">
-                          <div class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg">
+                      <div class="row   grisPedido p-4">
+                        <div v-for="(producto, prodIndex) in pedidoSeleccionado.productos" :key="prodIndex" class="col-md-4 mb-3  ">
+                          <div class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light  hovimg">
                             <img :src="getImageUrl(producto.imagen)" alt="Imagen del producto" class="img-fluid me-md-3 mb-3">
                             <div class="text-center">
                               <p class="mb-1  "><span class="fw-bold fs-5 text-secondary">Nombre:</span> {{ producto.nombre }} </p>

@@ -25,7 +25,7 @@
 
 
           <!-- Card Top -->
-          <div class=" card-top bg-gray  justify-content-start align-items-center">
+          <div class=" card-top uno justify-content-start align-items-center">
             <div class="col-12 px-2 shadow">
               <img :src="producto.imagen" alt="I" class="img-fluid imagen">
             </div>
@@ -39,21 +39,20 @@
           </div>
 
           <!-- Card Body -->
-          <div class="card-body bg-light d-flex justify-content-between align-items-center p-2">
-            <div class="format">{{ producto.formato }}</div>
+          <div class="card-body dos d-flex justify-content-between align-items-center p-2">
+            <div class="format price">{{ producto.formato }}</div>
             <div class="quantity-section" v-if="clienteEnLocalStorage">
-              <label for="quantity">Cantidad:</label>
-              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled"
-                :min="1" style="width: 50px;">
+              <label for="quantity"><b class="border-bottom">Cantidad: </b></label>
+              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="1" style="width: 50px;">
             </div>
           </div>
 
           <!-- Card Footer -->
           <div class="card-footer bg-info p-2">
             <div class="details ">
-              <div class="price col-12">Precio:{{ producto.precio }}€</div>
+              <div class="price col-12"><b class="border-bottom border-black">Precio: </b>{{ producto.precio }}€</div>
               <div v-if="producto.categorias.nombre.length > 0" class="mb-3">
-                <label for="categorias" class="form-label">Categorías:</label>
+                <label for="categorias" class="form-label price"><b class="border-bottom border-black">Categoria: </b></label>
                 <select id="categorias" class="form-select" multiple size="2" >
                   <option v-for="(cat, index) in producto.categorias.nombre" :key="index" :value="cat">
                     {{ cat }}
