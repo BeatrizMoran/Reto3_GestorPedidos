@@ -41,7 +41,7 @@
           </p>
         </div>
         <div class="col-md-6 ">
-          <img src="../assets/cerveza1.jpg" alt="Cerveza 3" class="img-fluid hovimg" />
+          <img src="../assets/cerveza3.jpg" alt="Cerveza 3" class="img-fluid hovimg" />
         </div>
       </div>
 
@@ -57,7 +57,7 @@
     </p>
   </div>
   <div class="col-md-6">
-    <img src="../assets/cerveza1.jpg" alt="Cerveza 4" class="img-fluid hovimg" />
+    <img src="../assets/cerveza4.jpg" alt="Cerveza 4" class="img-fluid hovimg" />
   </div>
 </div>
 
