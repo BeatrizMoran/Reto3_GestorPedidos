@@ -131,7 +131,7 @@ const props = defineProps({
 //antesdemontar
 onBeforeMount(async () => {
   list.value = await productosStore.cargarProductosDesdeAPI();
-  //console.log("onbeforemount", list.value);
+  console.log("onbeforemount", list.value);
 
 });
 
