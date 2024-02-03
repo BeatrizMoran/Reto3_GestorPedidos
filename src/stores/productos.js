@@ -8,7 +8,7 @@ export const useProductosStore = defineStore('productos', () => {
   // Método para cargar productos desde la API
   async function cargarProductosDesdeAPI() {
     try {
-      const response = await fetch(`http://localhost/api/productos`);
+      const response = await fetch(`${url}/productos`);
       console.log(response);
       if (!response.ok) {
         throw new Error('Error al obtener productos desde la API')
@@ -30,7 +30,7 @@ export const useProductosStore = defineStore('productos', () => {
     //console.log('Entrando en la función buscarProductos'); 
     try {
       //console.log('Término de búsqueda:', nombre);
-      const response = await fetch(`${link}/productos?nombre=${nombre}`);
+      const response = await fetch(`${url}/productos?nombre=${nombre}`);
       
       //console.log('URL de solicitud:', response.url);
       //console.log("Response", response);

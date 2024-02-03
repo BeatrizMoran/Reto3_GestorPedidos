@@ -19,9 +19,11 @@ function indicar()
 </script>
 
 <template>
-    <label>
+    <div class="container mt-3">
+      <label class="form-label">
         Unidades:
-        <input v-model="cantidad" required />
-        <button @click="indicar">Indicar</button>
-    </label>
-</template>
+        <input v-model="cantidad" class="form-control" required />
+      </label>
+      <button @click="indicar" class="btn btn-primary mt-2">Indicar</button>
+    </div>
+  </template>

@@ -1,6 +1,6 @@
 <template>
  
-      <nav class="row navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between my-4 rounded-3">
+      <nav class="row navbar navbar-expand-lg  navbar-dark bg-dark d-flex align-items-center justify-content-between my-4 rounded-3">
 
         <!-- Botón desplegable -->
         <div class="col-2 col-lg-1 px-4 ">

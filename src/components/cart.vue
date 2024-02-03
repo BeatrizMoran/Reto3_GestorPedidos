@@ -31,10 +31,10 @@
                     </div>
 
                     <div class="col-3 d-flex flex-column justify-content-center align-items-center">
-                        <button @click="feliminarProducto(producto.id)" class="my-2 btn btn-danger d-inline">
+                        <button @click="feliminarProducto(producto.id)" class="mb-2 my-2 btn btn-danger d-inline">
                             Eliminar
                         </button>
-                        <button type="button" class="btn btn-primary" @click="editarProducto(producto.id)">
+                        <button type="button" class="btn btn-warning" @click="editarProducto(producto.id)">
                             Editar
                         </button>
                         <div v-if="idProductoSeleccionado !== null && idProductoSeleccionado === producto.id">
