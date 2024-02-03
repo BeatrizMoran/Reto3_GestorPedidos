@@ -37,7 +37,7 @@ export const useProductosStore = defineStore('productos', () => {
       const data = await response.json();
       //console.log("data", data);
       listaProductos.value = data;
-       return listaProductos;
+       return data;
     } catch (error) {
       console.error('Error:', error.message)
     }

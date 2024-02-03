@@ -139,6 +139,8 @@ async function frealizarCompra() {
         localStorage.setItem('cart', JSON.stringify(nuevoCarrito))
         listaCompra.value = Object.values(nuevoCarrito)
 
+
+
         //mensaje 
         showAlert.value = true;
         alertMessage.value = `pedido realizado correctamente`;
@@ -146,8 +148,7 @@ async function frealizarCompra() {
         setTimeout(() => {
             showAlert.value = false;
             alertMessage.value = '';
-        }, 3000); // 3000 milisegundos = 3 segundos
-        location.reload()
+        }, 3000);
 
     } catch (error) {
         console.error('Error al realizar la compra:', error.message)
