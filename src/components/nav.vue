@@ -12,7 +12,7 @@
 
     <!-- Logo -->
     <div class="col-2 col-lg-1 px-1 text-center">
-      <img src="../assets/logo.png" alt="Logo" class="img-fluid">
+      <img src="../assets/images/logo.png" alt="Logo" class="img-fluid">
     </div>
 
     <!-- Contenido del navbar -->
@@ -179,7 +179,6 @@ function cerrarSesion() {
 
 
 <style lang="scss" scoped>
-@import '../assets/style.scss';
 
 img {
   max-width: 100%;

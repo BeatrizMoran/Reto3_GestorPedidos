@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-8">
             <p class="p-3 rounded-3 carrito-color">
-                <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px" />
+                <img src="../assets/images/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px" />
                 Carrito ({{ listaCompra.length }} artículos)
             </p>
             <div class="row d-flex justify-content-center">
@@ -27,7 +27,7 @@
                         <p><b class=" border-bottom border-gray">Precio por unidad:</b> {{ producto.precio }}€</p>
 
                         <!-- Nuevo párrafo para mostrar el precio total -->
-                        <p><b class=" border-bottom border-gray">Precio total:</b> {{ producto.precio * producto.cantidad }}€</p>
+                        <p><b class="border-bottom border-gray">Precio total:</b> {{ (producto.precio * producto.cantidad).toFixed(2) }}€</p>
                     </div>
 
                     <div class="col-3 d-flex flex-column justify-content-center align-items-center">
@@ -37,7 +37,7 @@
                         <button type="button" class="btn btn-warning" @click="editarProducto(producto.id)">
                             Editar
                         </button>
-                        <div v-if="idProductoSeleccionado !== null && idProductoSeleccionado === producto.id">
+                        <div v-if="idProductoSeleccionado !== null && idProductoSeleccionado === producto.id && showAsyncPage">
                             <AsyncPage @indicarUnidades="guardarCantidad" />
                         </div>
                     </div>
@@ -82,10 +82,15 @@ import { usePedidosStore } from '../stores/pedidos'
 const AsyncPage = defineAsyncComponent(() => import('./indicarCantidad.vue'))
 const idProductoSeleccionado = ref(null) // Variable reactiva para almacenar el ID del producto seleccionado
 
+const showAsyncPage = ref(false);
+
+
 function editarProducto(idProducto) {
     // Establece el ID del producto seleccionado en la variable reactiva
     idProductoSeleccionado.value = idProducto
     console.log(idProductoSeleccionado.value)
+    showAsyncPage.value = true;
+
 
 }
 const pedidosStore = usePedidosStore()
@@ -215,6 +220,9 @@ function guardarCantidad(cant) {
         cart[idProductoSeleccionado.value] = { ...listaCompra.value[index] }
         localStorage.setItem('cart', JSON.stringify(cart))
     }
+
+    showAsyncPage.value = false;
+
 }
 </script>
 
@@ -234,5 +242,5 @@ export default {
     width: 150px;
 }
 
-@import '../assets/style.scss';
+//@import '../assets/style.scss';
 </style>

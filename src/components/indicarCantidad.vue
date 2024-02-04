@@ -8,8 +8,7 @@ const cantidad = ref('');
 function indicar()
 {
     const cantidadValue = parseInt(cantidad.value);
-    if (!isNaN(cantidadValue)) {
-        console.log("hola")
+    if (!isNaN(cantidadValue) && cantidadValue > 0) {
         // Emitir el evento solo si la cantidad es un número válido
         emit('indicarUnidades', cantidadValue);
     } 

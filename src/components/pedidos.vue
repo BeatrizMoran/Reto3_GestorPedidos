@@ -23,7 +23,7 @@
             </td>
             <td class="uno price hoverPedidos">
               <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0">
-                <img src="../assets/ver.png" alt="Ver detalles" class="img-fluid" id="imgDetalles">
+                <img src="../assets/images/ver.png" alt="Ver detalles" class="img-fluid" id="imgDetalles">
               </button>
             </td>
           </tr>
@@ -144,7 +144,6 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../assets/style.scss';
 
   </style>
 
@@ -152,6 +151,5 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../assets/style.scss';
 
   </style>

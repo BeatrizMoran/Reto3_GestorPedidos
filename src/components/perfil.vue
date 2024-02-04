@@ -53,7 +53,7 @@
                 <td>{{ pedido.fecha_pedido }} - {{ calcularFecha(pedido.fecha_pedido) }}</td>
                 <td>
                   <button class="btn btn-link p-0"  @click="redireccionar">
-                    <img src="../assets/ver.png" alt="Ver detalles" class="img-fluid" style="max-width: 20px;">
+                    <img src="../assets/images/ver.png" alt="Ver detalles" class="img-fluid" style="max-width: 20px;">
                   </button>
                 </td>
               </tr>
@@ -229,6 +229,6 @@ function redireccionar(){
   
 <style lang="scss" scoped>
 
-@import '../assets/style.scss';
+//@import '../assets/style.css';
 
   </style>

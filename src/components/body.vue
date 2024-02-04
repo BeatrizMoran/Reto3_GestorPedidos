@@ -32,7 +32,7 @@
             <div class="col-12 px-2">
               <button @click="addToCart(producto)" class="btn options " :disabled="producto.disabled"
                 v-if="clienteEnLocalStorage">
-                <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
+                <img src="../assets/images/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
               </button>
             </div>
             <div class="info-name text-truncate custom-truncate"> {{ producto.nombre }}</div>
@@ -242,6 +242,5 @@ function redirectToComprarPedido() {
 </script>
 
 
-<style lang="scss" scoped>
-@import '../assets/style.scss';
+<style  scoped>
 </style>
