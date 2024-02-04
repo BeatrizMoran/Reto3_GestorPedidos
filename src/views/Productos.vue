@@ -4,7 +4,7 @@
     <br>
     <div class="row">
       <AsideA :categories="categories" @cambiarCategorias="handleCategoryChange" class="col-12 col-md-4 col-lg-3 my-4 mx-2"></AsideA>
-      <BodyA class="col-12 col-md-7 col-lg-8 my-4 mx-2" :listaProductos="listaProductos" :buscador="terminoBusqueda" :selectedCategories="selectedCategories"></BodyA>
+      <BodyA class="col-12 col-md-7 col-lg-7 my-4 mx-2" :listaProductos="listaProductos" :buscador="terminoBusqueda" :selectedCategories="selectedCategories"></BodyA>
     </div>
 
 </template>

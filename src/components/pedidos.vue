@@ -2,91 +2,93 @@
   <div class="row">
     <div class="col perfil-container p-5">
       <h1 class="mt-4 mb-4 text-secundary text-light">Listado de Pedidos</h1>
-      <table class="table table-responsive">
-        <thead class="bg-dark">
-          <tr>
-            <th>Total</th>
-            <th>Fecha del pedido</th>
-            <th>Número de pedido</th>
-            <th>Estado</th>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="bg-dark">
+            <tr>
+              <th>Total</th>
+              <th>Fecha del pedido</th>
+              <th>Número de pedido</th>
+              <th>Estado</th>
 
-            <th class="text-center">Ver Detalles</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(pedido, index) in pedidos"
-            :key="index"
-            :style="{ backgroundColor: getColor(pedido.estado) }"
-          >
-            <td class="uno price hoverPedidos">{{ pedido.total }} €</td>
-            <td class="uno price hoverPedidos">{{ pedido.fecha_pedido }}</td>
-            <td class="uno price hoverPedidos">{{ pedido.numero_pedido }}</td>
-            <td
+              <th class="text-center">Ver Detalles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(pedido, index) in pedidos"
+              :key="index"
               :style="{ backgroundColor: getColor(pedido.estado) }"
-              class="text-white price cuidado"
             >
-              {{ pedido.estado }}
-            </td>
-            <td class="uno price hoverPedidos text-center">
-              <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0">
-                <img
-                  src="../assets/images/ver.png"
-                  alt="Ver detalles"
-                  class="img-fluid"
-                  id="imgDetalles"
-                />
-              </button>
-            </td>
-          </tr>
-          <tr v-if="pedidoSeleccionado">
-            <td colspan="5 ">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th class="text-center dos price">Productos</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="row grisPedido p-4">
-                        <div
-                          v-for="(producto, prodIndex) in pedidoSeleccionado.productos"
-                          :key="prodIndex"
-                          class="col-md-4 mb-3"
-                        >
+              <td class="uno price hoverPedidos">{{ pedido.total }} €</td>
+              <td class="uno price hoverPedidos">{{ pedido.fecha_pedido }}</td>
+              <td class="uno price hoverPedidos">{{ pedido.numero_pedido }}</td>
+              <td
+                :style="{ backgroundColor: getColor(pedido.estado) }"
+                class="text-white price cuidado"
+              >
+                {{ pedido.estado }}
+              </td>
+              <td class="uno price hoverPedidos text-center">
+                <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0">
+                  <img
+                    src="../assets/images/ver.png"
+                    alt="Ver detalles"
+                    class="img-fluid"
+                    id="imgDetalles"
+                  />
+                </button>
+              </td>
+            </tr>
+            <tr v-if="pedidoSeleccionado">
+              <td colspan="5 ">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th class="text-center dos price">Productos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="row grisPedido p-4">
                           <div
-                            class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg"
+                            v-for="(producto, prodIndex) in pedidoSeleccionado.productos"
+                            :key="prodIndex"
+                            class="col-md-4 mb-3"
                           >
-                            <img
-                              :src="'https://javieregibide.com/storage/' + producto.imagen"
-                              alt="Imagen del producto"
-                              class="img-fluid me-md-3 mb-3"
-                            />
-                            <div class="text-center">
-                              <p class="mb-1">
-                                <span class="fw-bold fs-5 text-secondary">Nombre:</span>
-                                {{ producto.nombre }}
-                              </p>
-                              <p class="mb-1">
-                                <span class="fw-bold">Precio:</span> {{ producto.precio }} €
-                              </p>
-                              <p class="mb-1">
-                                <span class="fw-bold">Cantidad:</span> {{ producto.cantidad }}
-                              </p>
+                            <div
+                              class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg"
+                            >
+                              <img
+                                :src="'https://javieregibide.com/storage/' + producto.imagen"
+                                alt="Imagen del producto"
+                                class="img-fluid me-md-3 mb-3"
+                              />
+                              <div class="text-center">
+                                <p class="mb-1">
+                                  <span class="fw-bold fs-5 text-secondary">Nombre:</span>
+                                  {{ producto.nombre }}
+                                </p>
+                                <p class="mb-1">
+                                  <span class="fw-bold">Precio:</span> {{ producto.precio }} €
+                                </p>
+                                <p class="mb-1">
+                                  <span class="fw-bold">Cantidad:</span> {{ producto.cantidad }}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
