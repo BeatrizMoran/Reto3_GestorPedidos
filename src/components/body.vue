@@ -36,7 +36,7 @@
             <div class="col-12 px-2 shadow">
               <img
                 :src="'https://javieregibide.com/storage/' + producto.imagen"
-                alt="I"
+                alt="Producto"
                 class="img-fluid imagen"
               />
             </div>
