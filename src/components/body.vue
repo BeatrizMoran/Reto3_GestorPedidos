@@ -97,7 +97,6 @@ const listaProductos = ref([]);
 const showButton = ref(false);
 const isButtonDisabled = ref(true);
 let currentPage = ref(1);
-const searchTerm = ref('');
 const router = useRouter();
 const clienteAlmacenado = localStorage.getItem("cliente");
 const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado));
@@ -118,7 +117,7 @@ const props = defineProps({
 
 onBeforeMount(async () => {
   listaProductos.value = await productosStore.cargarProductosDesdeAPI();
-  console.log(listaProductos.value.productos)
+  console.log("onbefore", listaProductos.value.productos)
 });
 
 watch(clienteEnLocalStorage, (nuevoCliente) => {
@@ -131,9 +130,8 @@ watch(() => props.listaProductos, (nuevoValor) => {
   currentPage.value = 1;
 });
 
-watch(() => props.buscador, (nuevoValor) => {
-  searchTerm.value = nuevoValor;
-});
+const searchTerm = ref(props.buscador || '');  // Inicializa con el valor actual
+
 
 const filteredProductos = computed(() => {
   const productos = listaProductos.value.productos;
@@ -149,9 +147,9 @@ const filteredProductos = computed(() => {
     });
 
     // Filtro por nombre del buscador
-    const nombreCoincide = !props.buscador || (producto.nombre && producto.nombre.toLowerCase().includes(props.buscador.toLowerCase()));
+    const nombreCoincide = !searchTerm.value || (producto.nombre && producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase()));
 
-    // Seleccionar productos que cumplen con ambos filtros
+    // Seleccionar productos que cumplen con al menos uno de los filtros
     return categoriasCoinciden && nombreCoincide;
   });
 
