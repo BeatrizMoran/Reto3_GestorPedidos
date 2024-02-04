@@ -4,7 +4,7 @@
     <br>
     <div class="row">
       <AsideA :categories="categories" @cambiarCategorias="handleCategoryChange" class="col-12 col-md-4 col-lg-3 my-4 mx-2"></AsideA>
-      <BodyA class="col-12 col-md-7 col-lg-8 my-4 mx-2" :listaProductos="listaProductos" :buscador="buscador.value" :selectedCategories="selectedCategories"></BodyA>
+      <BodyA class="col-12 col-md-7 col-lg-8 my-4 mx-2" :listaProductos="listaProductos" :buscador="terminoBusqueda" :selectedCategories="selectedCategories"></BodyA>
     </div>
 
 </template>
@@ -20,7 +20,7 @@ import { useProductosStore } from '@/stores/productos';
 
 const listaProductos = ref([]);
 const activo = ref(false);
-const buscador = ref("");
+const terminoBusqueda = ref("");
 
 
 function fcambiarLista(lista) {
@@ -28,23 +28,23 @@ function fcambiarLista(lista) {
 
   listaProductos.value = lista;
 
-  console.log("cambiando lista...")
+  //console.log("cambiando lista...")
   console.log(listaProductos.value)
 
 }
 
 function fbuscador(buscador) {
 
-  buscador.value = buscador;
-  console.log("ickkck", buscador);
+  terminoBusqueda.value = buscador;
+  //console.log("buscador en vista", buscador);
 
 }
 const categories = ref([]);
 const selectedCategories = ref([]); 
 
 function handleCategoryChange(selectedCategoriesFromAside) {
-  console.log("categoria recibida en prodoctos",selectedCategoriesFromAside);
+  //console.log("categoria recibida en prodoctos",selectedCategoriesFromAside);
   selectedCategories.value = selectedCategoriesFromAside; 
-  console.log("categoria a enviar al body ",selectedCategories.value);
+  //console.log("categoria a enviar al body ",selectedCategories.value);
 }
 </script>

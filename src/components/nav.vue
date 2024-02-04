@@ -12,7 +12,7 @@
 
     <!-- Logo -->
     <div class="col-2 col-lg-1 px-1 text-center">
-      <img src="../assets/logo.png" alt="Logo" class="img-fluid">
+      <img src="../assets/images/logo.png" alt="Logo" class="img-fluid">
     </div>
 
     <!-- Contenido del navbar -->
@@ -113,19 +113,20 @@ const buscar = async () => {
 
   try {
 
-    if (terminoBusqueda.value === "") {
+    if (terminoBusqueda.value == "") {
       listaProductos.value = await productosStore.cargarProductosDesdeAPI();
       console.log("Estoy en el nav, todos los productos", listaProductos.value);
       emit('listaProductos', listaProductos.value);
 
     } else {
-      listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value);
+      listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value.toLowerCase());
       console.log("Estoy en el nav, búsqueda filtrada: ", listaProductos.value);
       emit('listaProductos', listaProductos.value);
+      console.log("nav bus", terminoBusqueda.value)
       emit('buscador', terminoBusqueda.value);
 
     }
-    router.push({ name: 'productos' });
+    //router.push({ name: 'productos' });
 
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
@@ -178,7 +179,6 @@ function cerrarSesion() {
 
 
 <style lang="scss" scoped>
-@import '../assets/style.scss';
 
 img {
   max-width: 100%;

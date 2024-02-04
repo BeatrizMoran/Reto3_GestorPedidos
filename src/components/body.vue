@@ -20,48 +20,45 @@
 
     <!-- Contenido de la tarjeta -->
     <div class=" row">
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-3" v-for="(producto, index) in paginatedList" :key="producto.id">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3" v-for="producto in paginatedProductos" :key="producto.id">
         <div class="card lg-6 card-hover">
 
 
           <!-- Card Top -->
-          <div class=" card-top uno justify-content-start align-items-center">
+          <div class=" card-top bg-gray  justify-content-start align-items-center">
             <div class="col-12 px-2 shadow">
               <img :src="producto.imagen" alt="I" class="img-fluid imagen">
             </div>
             <div class="col-12 px-2">
               <button @click="addToCart(producto)" class="btn options " :disabled="producto.disabled"
                 v-if="clienteEnLocalStorage">
-                <img src="../assets/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
+                <img src="../assets/images/carrito.png" alt="Añadir al carrito" class="img-fluid" width="30px" height="30px">
               </button>
             </div>
             <div class="info-name text-truncate custom-truncate"> {{ producto.nombre }}</div>
           </div>
 
           <!-- Card Body -->
-          <div class="card-body dos d-flex justify-content-between align-items-center p-2">
-            <div class="format price">{{ producto.formato }}</div>
+          <div class="card-body bg-light d-flex justify-content-between align-items-center p-2">
+            <div class="format">{{ producto.formato }}</div>
             <div class="quantity-section" v-if="clienteEnLocalStorage">
-              <label for="quantity"><b class="border-bottom">Cantidad: </b></label>
-              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled" :min="1" style="width: 50px;">
+              <label for="quantity">Cantidad:</label>
+              <input type="number" id="quantity" v-model="producto.selectedQuantity" :disabled="producto.disabled"
+                :min="1" style="width: 50px;">
             </div>
           </div>
 
           <!-- Card Footer -->
           <div class="card-footer bg-info p-2">
             <div class="details ">
-              <div class="price col-12"><b class="border-bottom border-black">Precio: </b>{{ producto.precio }}€</div>
-              <div v-if="producto.categorias.nombre.length > 0" class="mb-3">
-                <label for="categorias" class="form-label price"><b class="border-bottom border-black">Categoria: </b></label>
-                <select id="categorias" class="form-select" multiple size="2" >
-                  <option v-for="(cat, index) in producto.categorias.nombre" :key="index" :value="cat">
-                    {{ cat }}
-                  </option>
-                </select>
-              </div>
+              <div class="price col-12">Precio:{{ producto.precio }}€</div>
 
-
-
+              <label for="categorias" class="form-label">Categorías:</label>
+              <select id="categorias" class="form-select" multiple size="2">
+                <option v-for="categoria in producto.categorias" :key="categoria.id">
+                  {{ categoria.nombre }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -71,7 +68,7 @@
 
     <!-- Botones Paginacion -->
 
-    <div class=" row d-flex justify-content-center align-items-center mt-3" v-if="showNavigation">
+    <div class=" row d-flex justify-content-center align-items-center mt-3" >
       <button @click="previousPage" :disabled="currentPage === 1"
         class="col-lg-3 col-md-5 col-sm-12 btn btn-primary py-2 px-4  mx-2 my-4">Página Anterior</button>
       <div class="col-lg-3 col-md-5 col-sm-12 btn mx-2 my-4 paginacion  ">Página {{ currentPage }} de {{ totalPages }}
@@ -89,29 +86,21 @@
 
 
 <script setup>
-//imports
-import { ref, watch, defineProps, onMounted, onBeforeMount, computed } from 'vue';
+import { ref, watch, defineProps, onBeforeMount, computed } from 'vue';
 import { useProductosStore } from '../stores/productos';
 import { useRouter } from 'vue-router';
 
-//variables
 const productosStore = useProductosStore();
 const alertMessage = ref();
 const showAlert = ref();
-const list = ref([]);
+const listaProductos = ref([]);
 const showButton = ref(false);
 const isButtonDisabled = ref(true);
-const pageSize = 6;
 let currentPage = ref(1);
-const searchTerm = ref('');
 const router = useRouter();
-
-
-//cliente logueado
 const clienteAlmacenado = localStorage.getItem("cliente");
 const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado));
 
-//datos recibidos del padre
 const props = defineProps({
   listaProductos: {
     type: Array,
@@ -119,7 +108,6 @@ const props = defineProps({
   },
   buscador: {
     type: String
-
   },
   selectedCategories: {
     type: Array,
@@ -127,115 +115,75 @@ const props = defineProps({
   }
 });
 
-//antesdemontar
 onBeforeMount(async () => {
-  list.value = await productosStore.cargarProductosDesdeAPI();
-  console.log("onbeforemount", list.value);
-
+  listaProductos.value = await productosStore.cargarProductosDesdeAPI();
+  console.log("onbefore", listaProductos.value.productos)
 });
 
-//watchs
-
-// Watch para actualizar clienteEnLocalStorage instantáneamente
 watch(clienteEnLocalStorage, (nuevoCliente) => {
   clienteEnLocalStorage.value = nuevoCliente;
 });
 
 watch(() => props.listaProductos, (nuevoValor) => {
-  list.value = nuevoValor;
+  console.log("nuevo valor", nuevoValor.productos)
+  listaProductos.value = nuevoValor;
   currentPage.value = 1;
-
 });
 
-watch(() => props.buscador, (nuevoValor) => {
-  searchTerm.value = nuevoValor;
-
-  //console.log("nuevoValor",nuevoValor);
-  //console.log("watchbuscador", searchTerm.value);
-});
+const searchTerm = ref(props.buscador || '');  // Inicializa con el valor actual
 
 
+const filteredProductos = computed(() => {
+  const productos = listaProductos.value.productos;
 
-const paginatedList = computed(() => {
-  if (list.value.data !== undefined) {
-    // Filtra la lista de productos
-    const filteredList = list.value.data.filter(producto => {
-      const nombreIncluido = producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase());
+  if (!productos) {
+    return [];  // O cualquier valor predeterminado que desees
+  }
 
-      // Verifica si el producto tiene categorias (como un array en la propiedad 'nombre') y si tiene alguna de las categorias seleccionadas
-      const tieneCategoriaSeleccionada = Array.isArray(producto.categorias?.nombre) && (props.selectedCategories.length === 0 || props.selectedCategories.some(cat => producto.categorias.nombre.includes(cat)));
-
-      return nombreIncluido && tieneCategoriaSeleccionada;
+  const productosFiltrados = productos.filter((producto) => {
+    // Filtro por categorías
+    const categoriasCoinciden = props.selectedCategories.length === 0 || producto.categorias.some(pCat => {
+      return props.selectedCategories.includes(pCat.nombre);
     });
 
-    // Calcula el numero total de páginas basándose en la lista filtrada
-    const totalFilteredPages = Math.ceil(filteredList.length / pageSize);
+    // Filtro por nombre del buscador
+    const nombreCoincide = !searchTerm.value || (producto.nombre && producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase()));
 
-    // Asigna el valor correcto de totalPages
-    totalPages.value = totalFilteredPages > 0 ? totalFilteredPages : 1;
+    // Seleccionar productos que cumplen con al menos uno de los filtros
+    return categoriasCoinciden && nombreCoincide;
+  });
 
-    // Muestra todos los productos en una página si hay menos de pageSize elementos
-    if (filteredList.length <= pageSize) {
-      return filteredList;
-    }
-
-    // Calcula el índice de inicio y fin para la paginación
-    const startIndex = (currentPage.value - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-
-    return filteredList.slice(startIndex, endIndex);
-  }
+  return productosFiltrados;
 });
 
-// Calcula el total de páginas basándose en la lista filtrada
+const pageSize = 6;
+
+// Cálculo de los productos de la página actual
+const paginatedProductos = computed(() => {
+  const start = (currentPage.value - 1) * pageSize;
+  const end = start + pageSize;
+  return filteredProductos.value.slice(start, end);
+});
+
+
 const totalPages = computed(() => {
-  if (list.value.data !== undefined) {
-    const filteredList = list.value.data.filter(producto => {
-      const nombreIncluido = producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase());
-      const tieneCategoriaSeleccionada = Array.isArray(producto.categorias?.nombre) && (props.selectedCategories.length === 0 || props.selectedCategories.some(cat => producto.categorias.nombre.includes(cat)));
-
-      return nombreIncluido && tieneCategoriaSeleccionada;
-    });
-
-    const totalFilteredPages = Math.ceil(filteredList.length / pageSize);
-
-    // Retorna el número total de páginas basándose en la lista filtrada y en la cantidad de elementos después de aplicar los filtros
-    return totalFilteredPages > 0 ? totalFilteredPages : 1;
-  }
-
-  // En caso de que la lista no esté definida, retorna 1 página
-  return 1;
+  return Math.ceil(filteredProductos.value.length / pageSize);
 });
 
-
-// Muestra la navegación entre páginas solo si hay más de una página
-const showNavigation = computed(() => totalPages.value > 1);
-
-// Función para ir a la página siguiente
-function nextPage() {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-    window.scrollTo({ top: 300, behavior: 'smooth' });
-  }
-}
-
-// Función para ir a la página anterior
 function previousPage() {
   if (currentPage.value > 1) {
-    currentPage.value--;
-    window.scrollTo({ top: 300, behavior: 'smooth' });
+    currentPage.value -= 1;
   }
 }
 
-//almontar
-onMounted(() => {
-  //console.log("Categorías recibidas en Body.vue:", props.selectedCategories);
-  //console.log("Productos recibidos en Body.vue:", list.value);
-  //console.log("montado");
-  //console.log(list.value);
-  updateButtonState();
+function nextPage() {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value += 1;
+  }
+}
 
-});
+
+
 
 //añadimos la carta seleccionada al localstorage
 function addToCart(producto) {
@@ -294,7 +242,5 @@ function redirectToComprarPedido() {
 </script>
 
 
-<style lang="scss" scoped>
-@import '../assets/style.scss';
+<style  scoped>
 </style>
-

@@ -9,7 +9,7 @@
           </p>
         </div>
         <div class="col-md-6 ">
-          <img src="../assets/cerveza1.jpg" alt="Cerveza 1" class="img-fluid hovimg rounded-3" />
+          <img src="../assets/images/cerveza1.jpg" alt="Cerveza 1" class="img-fluid hovimg rounded-3" />
         </div>
       </div>
       <!-- Espacio en blanco -->
@@ -24,7 +24,7 @@
           </p>
         </div>
         <div class="col-md-6 ">
-          <img src="../assets/cerveza2.jpg" alt="Cerveza 2" class="img-fluid hovimg rounded-3" />
+          <img src="../assets/images/cerveza2.jpg" alt="Cerveza 2" class="img-fluid hovimg rounded-3" />
         </div>
       </div>
 
@@ -41,7 +41,7 @@
           </p>
         </div>
         <div class="col-md-6 ">
-          <img src="../assets/cerveza3.jpg" alt="Cerveza 3" class="img-fluid hovimg rounded-3" />
+          <img src="../assets/images/cerveza3.jpg" alt="Cerveza 3" class="img-fluid hovimg rounded-3" />
         </div>
       </div>
 
@@ -57,7 +57,7 @@
     </p>
   </div>
   <div class="col-md-6">
-    <img src="../assets/cerveza4.jpg" alt="Cerveza 4" class="img-fluid hovimg rounded-3" />
+    <img src="../assets/images/cerveza4.jpg" alt="Cerveza 4" class="img-fluid hovimg rounded-3" />
   </div>
 </div>
 
@@ -76,6 +76,5 @@ const showText = ref(0);
 
 
   
-<style lang="scss" scoped>
-@import '../assets/style.scss';
+<style  scoped>
 </style>

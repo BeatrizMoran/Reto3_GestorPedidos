@@ -10,7 +10,7 @@
             <th>Número de pedido</th>
             <th>Estado</th>
 
-            <th>Ver Detalles</th>
+            <th class="text-center">Ver Detalles</th>
           </tr>
         </thead>
         <tbody >
@@ -21,9 +21,9 @@
             <td  :style="{ backgroundColor: getColor(pedido.estado) }" class="text-white price cuidado">
               {{ pedido.estado }}
             </td>
-            <td class="uno price hoverPedidos">
-              <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0">
-                <img src="../assets/ver.png" alt="Ver detalles" class="img-fluid" id="imgDetalles">
+            <td class="uno price hoverPedidos text-center">
+              <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0 ">
+                <img src="../assets/images/ver.png" alt="Ver detalles" class="img-fluid " id="imgDetalles">
               </button>
             </td>
           </tr>
@@ -32,7 +32,7 @@
               <table class="table table-bordered ">
                 <thead>
                   <tr>
-                    <th class="text-center dos price ">Producto</th>
+                    <th class="text-center dos price ">Productos</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,7 +144,6 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../assets/style.scss';
 
   </style>
 
@@ -152,6 +151,5 @@ export default {
 
 <style lang="scss" scoped>
 
-@import '../assets/style.scss';
 
   </style>
