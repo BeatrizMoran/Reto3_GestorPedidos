@@ -143,19 +143,17 @@ const filteredProductos = computed(() => {
   }
 
   const productosFiltrados = productos.filter((producto) => {
-  const categoriasCoinciden = props.selectedCategories.length === 0 || producto.categorias.some(pCat => {
-    return props.selectedCategories.includes(pCat.nombre);
+    // Filtro por categorías
+    const categoriasCoinciden = props.selectedCategories.length === 0 || producto.categorias.some(pCat => {
+      return props.selectedCategories.includes(pCat.nombre);
+    });
+
+    // Filtro por nombre del buscador
+    const nombreCoincide = props.buscador === '' || (producto.nombre && producto.nombre.toLowerCase().includes(props.buscador.toLowerCase()));
+
+    // Seleccionar productos que cumplen con al menos uno de los filtros
+    return categoriasCoinciden || nombreCoincide;
   });
-  console.log("nombre", producto.nombre)
-  console.log("buscador", props.buscador)
-
-
-  // Nuevo filtro por nombre del buscador
-  const nombreCoincide = props.buscador === '' || (producto.nombre.toLowerCase().includes(props.buscador.toLowerCase()));
-
-  // Seleccionar productos que cumplan con al menos uno de los filtros
-  return categoriasCoinciden || nombreCoincide;
-});
 
   return productosFiltrados;
 });
