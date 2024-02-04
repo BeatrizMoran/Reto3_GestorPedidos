@@ -149,10 +149,10 @@ const filteredProductos = computed(() => {
     });
 
     // Filtro por nombre del buscador
-    const nombreCoincide = props.buscador === '' || (producto.nombre && producto.nombre.toLowerCase().includes(props.buscador.toLowerCase()));
+    const nombreCoincide = !props.buscador || (producto.nombre && producto.nombre.toLowerCase().includes(props.buscador.toLowerCase()));
 
-    // Seleccionar productos que cumplen con al menos uno de los filtros
-    return categoriasCoinciden || nombreCoincide;
+    // Seleccionar productos que cumplen con ambos filtros
+    return categoriasCoinciden && nombreCoincide;
   });
 
   return productosFiltrados;
