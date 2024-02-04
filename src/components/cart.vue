@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-8">
+    <div class="col col-md-8">
       <p class="p-3 rounded-3 carrito-color">
         <img
           src="../assets/images/carrito.png"
