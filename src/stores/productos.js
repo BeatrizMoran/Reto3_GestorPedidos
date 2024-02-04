@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useProductosStore = defineStore('productos', () => {
   const listaProductos = ref([])
-  const url = "https://javieregibide.com/api";
+  const url = "https://reto3-losjavas.onrender.com/api";
 
   // Método para cargar productos desde la API
   async function cargarProductosDesdeAPI() {
@@ -15,10 +15,13 @@ export const useProductosStore = defineStore('productos', () => {
       }
 
       const data = await response.json()
-      console.log('Datos recibidos desde la API:', data);
+      console.log('Datos recibidos desde la API: DATA', data);
 
       // Actualizar la lista de productos en el almacén
       listaProductos.value = data;
+
+      console.log("listaProductos value:", listaProductos.value);
+      console.log("listaProductos SIN value:", listaProductos);
       return data;
     } catch (error) {
       console.error('Error:', error.message)
@@ -31,13 +34,20 @@ export const useProductosStore = defineStore('productos', () => {
     try {
       //console.log('Término de búsqueda:', nombre);
       const response = await fetch(`${url}/productos?nombre=${nombre}`);
-      
-      //console.log('URL de solicitud:', response.url);
-      //console.log("Response", response);
+    
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }      
+      console.log('URL de solicitud:', response.url);
+      console.log("Response", response);
 
       const data = await response.json();
-      //console.log("data", data);
+      console.log("data", data);
       listaProductos.value = data;
+      console.log("listaProductos value:", listaProductos.value);
+      console.log("listaProductos SIN value:", listaProductos);
+
+
        return data;
     } catch (error) {
       console.error('Error:', error.message)
