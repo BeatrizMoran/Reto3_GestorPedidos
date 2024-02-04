@@ -37,6 +37,14 @@ body {
   background-attachment: fixed;
 }
 
+h1, h2 {
+  font-family: "Inria Serif";
+}
+
+p {
+  font-family: "Lobster", "Sans-Serif";
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
