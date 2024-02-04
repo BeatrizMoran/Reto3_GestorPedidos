@@ -1,8 +1,8 @@
 :root {
-  --solicitado-color: pink;
-  --preparacion-color: rgb(172, 172, 94);
-  --entrega-color: orange;
-  --entregado-color: green;
+  --solicitado-color: #71A9B3;
+  --preparacion-color: #205F6B;
+  --entrega-color: #4D5E95;
+  --entregado-color: #81CF92;
   --default-color: white;
 }
 
@@ -43,11 +43,11 @@ body {
 }
 
 .text-primary {
-  color: #007bff;
+  color: #205F6B;
 }
 
 .text-secondary {
-  color: #6c757d;
+  color: #7F8EBF;
 }
 
 .detalles-pedido-container {
@@ -118,7 +118,7 @@ body {
 
 .paginacion {
   color: #f8f9fa;
-  background-color: #007bff;
+  background-color: #205F6B;
   padding: 10px;
   border-radius: 10px;
   cursor: default;
@@ -126,7 +126,7 @@ body {
 
 .paginacion:hover {
   color: #f8f9fa;
-  background-color: #007bff;
+  background-color: #205F6B;
   padding: 10px;
   border-radius: 10px;
   cursor: default;
@@ -146,12 +146,12 @@ body {
 }
 
 .form-check:hover {
-  background-color: #6c757d;
+  background-color: #7F8EBF;
   transition: background-color 0.5s;
 }
 
 .carrito-color {
-  background-color: rgba(176, 203, 226, 0.884);
+  background-color: #71A9B3;
 }
 
 .tarjetitas {
