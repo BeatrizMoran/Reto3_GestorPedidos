@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useProductosStore = defineStore('productos', () => {
   const listaProductos = ref([])
-  const url = "https://reto3-losjavas.onrender.com/api";
+  const url = "https://javieregibide.com/api";
 
   // Método para cargar productos desde la API
   async function cargarProductosDesdeAPI() {

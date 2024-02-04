@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useCategoriasStore = defineStore('categorias', () => {
     const listaCategorias = ref([])
-    const link = 'http://localhost/api';
+    const link = 'https://javieregibide.com/api';
   
     // Método para cargar categorias desde la API
     async function cargarCategoriasDesdeAPI() {

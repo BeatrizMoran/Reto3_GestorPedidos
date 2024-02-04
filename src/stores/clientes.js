@@ -8,7 +8,7 @@ export const useClientesStore = defineStore('clientes', () => {
   async function comprobarCodigoCliente(codigo_cliente) {
     //console.log('Entrando en la función buscarProductos');
     const link = 'http://localhost/api';
-    const url = "https://reto3-losjavas.onrender.com/api";
+    const url = "https://javieregibide.com/api";
 
   
     try {
