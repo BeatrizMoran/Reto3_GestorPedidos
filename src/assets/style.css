@@ -1,0 +1,212 @@
+:root {
+  --solicitado-color: #71A9B3;
+  --preparacion-color: #205F6B;
+  --entrega-color: #4D5E95;
+  --entregado-color: #81CF92;
+  --default-color: white;
+}
+
+#app {
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: rgb(173, 0, 189);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(165deg, 100%, 37%, 0.2);
+  }
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("./images/Fondo.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h1, h2 {
+  font-family: "Inria Serif";
+}
+
+p {
+  font-family: "Lobster", "Sans-Serif";
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-primary {
+  color: #205F6B;
+}
+
+.text-secondary {
+  color: #7F8EBF;
+}
+
+.detalles-pedido-container {
+  background-color: rgba(22, 22, 22, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  color: #f8f9fa;
+  font-size: 1.5em;
+}
+
+.body-container {
+  background-color: rgba(22, 22, 22, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.aside-container {
+  background-color: rgba(22, 22, 22, 0.8);
+  padding: 20px;
+  color: #f8f9fa;
+  font-size: 1.5em;
+}
+
+.perfil-container {
+  background-color: rgba(22, 22, 22, 0.8);
+}
+
+.container {
+  padding: 20px;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.clickable-image {
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.text-gray {
+  color: #f8f9fa;
+  font-size: 1.5em;
+  background-color: rgba(22, 22, 22, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.custom-truncate {
+  max-width: 300px;
+}
+
+.card-hover:hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+  transform: scale(1.1);
+}
+
+.paginacion {
+  color: #f8f9fa;
+  background-color: #205F6B;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: default;
+}
+
+.paginacion:hover {
+  color: #f8f9fa;
+  background-color: #205F6B;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: default;
+}
+
+.imagen {
+  height: 150px;
+  width: 300px;
+}
+
+.options {
+  background-color: #ffc107;
+}
+
+.options:hover {
+  background-color: #28a745;
+}
+
+.form-check:hover {
+  background-color: #7F8EBF;
+  transition: background-color 0.5s;
+}
+
+.carrito-color {
+  background-color: #71A9B3;
+}
+
+.tarjetitas {
+  background-color: rgba(22, 22, 22, 0.8);
+  font-size: 1.25em;
+  color: #f8f9fa;
+}
+
+.custom-border-dashed {
+  padding: 20px;
+  border-style: dashed;
+}
+
+.hovimg:hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+  transform: scale(1.1);
+}
+
+.index {
+  font-size: 1.25em;
+  color: #f8f9fa;
+}
+
+.uno {
+  background-color: #706d6d;
+  color: #f8f9fa;
+}
+
+.dos {
+  background-color: #2f2f2f;
+  color: #f8f9fa;
+}
+
+.price {
+  font-size: 1.25em;
+}
+
+.grisPedido {
+  background-color: #706d6d;
+}
+
+.hoverPedidos:hover {
+  background-color: #858585;
+}
+
+.cuidado {
+  cursor: not-allowed;
+}
+
+/*# sourceMappingURL=style.css.map */
