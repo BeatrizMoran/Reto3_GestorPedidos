@@ -1,7 +1,10 @@
+//imports
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCategoriasStore = defineStore('categorias', () => {
+
+  //variables
     const listaCategorias = ref([])
     const link = 'https://reto3-losjavas.onrender.com/api';
     const url = "https://javieregibide.com/api";
@@ -10,13 +13,11 @@ export const useCategoriasStore = defineStore('categorias', () => {
     async function cargarCategoriasDesdeAPI() {
       try {
         const response = await fetch(`${link}/categorias`);
-       // console.log(response);
         if (!response.ok) {
           throw new Error('Error al obtener las categorias desde la API')
         }
   
         const data = await response.json()
-        //console.log('Datos recibidos desde la API:', data);
   
         // Actualizar la lista de categorias en el almacén
          listaCategorias.value = data;
@@ -30,7 +31,7 @@ export const useCategoriasStore = defineStore('categorias', () => {
 
     
   
-  
+  //funcion para obtener las categorias
     function obtenerCategorias() {
       return listaCategorias.value
     }

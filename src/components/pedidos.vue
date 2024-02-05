@@ -94,8 +94,7 @@
 </template>
 
 <script setup>
-//url api
-const link = 'https://reto3-losjavas.onrender.com';
+
 //imports
 import { onBeforeMount, ref } from 'vue'
 //import detallesPedido from './detallesPedido.vue';
@@ -108,16 +107,18 @@ const clienteAlmacenado = localStorage.getItem('cliente')
 const objCliente = JSON.parse(clienteAlmacenado)
 const pedidoSeleccionado = ref(null)
 
+
+//antes de montar
 onBeforeMount(async () => {
   try {
     const response = await pedidosStore.buscarPedidosCliente(objCliente.id)
     pedidos.value = response.data
-    //console.log("lista pedidos:", pedidos.value);
   } catch (error) {
     console.error('Error al cargar los pedidos:', error)
   }
 })
 
+//rellenar del color diferenciando el estado
 const getColor = (estado) => {
   switch (estado) {
     case 'solicitado':
@@ -133,10 +134,12 @@ const getColor = (estado) => {
   }
 }
 
+//mostrar detalles pedido modal
 const mostrarDetallesPedido = (pedido) => {
   pedidoSeleccionado.value = pedido
 }
 
+//cerrar detalles pedido modal
 const cerrarDetallesPedido = () => {
   pedidoSeleccionado.value = null
 }
@@ -154,6 +157,4 @@ img {
 }
 </style>
 
-<style lang="scss" scoped></style>
 
-<style lang="scss" scoped></style>

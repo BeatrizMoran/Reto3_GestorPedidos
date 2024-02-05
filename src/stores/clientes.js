@@ -1,3 +1,4 @@
+//imports
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
@@ -8,21 +9,18 @@ export const useClientesStore = defineStore('clientes', () => {
 
   // Método para cargar productos desde la API
   async function comprobarCodigoCliente(codigo_cliente) {
-    //console.log('Entrando en la función buscarProductos');
     
 
   
     try {
       const response = await fetch(`${link}/cliente?codigo_cliente=${codigo_cliente}`);
   
-     // console.log('URL de solicitud:', response.url);
-  
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
       }
   
       const data = await response.json();
-     // console.log('Data cliente:', data);
+  
   
       return data;
     } catch (error) {
@@ -33,13 +31,14 @@ export const useClientesStore = defineStore('clientes', () => {
     }
   }
 
+  //funcion asincrona para actualizar clieente a traves del objeto cliente
   async function actualizarCliente(objCliente) {
     try {
       const response = await fetch(`${link}/cliente/actualizar/${objCliente.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          // Puedes agregar otros encabezados si es necesario, como tokens de autenticación
+          
         },
         body: JSON.stringify({
           codigo_cliente: objCliente.codigo_cliente,
@@ -54,7 +53,7 @@ export const useClientesStore = defineStore('clientes', () => {
       }
   
       const data = await response.json();
-      //console.log('Data cliente actualizado:', data);
+    
       
   
       return data;

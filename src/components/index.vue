@@ -87,8 +87,10 @@
 </template>
 
 <script setup>
+//imports
 import { ref } from 'vue'
 
+//variables
 const showText = ref(0)
 </script>
 

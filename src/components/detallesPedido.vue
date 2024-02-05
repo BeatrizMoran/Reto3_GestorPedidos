@@ -35,7 +35,7 @@
 //imports
 import { defineProps, defineEmits  } from 'vue';
 
-// Definir las propiedades y eventos del componente
+// variables
 const props = defineProps(['pedido']);
 const emits = defineEmits(['cerrar'])
 

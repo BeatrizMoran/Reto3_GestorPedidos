@@ -7,7 +7,7 @@
 //imports
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router'; // Importa el enrutador
+import router from './router'; 
 
 </script>
 

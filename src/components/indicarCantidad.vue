@@ -1,10 +1,12 @@
 <script setup>
+//imports
 import {ref,defineEmits, onUnmounted} from 'vue';
-const emit=defineEmits(['indicarUnidades'])
 
+//variables
+const emit=defineEmits(['indicarUnidades'])
 const cantidad = ref('');
 
-
+//cambiar el valor de cantidad
 function indicar()
 {
     const cantidadValue = parseInt(cantidad.value);
@@ -13,8 +15,6 @@ function indicar()
         emit('indicarUnidades', cantidadValue);
     } 
 }
-
-
 </script>
 
 <template>

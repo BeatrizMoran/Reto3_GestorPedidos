@@ -1,7 +1,9 @@
+//imports
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const usePedidosStore = defineStore('pedidos', () => {
+  //variables
   const pedidos = ref([])
   const link = 'https://reto3-losjavas.onrender.com/api';
   const url = "https://javieregibide.com/api";
@@ -9,19 +11,15 @@ export const usePedidosStore = defineStore('pedidos', () => {
 
   // Método para cargar productos desde la API
   async function buscarPedidosCliente(cliente_id) {
-    //console.log('Entrando en la función buscar pedidos');
   
     try {
       const response = await fetch(`${link}/pedidos?cliente_id=${cliente_id}`);
-  
-      //console.log('URL de solicitud:', response.url);
   
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
       }
   
       const data = await response.json();
-      //console.log('Data pedidos:', data);
   
       return data;
     } catch (error) {
@@ -32,8 +30,8 @@ export const usePedidosStore = defineStore('pedidos', () => {
     }
   }
 
+  //funcion para crear un pedido
   async function crearPedido(pedidoData) {
-    console.log('Entrando en la función crear pedido');
 
     try {
         const response = await fetch(`${link}/pedidos/crear`, {
@@ -44,14 +42,12 @@ export const usePedidosStore = defineStore('pedidos', () => {
             body: JSON.stringify(pedidoData),
         });
 
-        console.log('URL de solicitud:', response.url);
 
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
-        console.log('Data del nuevo pedido:', data);
 
         return data;
     } catch (error) {
@@ -65,5 +61,5 @@ export const usePedidosStore = defineStore('pedidos', () => {
   
   
 
-  return { buscarPedidosCliente, crearPedido/* Resto de las funciones y datos del almacén... */ }
+  return { buscarPedidosCliente, crearPedido }
 })
