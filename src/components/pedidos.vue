@@ -95,7 +95,7 @@
 
 <script setup>
 //url api
-const link = 'https://reto3-losjavas.onrender.com/api';
+const link = 'https://reto3-losjavas.onrender.com';
 //imports
 import { onBeforeMount, ref } from 'vue'
 //import detallesPedido from './detallesPedido.vue';

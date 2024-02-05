@@ -118,7 +118,7 @@
 
 <script setup>
 //url api
-const link = 'https://reto3-losjavas.onrender.com/api';
+const link = 'https://reto3-losjavas.onrender.com';
 
 import { ref, watch, defineProps, onBeforeMount, computed } from 'vue'
 import { useProductosStore } from '../stores/productos'

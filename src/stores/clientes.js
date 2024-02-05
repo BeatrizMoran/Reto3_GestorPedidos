@@ -3,12 +3,13 @@ import { defineStore } from 'pinia'
 
 export const useClientesStore = defineStore('clientes', () => {
   const cliente = ref([])
+  const link = 'https://reto3-losjavas.onrender.com/api';
+    const url = "https://javieregibide.com/api";
 
   // Método para cargar productos desde la API
   async function comprobarCodigoCliente(codigo_cliente) {
     //console.log('Entrando en la función buscarProductos');
-    const link = 'https://reto3-losjavas.onrender.com/api';
-    const url = "https://javieregibide.com/api";
+    
 
   
     try {

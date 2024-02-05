@@ -104,7 +104,7 @@
 
 <script setup>
 //url api
-const link = 'https://reto3-losjavas.onrender.com/api';
+const link = 'https://reto3-losjavas.onrender.com';
 import { ref, onBeforeMount, defineAsyncComponent } from 'vue'
 import { usePedidosStore } from '../stores/pedidos'
 
