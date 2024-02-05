@@ -155,7 +155,7 @@ const props = defineProps({
 
 onBeforeMount(async () => {
   listaProductos.value = await productosStore.cargarProductosDesdeAPI()
-  //console.log('onbefore', listaProductos.value.productos)
+
 })
 
 watch(clienteEnLocalStorage, (nuevoCliente) => {
@@ -165,7 +165,7 @@ watch(clienteEnLocalStorage, (nuevoCliente) => {
 watch(
   () => props.listaProductos,
   (nuevoValor) => {
-    console.log('nuevo valor', nuevoValor.productos)
+  
     listaProductos.value = nuevoValor
     currentPage.value = 1
   }
