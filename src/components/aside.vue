@@ -48,10 +48,10 @@ const toggleCategory = (category) => {
     selectAll.value = false;
   }
 
-  //console.log("Mandando al padre las categorías...");
   emit('cambiarCategorias', selectedCategories.value);
 };
 
+//desenmarcar todos
 const uncheckAll = () => {
   selectedCategories.value = [];
   emit('cambiarCategorias', selectedCategories.value);

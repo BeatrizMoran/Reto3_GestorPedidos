@@ -105,33 +105,36 @@
 <script setup>
 //url api
 const link = 'https://reto3-losjavas.onrender.com/api';
+
+//imports
 import { ref, onBeforeMount, defineAsyncComponent } from 'vue'
 import { usePedidosStore } from '../stores/pedidos'
 
+//variables
 const AsyncPage = defineAsyncComponent(() => import('./indicarCantidad.vue'))
 const idProductoSeleccionado = ref(null) // Variable reactiva para almacenar el ID del producto seleccionado
-
 const showAsyncPage = ref(false)
-
-function editarProducto(idProducto) {
-  // Establece el ID del producto seleccionado en la variable reactiva
-  idProductoSeleccionado.value = idProducto
-  console.log(idProductoSeleccionado.value)
-  showAsyncPage.value = true
-}
 const pedidosStore = usePedidosStore()
-
 const mostrarListaCompra = ref(false)
-
 // Lista de compra
 const lista = ref()
 const listaCompra = ref([])
 const clienteAlmacenado = localStorage.getItem('cliente')
 const cliente = JSON.parse(clienteAlmacenado)
-
 const alertMessage = ref()
 const showAlert = ref()
 
+
+
+
+//al selecionar editar
+function editarProducto(idProducto) {
+  // Establece el ID del producto seleccionado en la variable reactiva
+  idProductoSeleccionado.value = idProducto
+  showAsyncPage.value = true
+}
+
+//funcion para realizar la compra
 async function frealizarCompra() {
   try {
     const clienteAlmacenado = localStorage.getItem('cliente')
@@ -152,7 +155,7 @@ async function frealizarCompra() {
     }
 
     const response = await pedidosStore.crearPedido(pedido)
-    console.log('Respuesta del servidor al realizar la compra:', response)
+  
 
     // Limpiar el carrito después de realizar la compra
     const carritoActual = JSON.parse(localStorage.getItem('cart')) || {}
@@ -182,6 +185,7 @@ async function frealizarCompra() {
   }
 }
 
+//antes de montar
 onBeforeMount(async () => {
   try {
     // Lista de compra
@@ -201,6 +205,7 @@ onBeforeMount(async () => {
   }
 })
 
+//funcion para eliminar un producto de la cesta
 function feliminarProducto(idProducto) {
   const cart = JSON.parse(localStorage.getItem('cart')) || {}
 
@@ -211,6 +216,7 @@ function feliminarProducto(idProducto) {
   listaCompra.value = Object.values(cart)
 }
 
+//calcaular €
 function calcularSubtotal() {
   return listaCompra.value
     .reduce((subtotal, producto) => {
@@ -218,20 +224,21 @@ function calcularSubtotal() {
     }, 0)
     .toFixed(2)
 }
-
+//calcular precio total
 function calcularTotal() {
   const subtotal = calcularSubtotal()
   const envio = 4.5
   return (parseFloat(subtotal) + envio).toFixed(2)
 }
-//editar cantidad
 
+//editar cantidad
+//guarda la cantidad
 function guardarCantidad(cant) {
   // Encuentra el índice del producto seleccionado en la listaCompra
   const index = listaCompra.value.findIndex(
     (producto) => producto.id === idProductoSeleccionado.value
   )
-  console.log(listaCompra.value)
+
 
   if (index !== -1) {
     // Actualiza la cantidad en la listaCompra

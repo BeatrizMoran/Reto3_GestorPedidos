@@ -70,23 +70,21 @@
 import { ref, onBeforeMount } from 'vue';
 import { usePedidosStore } from "../stores/pedidos";
 import { useClientesStore } from "../stores/clientes";
-
-  
 import { useRouter } from 'vue-router';
-const router = useRouter();
 
+//variables
+const router = useRouter();
 const pedidosStore = usePedidosStore();
 const clientesStore = useClientesStore();
 const pedidos = ref([]);
 const clienteAlmacenado = localStorage.getItem("cliente");
-
 const objCliente = JSON.parse(clienteAlmacenado);
 const pruebaCLiente = ref();
 const editMode = ref(false);
+
 //cliente localstorage
 
 
-//console.log("objCliente:" , objCliente)
 
 //antes de montar
 onBeforeMount(async () => {
@@ -94,7 +92,6 @@ try {
   if (objCliente) {
     const response = await pedidosStore.buscarPedidosCliente(objCliente.id);
     pedidos.value = response.data;
-    console.log("lista pedidos:", pedidos.value);
   }
 } catch (error) {
   console.error("Error al cargar los pedidos:", error);
@@ -129,7 +126,6 @@ try {
     };
 
     const response = await clientesStore.actualizarCliente(cliente);
-    console.log("respuesta servidor cliente: ", response);
 
     // Actualizar el valor de objCliente después de la actualización exitosa
     objCliente.value = cliente;
@@ -179,11 +175,12 @@ const calcularFecha = (fechaPedido) => {
     alert(error);
   }
 };
+
+
 /*
 // Funcion para calcular la diferencia de tiempo entre la fecha del pedido y la fecha actual
 const calcularFecha = (fechaPedido) => {
   try {
-    console.log("fechapedido",fechaPedido);
     // Parseamos la fecha en formato "día/mes/año"
     const [dia, mes, año] = fechaPedido.split('/');
     const fechaPedidoDate = new Date(`${mes}/${dia}/${año}`);
@@ -219,9 +216,10 @@ const calcularFecha = (fechaPedido) => {
 };
 */
 
+
+//enviar a la ventana pedidos
 function redireccionar(){
   router.push('/pedidos');
-
  }
 
 

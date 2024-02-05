@@ -120,10 +120,13 @@
 //url api
 const link = 'https://reto3-losjavas.onrender.com/api';
 
+//imports
 import { ref, watch, defineProps, onBeforeMount, computed } from 'vue'
 import { useProductosStore } from '../stores/productos'
 import { useRouter } from 'vue-router'
 
+
+//variables
 const productosStore = useProductosStore()
 const alertMessage = ref()
 const showAlert = ref()
@@ -134,7 +137,10 @@ let currentPage = ref(1)
 const router = useRouter()
 const clienteAlmacenado = localStorage.getItem('cliente')
 const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado))
+const searchTerm = ref(props.buscador || '') // Inicializa con el valor actual
+const pageSize = 6
 
+//props recibidos del padre
 const props = defineProps({
   listaProductos: {
     type: Array,
@@ -149,31 +155,34 @@ const props = defineProps({
   }
 })
 
+//antes de montar
 onBeforeMount(async () => {
   listaProductos.value = await productosStore.cargarProductosDesdeAPI()
-  console.log('onbefore', listaProductos.value.productos)
 })
 
+
+//vigilar que...
 watch(clienteEnLocalStorage, (nuevoCliente) => {
   clienteEnLocalStorage.value = nuevoCliente
 })
 
+
+//vigilar que...
 watch(
   () => props.listaProductos,
   (nuevoValor) => {
-    console.log('nuevo valor', nuevoValor.productos)
     listaProductos.value = nuevoValor
     currentPage.value = 1
   }
 )
 
-const searchTerm = ref(props.buscador || '') // Inicializa con el valor actual
+
 
 const filteredProductos = computed(() => {
   const productos = listaProductos.value.productos
 
   if (!productos) {
-    return [] // O cualquier valor predeterminado que desees
+    return [] 
   }
 
   const productosFiltrados = productos.filter((producto) => {
@@ -196,7 +205,7 @@ const filteredProductos = computed(() => {
   return productosFiltrados
 })
 
-const pageSize = 6
+
 
 // Cálculo de los productos de la página actual
 const paginatedProductos = computed(() => {
@@ -205,16 +214,21 @@ const paginatedProductos = computed(() => {
   return filteredProductos.value.slice(start, end)
 })
 
+
+//paginas total de los productos
 const totalPages = computed(() => {
   return Math.ceil(filteredProductos.value.length / pageSize)
 })
 
+
+//una pestaña hacia atras
 function previousPage() {
   if (currentPage.value > 1) {
     currentPage.value -= 1
   }
 }
 
+//una pestaña hacia delante
 function nextPage() {
   if (currentPage.value < totalPages.value) {
     currentPage.value += 1
@@ -267,6 +281,7 @@ function updateButtonState() {
   isButtonDisabled.value = Object.keys(cart).length === 0
 }
 
+//enviar a la pestaña de comprar cesta
 function redirectToComprarPedido() {
   router.push({ name: 'cart' })
 }

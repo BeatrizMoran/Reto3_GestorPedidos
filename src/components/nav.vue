@@ -115,14 +115,11 @@ const buscar = async () => {
 
     if (terminoBusqueda.value == "") {
       listaProductos.value = await productosStore.cargarProductosDesdeAPI();
-      console.log("Estoy en el nav, todos los productos", listaProductos.value);
       emit('listaProductos', listaProductos.value);
 
     } else {
       listaProductos.value = await productosStore.buscarProductos(terminoBusqueda.value.toLowerCase());
-      console.log("Estoy en el nav, búsqueda filtrada: ", listaProductos.value);
       emit('listaProductos', listaProductos.value);
-      console.log("nav bus", terminoBusqueda.value)
       emit('buscador', terminoBusqueda.value);
 
     }
@@ -139,10 +136,7 @@ const checkCodigo = async () => {
   try {
     cliente.value = await clientesStore.comprobarCodigoCliente(codigoCLiente.value);
 
-    if (cliente.value === false) {
-      //console.log('Cliente no encontrado');
-    } else {
-      //console.log('Cliente encontrado:', cliente);
+    if (cliente.value === true) {
       const objCliente = {
         codigo_cliente: codigoCLiente.value,
         nombre: cliente.value.nombre,
@@ -154,7 +148,8 @@ const checkCodigo = async () => {
 
       clienteEnLocalStorage.value = true;
       location.reload();
-    }
+
+    } 
 
   } catch (error) {
     console.error('Error al buscar productos:', error.message);
