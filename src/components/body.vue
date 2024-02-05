@@ -119,13 +119,10 @@
 <script setup>
 
 
-//imports
 import { ref, watch, defineProps, onBeforeMount, computed } from 'vue'
 import { useProductosStore } from '../stores/productos'
 import { useRouter } from 'vue-router'
 
-
-//variables
 const productosStore = useProductosStore()
 const alertMessage = ref()
 const showAlert = ref()
@@ -138,7 +135,6 @@ const clienteAlmacenado = localStorage.getItem('cliente')
 const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado))
 const pageSize = 6
 
-//props recibidos del padre
 const props = defineProps({
   listaProductos: {
     type: Array,
@@ -153,37 +149,35 @@ const props = defineProps({
   }
 })
 
-const searchTerm = ref(props.buscador || '') // Inicializa con el valor actual
 
 
-//antes de montar
+
+
 onBeforeMount(async () => {
   listaProductos.value = await productosStore.cargarProductosDesdeAPI()
+  //console.log('onbefore', listaProductos.value.productos)
 })
 
-
-//vigilar que...
 watch(clienteEnLocalStorage, (nuevoCliente) => {
   clienteEnLocalStorage.value = nuevoCliente
 })
 
-
-//vigilar que...
 watch(
   () => props.listaProductos,
   (nuevoValor) => {
+    console.log('nuevo valor', nuevoValor.productos)
     listaProductos.value = nuevoValor
     currentPage.value = 1
   }
 )
 
-
+const searchTerm = ref(props.buscador || '') // Inicializa con el valor actual
 
 const filteredProductos = computed(() => {
   const productos = listaProductos.value.productos
 
   if (!productos) {
-    return [] 
+    return [] // O cualquier valor predeterminado que desees
   }
 
   const productosFiltrados = productos.filter((producto) => {
@@ -197,7 +191,7 @@ const filteredProductos = computed(() => {
     // Filtro por nombre del buscador
     const nombreCoincide =
       !searchTerm.value ||
-      (producto.nombre && producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase()))
+      (producto.nombre.toLowerCase() && producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase()))
 
     // Seleccionar productos que cumplen con al menos uno de los filtros
     return categoriasCoinciden && nombreCoincide
@@ -207,7 +201,6 @@ const filteredProductos = computed(() => {
 })
 
 
-
 // Cálculo de los productos de la página actual
 const paginatedProductos = computed(() => {
   const start = (currentPage.value - 1) * pageSize
@@ -215,21 +208,16 @@ const paginatedProductos = computed(() => {
   return filteredProductos.value.slice(start, end)
 })
 
-
-//paginas total de los productos
 const totalPages = computed(() => {
   return Math.ceil(filteredProductos.value.length / pageSize)
 })
 
-
-//una pestaña hacia atras
 function previousPage() {
   if (currentPage.value > 1) {
     currentPage.value -= 1
   }
 }
 
-//una pestaña hacia delante
 function nextPage() {
   if (currentPage.value < totalPages.value) {
     currentPage.value += 1
@@ -282,7 +270,6 @@ function updateButtonState() {
   isButtonDisabled.value = Object.keys(cart).length === 0
 }
 
-//enviar a la pestaña de comprar cesta
 function redirectToComprarPedido() {
   router.push({ name: 'cart' })
 }
