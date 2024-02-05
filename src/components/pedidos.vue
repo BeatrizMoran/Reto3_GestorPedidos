@@ -61,7 +61,7 @@
                               class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg"
                             >
                               <img
-                              :src="`${link}/storage/${producto.imagen}`"
+                              :src="'https://reto3-losjavas.onrender.com/storage/' + producto.imagen"                
                                 alt="Imagen del producto"
                                 class="img-fluid me-md-3 mb-3"
                               />
