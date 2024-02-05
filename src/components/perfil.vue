@@ -143,7 +143,10 @@ try {
 
 const calcularFecha = (fechaPedido) => {
   try {
-    const fechaPedidoDate = new Date(fechaPedido);
+    // Parsea la fecha de pedido con el formato DD/MM/YYYY
+    const [dia, mes, anio] = fechaPedido.split('/').map(Number);
+    const fechaPedidoDate = new Date(anio, mes - 1, dia); // Restamos 1 al mes porque en JavaScript los meses van de 0 a 11.
+
     const fechaActual = new Date();
     const fechaActualDate = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
 
@@ -175,6 +178,7 @@ const calcularFecha = (fechaPedido) => {
     alert(error);
   }
 };
+
 
 
 /*
