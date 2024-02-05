@@ -136,7 +136,7 @@ const checkCodigo = async () => {
   try {
     cliente.value = await clientesStore.comprobarCodigoCliente(codigoCLiente.value);
 
-    if (cliente.value === true) {
+    if (cliente.value !== false) {
       const objCliente = {
         codigo_cliente: codigoCLiente.value,
         nombre: cliente.value.nombre,
