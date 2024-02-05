@@ -11,7 +11,7 @@ export const useProductosStore = defineStore('productos', () => {
   // Método para cargar productos desde la API
   async function cargarProductosDesdeAPI() {
     try {
-      const response = await fetch(`http://localhost/api/productos`);
+      const response = await fetch(`${link}/productos`);
       if (!response.ok) {
         throw new Error('Error al obtener productos desde la API')
       }
@@ -30,7 +30,7 @@ export const useProductosStore = defineStore('productos', () => {
   //metodo para buscar productos a traves de un nombre
    async function buscarProductos(nombre) {
     try {
-      const response = await fetch(`http://localhost/api/productos?nombre=${nombre}`);
+      const response = await fetch(`${link}/productos?nombre=${nombre}`);
     
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.statusText}`);

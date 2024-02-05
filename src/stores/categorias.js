@@ -12,7 +12,7 @@ export const useCategoriasStore = defineStore('categorias', () => {
     // Método para cargar categorias desde la API
     async function cargarCategoriasDesdeAPI() {
       try {
-        const response = await fetch(`http://localhost/api/categorias`);
+        const response = await fetch(`${link}/categorias`);
         if (!response.ok) {
           throw new Error('Error al obtener las categorias desde la API')
         }
