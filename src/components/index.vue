@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <!-- Sección 1 -->
     <div class="row">
       <div class="col-12 col-md-12 col-md-12 col-lg-6 uno index p-5 rounded-3">
@@ -11,11 +11,7 @@
         </p>
       </div>
       <div class="col-12 p-2 col-md-12 col-lg-6">
-        <img
-          src="../assets/images/cerveza1.jpg"
-          alt="Cerveza 1"
-          class="img-fluid hovimg rounded-3"
-        />
+        <img src="../assets/images/cerveza1.jpg" alt="Cerveza 1" class="img-fluid hovimg rounded-3" />
       </div>
     </div>
     <!-- Espacio en blanco -->
@@ -32,11 +28,7 @@
         </p>
       </div>
       <div class="col-12 p-2 col-md-12 col-lg-6">
-        <img
-          src="../assets/images/cerveza2.jpg"
-          alt="Cerveza 2"
-          class="img-fluid hovimg rounded-3"
-        />
+        <img src="../assets/images/cerveza2.jpg" alt="Cerveza 2" class="img-fluid hovimg rounded-3" />
       </div>
     </div>
 
@@ -54,11 +46,7 @@
         </p>
       </div>
       <div class="col-12 p-2 col-md-12 col-lg-6">
-        <img
-          src="../assets/images/cerveza3.jpg"
-          alt="Cerveza 3"
-          class="img-fluid hovimg rounded-3"
-        />
+        <img src="../assets/images/cerveza3.jpg" alt="Cerveza 3" class="img-fluid hovimg rounded-3" />
       </div>
     </div>
 
@@ -76,11 +64,7 @@
         </p>
       </div>
       <div class="col-12 p-2 col-md-12 col-lg-6">
-        <img
-          src="../assets/images/cerveza4.jpg"
-          alt="Cerveza 4"
-          class="img-fluid hovimg rounded-3"
-        />
+        <img src="../assets/images/cerveza4.jpg" alt="Cerveza 4" class="img-fluid hovimg rounded-3" />
       </div>
     </div>
   </div>
