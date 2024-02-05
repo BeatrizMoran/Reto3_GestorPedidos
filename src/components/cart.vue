@@ -25,7 +25,7 @@
         <div v-if="producto.cliente_id === cliente.id">
           <div class="imagen col-3 px-2 py-2">
             <img
-              :src="'https://javieregibide.com/storage/' + producto.imagen"
+            :src="`${link}/storage/${producto.imagen}`"
               alt="Imagen del producto"
               class="img-fluid me-md-3 mb-3"
             />
@@ -103,6 +103,8 @@
 </template>
 
 <script setup>
+//url api
+const link = 'https://reto3-losjavas.onrender.com/api';
 import { ref, onBeforeMount, defineAsyncComponent } from 'vue'
 import { usePedidosStore } from '../stores/pedidos'
 

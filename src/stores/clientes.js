@@ -7,12 +7,12 @@ export const useClientesStore = defineStore('clientes', () => {
   // Método para cargar productos desde la API
   async function comprobarCodigoCliente(codigo_cliente) {
     //console.log('Entrando en la función buscarProductos');
-    const link = 'http://localhost/api';
+    const link = 'https://reto3-losjavas.onrender.com/api';
     const url = "https://javieregibide.com/api";
 
   
     try {
-      const response = await fetch(`${url}/cliente?codigo_cliente=${codigo_cliente}`);
+      const response = await fetch(`${link}/cliente?codigo_cliente=${codigo_cliente}`);
   
      // console.log('URL de solicitud:', response.url);
   

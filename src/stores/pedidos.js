@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const usePedidosStore = defineStore('pedidos', () => {
   const pedidos = ref([])
-  const link = 'http://localhost/api';
+  const link = 'https://reto3-losjavas.onrender.com/api';
   const url = "https://javieregibide.com/api";
 
 
@@ -12,7 +12,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     //console.log('Entrando en la función buscar pedidos');
   
     try {
-      const response = await fetch(`${url}/pedidos?cliente_id=${cliente_id}`);
+      const response = await fetch(`${link}/pedidos?cliente_id=${cliente_id}`);
   
       //console.log('URL de solicitud:', response.url);
   
@@ -36,7 +36,7 @@ export const usePedidosStore = defineStore('pedidos', () => {
     console.log('Entrando en la función crear pedido');
 
     try {
-        const response = await fetch(`${url}/pedidos/crear`, {
+        const response = await fetch(`${link}/pedidos/crear`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

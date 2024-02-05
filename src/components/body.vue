@@ -35,7 +35,7 @@
           <div class="card-top bg-gray justify-content-start align-items-center">
             <div class="col-12 px-2 shadow">
               <img
-                :src="'https://javieregibide.com/storage/' + producto.imagen"
+              :src="`${link}/storage/${producto.imagen}`"
                 alt="Producto"
                 class="img-fluid imagen"
               />
@@ -117,6 +117,9 @@
 </template>
 
 <script setup>
+//url api
+const link = 'https://reto3-losjavas.onrender.com/api';
+
 import { ref, watch, defineProps, onBeforeMount, computed } from 'vue'
 import { useProductosStore } from '../stores/productos'
 import { useRouter } from 'vue-router'

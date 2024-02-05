@@ -61,7 +61,7 @@
                               class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg"
                             >
                               <img
-                                :src="'https://javieregibide.com/storage/' + producto.imagen"
+                              :src="`${link}/storage/${producto.imagen}`"
                                 alt="Imagen del producto"
                                 class="img-fluid me-md-3 mb-3"
                               />
@@ -94,6 +94,8 @@
 </template>
 
 <script setup>
+//url api
+const link = 'https://reto3-losjavas.onrender.com/api';
 //imports
 import { onBeforeMount, ref } from 'vue'
 //import detallesPedido from './detallesPedido.vue';
