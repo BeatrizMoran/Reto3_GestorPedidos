@@ -14,7 +14,7 @@ export const useClientesStore = defineStore('clientes', () => {
 
   
     try {
-      const response = await fetch(`${url}/cliente?codigo_cliente=${codigo_cliente}`);
+      const response = await fetch(`${link}/cliente?codigo_cliente=${codigo_cliente}`);
   
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
