@@ -136,7 +136,6 @@ let currentPage = ref(1)
 const router = useRouter()
 const clienteAlmacenado = localStorage.getItem('cliente')
 const clienteEnLocalStorage = ref(JSON.parse(clienteAlmacenado))
-const searchTerm = ref(props.buscador || '') // Inicializa con el valor actual
 const pageSize = 6
 
 //props recibidos del padre
@@ -153,6 +152,9 @@ const props = defineProps({
     default: () => []
   }
 })
+
+const searchTerm = ref(props.buscador || '') // Inicializa con el valor actual
+
 
 //antes de montar
 onBeforeMount(async () => {
