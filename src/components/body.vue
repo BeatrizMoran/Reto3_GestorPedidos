@@ -94,7 +94,7 @@
 
     <!-- Botones Paginacion -->
 
-    <div class="row d-flex justify-content-center align-items-center mt-3">
+    <div class="row d-flex justify-content-center align-items-center mt-3" v-if="totalPages > 1" >
       <button
         @click="previousPage"
         :disabled="currentPage === 1"
@@ -127,7 +127,6 @@ const productosStore = useProductosStore()
 const alertMessage = ref()
 const showAlert = ref()
 const listaProductos = ref([])
-const showButton = ref(false)
 const isButtonDisabled = ref(true)
 let currentPage = ref(1)
 const router = useRouter()
@@ -155,7 +154,6 @@ const props = defineProps({
 
 onBeforeMount(async () => {
   listaProductos.value = await productosStore.cargarProductosDesdeAPI()
-
 })
 
 watch(clienteEnLocalStorage, (nuevoCliente) => {
@@ -177,7 +175,7 @@ const filteredProductos = computed(() => {
   const productos = listaProductos.value.productos
 
   if (!productos) {
-    return [] // O cualquier valor predeterminado que desees
+    return [] 
   }
 
   const productosFiltrados = productos.filter((producto) => {
@@ -188,12 +186,12 @@ const filteredProductos = computed(() => {
         return props.selectedCategories.includes(pCat.nombre)
       })
 
-    // Filtro por nombre del buscador
     const nombreCoincide =
       !searchTerm.value ||
       (producto.nombre.toLowerCase() && producto.nombre.toLowerCase().includes(searchTerm.value.toLowerCase()))
 
-    // Seleccionar productos que cumplen con al menos uno de los filtros
+    currentPage.value = 1
+
     return categoriasCoinciden && nombreCoincide
   })
 
