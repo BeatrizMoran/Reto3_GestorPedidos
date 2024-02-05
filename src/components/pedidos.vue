@@ -15,28 +15,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(pedido, index) in pedidos"
-              :key="index"
-              :style="{ backgroundColor: getColor(pedido.estado) }"
-            >
+            <tr v-for="(pedido, index) in pedidos" :key="index" :style="{ backgroundColor: getColor(pedido.estado) }">
               <td class="uno price hoverPedidos">{{ pedido.total }} €</td>
               <td class="uno price hoverPedidos">{{ pedido.fecha_pedido }}</td>
               <td class="uno price hoverPedidos">{{ pedido.numero_pedido }}</td>
-              <td
-                :style="{ backgroundColor: getColor(pedido.estado) }"
-                class="text-white price cuidado"
-              >
+              <td :style="{ backgroundColor: getColor(pedido.estado) }" class="text-white price cuidado">
                 {{ pedido.estado }}
               </td>
               <td class="uno price hoverPedidos text-center">
                 <button @click="mostrarDetallesPedido(pedido)" class="btn btn-link p-0">
-                  <img
-                    src="../assets/images/ver.png"
-                    alt="Ver detalles"
-                    class="img-fluid"
-                    id="imgDetalles"
-                  />
+                  <img src="../assets/images/ver.png" alt="Ver detalles" class="img-fluid" id="imgDetalles" />
                 </button>
               </td>
             </tr>
@@ -51,20 +39,13 @@
                   <tbody>
                     <tr>
                       <td>
-                        <div class="row grisPedido p-4">
-                          <div
-                            v-for="(producto, prodIndex) in pedidoSeleccionado.productos"
-                            :key="prodIndex"
-                            class="col-md-4 mb-3"
-                          >
+                        <div class="row grisPedido p-4 d-flex justify-content-center">
+                          <div v-for="(producto, prodIndex) in pedidoSeleccionado.productos" :key="prodIndex"
+                            class="col-sm-10 col-md-6 col-lg-4 mb-3">
                             <div
-                              class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg"
-                            >
-                              <img
-                              :src="'https://reto3-losjavas.onrender.com/storage/' + producto.imagen"                
-                                alt="Imagen del producto"
-                                class="img-fluid me-md-3 mb-3"
-                              />
+                              class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg">
+                              <img :src="'https://reto3-losjavas.onrender.com/storage/' + producto.imagen"
+                                alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
                               <div class="text-center">
                                 <p class="mb-1">
                                   <span class="fw-bold fs-5 text-secondary">Nombre:</span>
