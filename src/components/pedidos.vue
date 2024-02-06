@@ -44,8 +44,8 @@
                             class="col-sm-10 col-md-6 col-lg-4 mb-3">
                             <div
                               class="d-flex flex-column align-items-center p-3 border rounded shadow-lg shadow-md-lg bg-light hovimg">
-                              <img               :src="'https://reto3-losjavas.onrender.com/api/images/' + producto.imagen"                
-
+                              <img
+                                :src="`https://reto3-losjavas.onrender.com/api/images/${producto.imagen.split('/').pop()}`"
                                 alt="Imagen del producto" class="img-fluid me-md-3 mb-3" />
                               <div class="text-center">
                                 <p class="mb-1">
