@@ -25,7 +25,7 @@
         <div v-if="producto.cliente_id === cliente.id">
           <div class="imagen col-3 px-2 py-2">
             <img
-            :src="'https://reto3-losjavas.onrender.com/storage/' + producto.imagen"                
+            :src="'https://reto3-losjavas.onrender.com/api/images/' + producto.imagen"                
               alt="Imagen del producto"
               class="img-fluid me-md-3 mb-3"
             />

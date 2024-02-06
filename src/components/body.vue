@@ -35,7 +35,7 @@
           <div class="card-top bg-gray justify-content-start align-items-center">
             <div class="col-12 px-2 shadow">
               <img
-              :src="'https://reto3-losjavas.onrender.com/storage/' + producto.imagen"                
+              :src="'https://reto3-losjavas.onrender.com/api/images/' + producto.imagen"                
               alt="Producto"
                 class="img-fluid imagen"
               />
